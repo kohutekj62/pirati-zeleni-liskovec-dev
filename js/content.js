@@ -59,6 +59,9 @@ const CONTENT = {
      ====================================================================== */
   ui: {
     cs: {
+      // -- Dev disclaimer banner (remove the text or set to "" to hide the banner) --
+      dev_banner: "🚧 Tato stránka je ve vývoji. Obsah není finální a může se měnit.",
+
       // -- Navigation menu --
       nav_about:     "O nás",
       nav_program:   "Program",
@@ -131,6 +134,9 @@ const CONTENT = {
     },
 
     en: {
+      // -- Dev disclaimer banner --
+      dev_banner: "🚧 This page is under development. Content is not final and may change.",
+
       nav_about:     "About",
       nav_program:   "Programme",
       nav_people:    "People",
