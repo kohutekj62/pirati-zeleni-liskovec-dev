@@ -1,0 +1,27 @@
+# ============================================================================
+#  What NOT to upload to GitHub.
+#  The website itself (index.html, css/, js/, assets/) IS uploaded — it is not
+#  listed here. This file only hides working files, big source folders and the
+#  testing tools' temporary output.
+# ============================================================================
+
+# --- Node.js / testing tools (installed locally, never uploaded) ---
+node_modules/
+playwright-report/
+test-results/
+.lighthouseci/
+*.log
+npm-debug.log*
+
+# --- Concept / source material (content already baked into js/content.js and assets/) ---
+# All initial analysis, drafts, and original graphics live here for reference.
+Concept/
+
+# --- Editor / OS junk ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- Local tool config (not part of the website) ---
+.claude/

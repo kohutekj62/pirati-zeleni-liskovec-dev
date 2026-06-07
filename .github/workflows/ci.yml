@@ -1,0 +1,62 @@
+# ============================================================================
+#  GitHub Actions — runs the tests automatically on every change.
+#  You don't have to do anything: after you push, GitHub shows a green ✓
+#  (all good) or a red ✗ (something broke) next to your commit.
+#  Click the ✗ to read exactly what failed.
+# ============================================================================
+name: Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  # ---- 1) Browser tests + accessibility (Playwright + axe) ----------------
+  browser-tests:
+    name: Browser & accessibility tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Install the test browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Run tests
+        run: npm test
+
+      # If tests fail, keep the detailed HTML report so you can look at it.
+      - name: Upload test report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
+
+  # ---- 2) Lighthouse (performance / SEO / best-practices / accessibility) --
+  lighthouse:
+    name: Lighthouse quality scores
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Run Lighthouse
+        run: npm run lh
