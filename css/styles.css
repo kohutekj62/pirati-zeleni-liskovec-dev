@@ -253,6 +253,12 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
   padding: 0.35rem 0.9rem;
 }
 .hero__title { font-size: clamp(3rem, 11vw, 7rem); margin: 0; }
+.hero__title > span:first-child {
+  background: linear-gradient(90deg, var(--color-violet-soft), var(--color-yellow));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 .hero__on { display: inline-flex; align-items: center; gap: 0.3em; color: var(--color-green); }
 .hero__toggle { display: flex; margin: 0.75rem 0 0; font-size: clamp(2rem, 6vw, 3.5rem); }
 .hero__tagline { font-size: clamp(1.1rem, 2.5vw, 1.5rem); color: var(--color-muted); max-width: 30ch; margin: 1rem 0 2rem; }
