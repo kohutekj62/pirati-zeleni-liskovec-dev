@@ -90,6 +90,8 @@ const CONTENT = {
       meet_title:     "Setkejme se",
       meet_lead:      "Přijďte za námi do ulic. Těšíme se na vás.",
       event_past:     "Proběhlo",
+      events_older:   "Starší",
+      events_newer:   "Novější",
       news_title:     "Aktuality",
       news_lead:      "Co je u nás nového.",
       contact_title:  "Spojme se",
@@ -101,6 +103,7 @@ const CONTENT = {
       card_flip_to_photo:    "Zobrazit fotografii",
       card_flip_to_elephant: "Zpět na slona",
       card_hint:             "Klikněte pro odhalení",
+      other_candidates_label: "Další kandidáti",
 
       // -- Contact form --
       form_name:        "Jméno",
@@ -162,6 +165,8 @@ const CONTENT = {
       meet_title:     "Meet us",
       meet_lead:      "Come and find us out in the streets. We look forward to seeing you.",
       event_past:     "Done",
+      events_older:   "Older",
+      events_newer:   "Newer",
       news_title:     "News",
       news_lead:      "What's new with us.",
       contact_title:  "Get in touch",
@@ -172,6 +177,7 @@ const CONTENT = {
       card_flip_to_photo:    "Show photo",
       card_flip_to_elephant: "Back to elephant",
       card_hint:             "Click to reveal",
+      other_candidates_label: "More candidates",
 
       form_name:        "Name",
       form_email:       "E-mail",
@@ -341,6 +347,38 @@ const CONTENT = {
       cs: { bio: "Anna přináší do našeho týmu nový pohled jako odbornice v oblasti zdravotnictví, kde působí jako lékárnice v síti BENU. Věří v důležitost prevence a dostupnosti kvalitní zdravotní péče pro občany všech věkových kategorií v našem obvodu. Své profesní zkušenosti s jednáním s lidmi využije při naslouchání vašim podnětům a potřebám v oblasti sociální a zdravotní prevence. Spojení odbornosti a zájmu o věci veřejné ji vede ke kandidatuře za Zelené s cílem podpořit zdravější Starý Lískovec." },
       en: { bio: "Anna brings a fresh perspective to our team as a healthcare professional, working as a pharmacist in the BENU network. She believes in the importance of prevention and access to quality healthcare for residents of every age in our district. She will use her professional experience of working with people to listen to your suggestions and needs in social and health prevention. Combining expertise with a concern for public affairs leads her to stand for the Greens, with the goal of supporting a healthier Starý Lískovec." },
     },
+    {
+      name: "Jakub Czapek", party: "Piráti", photo: "czapek-jakub.jpg",
+      cs: { bio: "Jakub je architekt a urbanista, spoluzakladatel studia zaměřeného na udržitelnou architekturu a plánování veřejného prostoru v Brně. Prosazuje otevřenou, participativní přípravu investičních projektů, kde mají občané skutečný vliv na podobu svého okolí. Svou odborností přispívá k rozvoji kvalitnějšího veřejného prostoru, moderních škol i dostupného bydlení. Věří, že funkční architektura a zapojená komunita jsou základem dlouhodobě prosperující čtvrti." },
+      en: { bio: "Jakub is an architect and urban planner, co-founder of a studio specialising in sustainable architecture and public-space design in Brno. He champions open, participatory project planning where residents genuinely shape the outcome for their own neighbourhood. His expertise informs proposals for quality public spaces, modern schools and accessible housing. He believes that functional architecture and an engaged community are the foundation of a long-term thriving district." },
+    },
+    {
+      name: "Milan Svoboda", party: "Piráti", photo: "svoboda-milan.jpg",
+      cs: { bio: "Milan je odborník na životní prostředí a udržitelný rozvoj s dlouholetými zkušenostmi z neziskového sektoru a komunální politiky. Aktivně se zapojuje do projektů ochrany městské zeleně a prosazuje ekologicky šetrná řešení v každodenním životě čtvrti. Jeho cílem je prosadit konkrétní opatření ke snížení znečištění a posílení biodiverzity ve veřejném prostoru Starého Lískovce. Spojuje vědecký přístup s osobním zápalem pro trvale udržitelné město, v němž je radost žít." },
+      en: { bio: "Milan is an environmental and sustainable-development expert with many years' experience in the non-profit sector and local government. He takes an active part in urban green-space protection projects and advocates eco-friendly approaches to everyday district life. His goal is concrete measures to reduce pollution and boost biodiversity in Starý Lískovec's public spaces. He combines a scientific approach with personal passion for a truly sustainable city that is a pleasure to live in." },
+    },
+    {
+      name: "Petr Musil", party: "Piráti", photo: "musil-petr.jpg",
+      cs: { bio: "Petr přináší do komunální politiky odbornost z oblasti informačních technologií a digitalizace veřejné správy. Prosazuje transparentní správu čtvrti s využitím moderních digitálních nástrojů a otevřených dat, která umožňují občanům lépe sledovat nakládání s veřejnými prostředky. Zkušenosti z IT sektoru mu pomáhají navrhnout efektivní modernizaci úřadních procesů a přímější komunikaci radnice s lidmi. Věří, že technologie mají sloužit občanům — ne je komplikovat." },
+      en: { bio: "Petr brings expertise in information technology and digital public-administration to local politics. He champions transparent district management through modern digital tools and open data that let residents better track how public money is spent. His experience in the IT sector underpins an efficient approach to modernising administrative processes and more direct communication between the council and citizens. He believes technology should serve people — not make their lives more complicated." },
+    },
+  ],
+
+  /* ========================================================================
+     5b) OSTATNÍ KANDIDÁTI  —  positions 9–20 on the election list.
+         Only name, party and profession are shown (no photo, no bio).
+         Real professions and party assignments will be updated before launch.
+     ====================================================================== */
+  people_other: [
+    { name: "Markéta Tvrdá",    party: "Piráti", profession: "architektka" },
+    { name: "Jakub Dlabaja",    party: "Zelení", profession: "manažer" },
+    { name: "Pavel Přerost",    party: "Piráti", profession: "projektový manažer" },
+    { name: "Vlasta Zobačová",  party: "Piráti", profession: "lékárnice" },
+    { name: "Eva Maliňáková",   party: "Piráti", profession: "sociální pracovnice" },
+    { name: "Tereza Nováková",  party: "Piráti", profession: "právnička" },
+    { name: "Jana Novotná",     party: "Zelení", profession: "pedagožka" },
+    { name: "Karel Martišek",   party: "Piráti", profession: "podnikatel" },
+    { name: "Jan Krejčí",       party: "Piráti", profession: "ekolog" },
   ],
 
   /* ========================================================================
@@ -350,6 +388,20 @@ const CONTENT = {
         Past events automatically get a faded "proběhlo / past" style.
      ====================================================================== */
   events: [
+    /* --- past events (dates before launch, kept for the record) --- */
+    { date: "2026-04-15", time: "17:00",
+      cs: { title: "Zahájení kampaně — kickoff", place: "Kulturní dům Starý Lískovec", desc: "Slavnostní zahájení naší kampaně. Přišlo přes sto sousedů — moc děkujeme!" },
+      en: { title: "Campaign launch — kickoff", place: "Starý Lískovec community centre", desc: "The festive launch of our campaign. Over a hundred neighbours joined us — thank you!" } },
+    { date: "2026-05-10", time: "10:00",
+      cs: { title: "Jarní úklid parku Pod sídlištěm", place: "Park Pod sídlištěm", desc: "Dobrovolný úklid s velkou účastí — posbírali jsme přes 15 pytlů odpadu." },
+      en: { title: "Spring clean-up of Pod sídlištěm park", place: "Pod sídlištěm park", desc: "Volunteer clean-up with great turnout — we collected over 15 bags of rubbish." } },
+    { date: "2026-05-28", time: "17:00",
+      cs: { title: "Diskuse o budoucnosti Slánské ulice", place: "Kavárna Na Rohu", desc: "Živá debata se 40 obyvateli o rekonstrukci chodníků a plánované cyklotrase." },
+      en: { title: "Discussion on the future of Slánská street", place: "Na Rohu café", desc: "Lively debate with 40 residents on pavement renovation and the planned cycle path." } },
+    { date: "2026-06-05", time: "14:00",
+      cs: { title: "Komunitní den u sokolovny", place: "Prostor u sokolovny", desc: "Odpoledne plné sousedských aktivit, hry pro děti a volná debata o dění v obvodu." },
+      en: { title: "Community day at the Sokol hall", place: "By the Sokol hall", desc: "An afternoon of neighbourhood activities, games for children and an open debate on district life." } },
+    /* --- upcoming events --- */
     { date: "2026-08-08", time: "dopoledne",
       cs: { title: "Komunitní úklid parku „Pod sídlištěm“", place: "Park Pod sídlištěm", desc: "Společně vyčistíme prostor pro rekreaci." },
       en: { title: "Community clean-up of \"Pod sídlištěm\" park", place: "Pod sídlištěm park", desc: "Together we'll tidy up the space for recreation." } },
@@ -388,6 +440,15 @@ const CONTENT = {
         • image → file in assets/  (or "" to show a branded placeholder).
      ====================================================================== */
   news: [
+    { date: "2026-03-01", image: "",
+      cs: { title: "Koalice Piráti + Zelení vzniká", excerpt: "Oznamujeme vznik koalice pro komunální volby 2026 ve Starém Lískovci pod názvem SLON — Starý Lískovec ON. Jsme rádi, že stojíme společně." },
+      en: { title: "Pirates + Greens coalition formed", excerpt: "We announce the formation of our coalition for the 2026 municipal elections in Starý Lískovec under the name SLON — Starý Lískovec ON." } },
+    { date: "2026-04-20", image: "",
+      cs: { title: "Zahájili jsme přípravy kampaně", excerpt: "Scházíme se pravidelně a připravujeme program, vizuální identitu a plán setkání s občany. Děkujeme všem dobrovolníkům za pomoc!" },
+      en: { title: "Campaign preparations under way", excerpt: "We are meeting regularly and preparing our programme, visual identity and plan for citizen meetings. Thank you to all our volunteers!" } },
+    { date: "2026-05-15", image: "",
+      cs: { title: "Kandidátní listina potvrzena", excerpt: "Naše kandidátní listina 21 kandidátů za koalici Piráti + Zelení je úředně zaregistrována na Magistrátu města Brna. Jdeme do voleb!" },
+      en: { title: "Candidate list confirmed", excerpt: "Our 21-candidate Pirates + Greens coalition list has been officially registered with Brno City Hall. We're running!" } },
     { date: "2026-06-01", image: "",
       cs: { title: "Spustili jsme naši kampaň!", excerpt: "Vítejte na našich nových stránkách. V příštích týdnech zde najdete novinky z kampaně, pozvánky na akce a naše postoje k dění ve Starém Lískovci." },
       en: { title: "Our campaign is live!", excerpt: "Welcome to our new website. Over the coming weeks you'll find campaign news, event invitations and our positions on what's happening in Starý Lískovec here." } },

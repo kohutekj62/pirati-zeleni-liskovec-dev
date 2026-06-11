@@ -42,7 +42,7 @@
   <!-- Fonts: Bebas Neue (big headings) + Roboto (body). Same fonts the Pirates use. -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
 
   <!-- All the styling lives here -->
   <link rel="stylesheet" href="css/styles.css" />
@@ -69,10 +69,9 @@
   <header class="site-header" id="top">
     <div class="container site-header__inner">
 
-      <!-- Brand (links back to the top). The little elephant is our mascot icon. -->
+      <!-- Brand (links back to the top). Edit assets/logo-slon-podelne.svg in Inkscape to update. -->
       <a class="brand" href="#top" aria-label="Starý Lískovec ON">
-        <img src="assets/who-is-who.png" alt="" class="brand__logo" width="56" height="56" />
-        <span class="brand__name">Starý&nbsp;Lískovec <span class="brand__on">ON</span></span>
+        <img src="assets/logo-slon-podelne.svg" class="brand__svg" alt="Starý Lískovec ON" width="118" height="40" />
       </a>
 
       <!-- Desktop navigation. Labels come from content.js (ui.nav_*) -->
@@ -120,21 +119,14 @@
           <p class="hero__kicker" data-i18n="hero_kicker">Komunální volby — podzim 2026</p>
           <h1 class="hero__title" id="hero-title">
             <span data-i18n="hero_title_1">STARÝ LÍSKOVEC</span>
-            <!-- The "ON" word + a little toggle switch, echoing the logo -->
-            <span class="hero__on">
-              <span data-i18n="hero_title_2">ON</span>
-              <span class="toggle-switch" aria-hidden="true"><span class="toggle-switch__knob"></span></span>
-            </span>
+            <span class="hero__on"><span data-i18n="hero_title_2">ON</span></span>
           </h1>
+          <span class="toggle-switch hero__toggle" aria-hidden="true"><span class="toggle-switch__knob"></span></span>
           <p class="hero__tagline" data-i18n="hero_tagline">Odvážně, nápaditě.</p>
           <div class="hero__cta">
             <a class="btn btn--primary" href="#program" data-i18n="hero_cta_1">Náš program</a>
             <a class="btn btn--ghost"   href="#meet"    data-i18n="hero_cta_2">Setkejme se</a>
           </div>
-        </div>
-        <!-- Our full logo as the hero centrepiece (decorative) -->
-        <div class="hero__art" aria-hidden="true">
-          <img src="assets/logo-slon.png" alt="" class="hero__logo" width="320" height="320" loading="eager" />
         </div>
       </div>
     </section>
@@ -185,6 +177,8 @@
         </header>
         <!-- Candidate flip-cards appear here -->
         <div class="people-grid" id="people-grid"></div>
+        <!-- Expandable secondary candidate list (positions 9–20) -->
+        <div id="people-other"></div>
       </div>
     </section>
 
@@ -198,8 +192,8 @@
           <h2 class="section__title" id="meet-title" data-i18n="meet_title">Setkejme se</h2>
           <p class="section__lead" data-i18n="meet_lead"></p>
         </header>
-        <!-- The event timeline appears here -->
-        <ol class="events" id="events-list"></ol>
+        <!-- The event window appears here (render.js + navigation JS) -->
+        <div id="events-list"></div>
       </div>
     </section>
 
@@ -298,7 +292,7 @@
   <footer class="site-footer">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <img src="assets/logo-slon.png" alt="Starý Lískovec ON" width="48" height="48" />
+        <img src="assets/logo-slon.svg" alt="Starý Lískovec ON" width="48" height="48" />
         <p data-i18n="footer_about"></p>
       </div>
 
