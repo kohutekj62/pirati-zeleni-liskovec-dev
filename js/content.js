@@ -371,7 +371,7 @@ const CONTENT = {
      ====================================================================== */
   people_other: [
     { name: "Jitka Filipová",      party: "Piráti", profession: "doplníme" },
-    { name: "Jakub Dlabaja",       party: "Zelení", profession: "manažer" },
+    { name: "Jakub Dlabaja",       party: "Zelení", profession: "doplníme" },
     { name: "Václav Maliňák",      party: "Piráti", profession: "doplníme" },
     { name: "Volné místo",         party: "",        profession: "" },
     { name: "Volné místo",         party: "",        profession: "" },
