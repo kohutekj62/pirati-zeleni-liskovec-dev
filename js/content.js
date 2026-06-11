@@ -47,7 +47,7 @@ const CONTENT = {
     // Links to the parent parties (Přátelé section).
     piratiRegion:   "https://jihomoravsky.pirati.cz/",
     piratiNational: "https://www.pirati.cz/",
-    zeleniRegion:   "https://www.zeleni.cz/jihomoravsky-kraj/",
+    zeleniRegion:   "",
     zeleniNational: "https://www.zeleni.cz/",
   },
 
