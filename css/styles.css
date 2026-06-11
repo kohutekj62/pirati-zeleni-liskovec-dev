@@ -435,14 +435,14 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .events-nav__btn {
   display: inline-flex; align-items: center; gap: 0.45rem;
   padding: 0.35rem 0.9rem; border-radius: var(--radius-pill); cursor: pointer;
-  background: var(--color-surface-2); border: 1px solid #2a2730;
-  color: var(--color-muted); font-size: 0.8rem;
+  background: var(--color-surface-2); border: 1px solid var(--color-green);
+  color: var(--color-green); font-size: 0.8rem;
   transition: background var(--transition), border-color var(--transition), color var(--transition);
 }
 .events-nav__btn:not([disabled]):hover {
   background: var(--color-surface); border-color: var(--color-green); color: var(--color-text);
 }
-.events-nav__btn[disabled] { opacity: 0.3; cursor: default; }
+.events-nav__btn[disabled] { opacity: 0.3; cursor: default; border-color: #2a2730; color: var(--color-muted); }
 
 /* ----------------------------------------------------------------------------
    AKTUALITY  (news carousel — 3 cards, big side arrows, newest on left)
@@ -459,12 +459,12 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
   display: flex; align-items: center; justify-content: center;
   font-size: 3.5rem; line-height: 1; font-weight: 300;
   background: transparent; border: none; cursor: pointer;
-  color: rgba(255, 255, 255, 0.18);
+  color: var(--color-green);
   transition: color var(--transition);
   padding: 0;
 }
-.news-carousel__btn:not([disabled]):hover { color: var(--color-green); }
-.news-carousel__btn[disabled] { opacity: 0.12; cursor: default; }
+.news-carousel__btn:not([disabled]):hover { color: var(--color-text); }
+.news-carousel__btn[disabled] { color: rgba(255, 255, 255, 0.18); opacity: 0.4; cursor: default; }
 
 /* oldest card grayed — signals the end of available content */
 .news-card--oldest { opacity: 0.45; filter: grayscale(55%); }
