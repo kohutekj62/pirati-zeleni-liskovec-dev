@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pexeso Starý Lískovec — Poznej svůj Lískovec</title>
+  <meta name="description" content="Zdarma online pexeso s místy Brno-Starý Lískovce. Parky, školy, ulice a zajímavosti naší čtvrti. Hra pro celou rodinu." />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="canonical" href="https://www.staryliskovec-on.cz/pexeso/" />
+  <meta property="og:title" content="Pexeso Starý Lískovec — Poznej svůj Lískovec" />
+  <meta property="og:description" content="Zdarma online pexeso s místy Brno-Starý Lískovce. Parky, školy, ulice a zajímavosti naší čtvrti." />
+  <meta property="og:image" content="https://www.staryliskovec-on.cz/assets/og-pic.png" />
+  <meta property="og:url" content="https://www.staryliskovec-on.cz/pexeso/" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <link rel="stylesheet" href="../css/fonts.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0a0a0a;
+      --surface:  #141414;
+      --surface2: #1d1b22;
+      --text:     #f4f4f5;
+      --muted:    #b5b5bd;
+      --yellow:   #f2c500;
+      --green:    #8dc540;
+      --violet:   #7a2e8e;
+      --radius:   14px;
+      --font-d:   "Bebas Neue", "Arial Narrow", sans-serif;
+      --font-b:   "Roboto", system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-b); min-height: 100dvh; }
+
+    /* ── HEADER ── */
+    .site-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 1.25rem;
+      background: var(--surface); border-bottom: 2px solid var(--yellow);
+    }
+    .site-header a { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+    .site-header img { height: 32px; width: auto; }
+    .site-header .back { font-size: 0.8rem; color: var(--muted); }
+    .lang-btn {
+      background: var(--surface2); border: 1px solid #333; color: var(--text);
+      font-family: var(--font-b); font-size: 0.8rem; font-weight: 700;
+      padding: 0.3rem 0.7rem; border-radius: 999px; cursor: pointer;
+    }
+    .lang-btn:hover { border-color: var(--yellow); }
+
+    /* ── SCREENS ── */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* ── ROUND SELECT ── */
+    #screen-select { padding: 2rem 1.25rem; text-align: center; }
+    .select-title { font-family: var(--font-d); font-size: clamp(2.5rem, 8vw, 4rem); color: var(--yellow); line-height: 1; margin-bottom: 0.25rem; }
+    .select-sub   { font-size: 0.95rem; color: var(--muted); margin-bottom: 2.5rem; }
+    .rounds-grid  { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; max-width: 800px; margin: 0 auto 2.5rem; }
+    .round-card {
+      background: var(--surface2); border: 2px solid #2a2a2a;
+      border-radius: var(--radius); padding: 1.5rem 1.25rem;
+      cursor: pointer; transition: border-color 0.2s, transform 0.15s;
+      text-align: left;
+    }
+    .round-card:hover { border-color: var(--yellow); transform: translateY(-3px); }
+    .round-card.done  { border-color: var(--green); opacity: 0.7; }
+    .round-card__emoji { font-size: 2.2rem; margin-bottom: 0.5rem; }
+    .round-card__title { font-family: var(--font-d); font-size: 1.5rem; color: var(--yellow); margin-bottom: 0.25rem; }
+    .round-card__sub   { font-size: 0.82rem; color: var(--muted); }
+    .round-card__badge { display: inline-block; margin-top: 0.75rem; font-size: 0.75rem; font-weight: 700; color: var(--green); }
+
+    /* ── GAME SCREEN ── */
+    #screen-game { padding: 1rem 0.75rem; }
+    .game-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+    .game-title  { font-family: var(--font-d); font-size: 1.6rem; color: var(--yellow); }
+    .game-score  { font-size: 0.85rem; color: var(--muted); text-align: right; }
+    .game-score span { color: var(--text); font-weight: 700; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ── CARD ── */
+    .card {
+      aspect-ratio: 3/4;
+      perspective: 800px;
+      cursor: pointer;
+    }
+    .card__inner {
+      position: relative; width: 100%; height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 10px;
+    }
+    .card.flipped .card__inner,
+    .card.matched .card__inner { transform: rotateY(180deg); }
+    .card.matched { pointer-events: none; }
+
+    .card__face {
+      position: absolute; inset: 0;
+      backface-visibility: hidden;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid #2a2a2a;
+    }
+    .card__back  { background: var(--surface2); display: flex; align-items: center; justify-content: center; }
+    .card__back img { width: 72%; height: 72%; object-fit: contain; opacity: 0.9; }
+    .card__front { transform: rotateY(180deg); background: var(--surface); }
+    .card__front img { width: 100%; height: 78%; object-fit: cover; display: block; }
+    .card__front .card__label {
+      padding: 0.3rem 0.4rem;
+      font-size: 0.65rem; font-weight: 700; line-height: 1.2;
+      color: var(--text);
+    }
+    .card.matched .card__face { border-color: var(--green); }
+
+    /* placeholder when no photo yet */
+    .card__photo-placeholder {
+      width: 100%; height: 78%;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--surface2);
+      font-size: 2rem;
+    }
+
+    /* ── INFO CARD (modal) ── */
+    .info-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+      display: flex; align-items: flex-end;
+      z-index: 100; opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .info-overlay.visible { opacity: 1; pointer-events: auto; }
+    .info-card {
+      background: var(--surface);
+      border-radius: var(--radius) var(--radius) 0 0;
+      border-top: 3px solid var(--green);
+      width: 100%; max-width: 600px; margin: 0 auto;
+      padding: 1.5rem 1.25rem 2rem;
+      transform: translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      max-height: 75dvh; overflow-y: auto;
+    }
+    .info-overlay.visible .info-card { transform: translateY(0); }
+    .info-card__img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem; }
+    .info-card__img-placeholder {
+      width: 100%; height: 180px; border-radius: 8px; margin-bottom: 1rem;
+      background: var(--surface2); display: flex; align-items: center; justify-content: center; font-size: 3rem;
+    }
+    .info-card__name     { font-family: var(--font-d); font-size: 1.8rem; color: var(--yellow); line-height: 1; margin-bottom: 0.25rem; }
+    .info-card__location { font-size: 0.82rem; color: var(--green); margin-bottom: 0.75rem; }
+    .info-card__desc     { font-size: 0.92rem; line-height: 1.6; color: var(--text); margin-bottom: 0.5rem; }
+    .info-card__history  { font-size: 0.82rem; line-height: 1.5; color: var(--muted); font-style: italic; margin-bottom: 1.25rem; }
+    .info-card__close {
+      width: 100%; padding: 0.7rem; background: var(--green); color: #000;
+      font-family: var(--font-b); font-size: 0.95rem; font-weight: 700;
+      border: none; border-radius: 999px; cursor: pointer;
+    }
+    .info-card__close:hover { background: #6fa72f; }
+
+    /* ── ROUND COMPLETE ── */
+    #screen-round-end { padding: 3rem 1.5rem; text-align: center; }
+    .end-emoji  { font-size: 4rem; margin-bottom: 1rem; }
+    .end-title  { font-family: var(--font-d); font-size: 3rem; color: var(--yellow); margin-bottom: 0.5rem; }
+    .end-stats  { font-size: 1rem; color: var(--muted); margin-bottom: 2rem; }
+    .end-stats b { color: var(--text); }
+    .btn-row    { display: flex; flex-direction: column; gap: 0.75rem; max-width: 300px; margin: 0 auto; }
+    .btn { display: inline-block; padding: 0.75rem 1.75rem; border-radius: 999px; font-weight: 700; font-size: 0.95rem; cursor: pointer; border: 2px solid transparent; text-decoration: none; text-align: center; transition: 0.2s; }
+    .btn--green  { background: var(--green);  color: #000; }
+    .btn--green:hover  { background: #6fa72f; }
+    .btn--yellow { background: var(--yellow); color: #000; }
+    .btn--yellow:hover { background: #d4ac00; }
+    .btn--ghost  { background: transparent; border-color: #444; color: var(--text); }
+    .btn--ghost:hover  { border-color: var(--yellow); color: var(--yellow); }
+
+    /* ── ALL COMPLETE ── */
+    #screen-all-done { padding: 3rem 1.5rem; text-align: center; }
+    .done-logo { width: 100px; margin: 0 auto 1.5rem; display: block; }
+    .done-title { font-family: var(--font-d); font-size: clamp(2rem,10vw,3.5rem); color: var(--yellow); line-height: 1; margin-bottom: 0.5rem; }
+    .done-sub   { font-size: 0.95rem; color: var(--muted); max-width: 34ch; margin: 0 auto 2rem; line-height: 1.6; }
+
+    /* ── HIDDEN SEO CONTENT ── */
+    .seo-content { max-width: 700px; margin: 3rem auto 2rem; padding: 0 1.25rem; }
+    .seo-content h2 { font-family: var(--font-d); font-size: 1.8rem; color: var(--yellow); margin-bottom: 1.5rem; }
+    .seo-place { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #222; }
+    .seo-place h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+    .seo-place p  { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── FOOTER ── */
+    .site-footer { text-align: center; padding: 2rem 1rem; border-top: 1px solid #1a1a1a; margin-top: 2rem; }
+    .site-footer p { font-size: 0.82rem; color: #555; }
+    .site-footer a { color: var(--green); text-decoration: none; }
+    .site-footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 400px) {
+      .grid { grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="../" aria-label="Starý Lískovec ON">
+    <img src="../assets/logo-slon-podelne.svg" alt="Starý Lískovec ON" />
+    <span class="back" data-i18n="back_link">← Zpět na web</span>
+  </a>
+  <button class="lang-btn" id="lang-btn" type="button">EN</button>
+</header>
+
+<!-- ═══════════════════════════════════════════════════
+     SCREEN 1: Round selector
+════════════════════════════════════════════════════ -->
+<div class="screen active" id="screen-select">
+  <div style="padding: 2rem 1.25rem; text-align: center;">
+    <p class="select-title" data-i18n="title">PEXESO<br>STARÝ LÍSKOVEC</p>
+    <p class="select-sub" data-i18n="subtitle">Poznej místa naší čtvrti — otočení dvou stejných karet odkryje příběh místa.</p>
+    <div class="rounds-grid" id="rounds-grid"></div>
+  </div>
+  <section class="seo-content" aria-label="Místa ve hře">
+    <h2 data-i18n="seo_heading">Místa Starého Lískovce ve hře</h2>
+    <div id="seo-list"></div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     SCREEN 2: Game
+════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-game">
+  <div id="game-header" class="game-header" style="padding: 0 0.75rem;"></div>
+  <div class="grid" id="grid"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     SCREEN 3: Round complete
+════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-round-end">
+  <div class="end-emoji">🎉</div>
+  <p class="end-title" data-i18n="round_done">Kolo splněno!</p>
+  <p class="end-stats" id="end-stats"></p>
+  <div class="btn-row" id="end-btns"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     SCREEN 4: All done
+════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-all-done">
+  <img class="done-logo" src="../assets/logo-slon.svg" alt="Starý Lískovec ON" />
+  <p class="done-title" data-i18n="all_done_title">Znáš Lískovec!</p>
+  <p class="done-sub" data-i18n="all_done_sub">Prošel/a jsi všechna tři kola a poznal/a 18 míst naší čtvrti. Skvělá práce!</p>
+  <div class="btn-row" style="max-width:300px; margin: 0 auto;">
+    <a class="btn btn--yellow" href="../" data-i18n="all_done_cta">Poznej naše kandidáty →</a>
+    <button class="btn btn--ghost" id="btn-restart" data-i18n="restart">Hrát znovu</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     INFO CARD OVERLAY
+════════════════════════════════════════════════════ -->
+<div class="info-overlay" id="info-overlay" role="dialog" aria-modal="true" aria-label="Informace o místě">
+  <div class="info-card" id="info-card">
+    <div id="info-media"></div>
+    <p class="info-card__name"    id="info-name"></p>
+    <p class="info-card__location" id="info-location"></p>
+    <p class="info-card__desc"    id="info-desc"></p>
+    <p class="info-card__history" id="info-history"></p>
+    <button class="info-card__close" id="info-close" data-i18n="info_close">Pokračovat ve hře</button>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <p data-i18n="footer_text">Hra vznikla jako součást kampaně <a href="../">Starý Lískovec ON</a> — koalice Pirátů a Zelených pro komunální volby Brno 2026.</p>
+</footer>
+
+<script>
+// ══════════════════════════════════════════════════════════
+//  GAME DATA  —  3 rounds × 6 pairs = 18 places
+//  Replace photo paths with real images when available.
+//  Placeholder: null  (shows emoji instead)
+// ══════════════════════════════════════════════════════════
+const ROUNDS = [
+  {
+    id: 1, emoji: "🌳",
+    cs: { title: "Příroda a parky" },
+    en: { title: "Nature & parks" },
+    pairs: [
+      {
+        id: "park-pod-sidlistem", photo: null, emoji: "🌲",
+        cs: { name: "Park Pod sídlištěm", location: "Pod sídlištěm, Brno-Starý Lískovec",
+          desc: "Oblíbený park místních obyvatel s travnatými plochami a vzrostlými stromy. Pravidelně se zde konají komunitní úklidy, které organizují místní spolky.",
+          history: "Park vznikl v 70. letech 20. století jako součást plánování sídlištní zástavby. Prošel postupnými úpravami a dnes slouží všem generacím." },
+        en: { name: "Pod sídlištěm Park", location: "Pod sídlištěm, Brno-Starý Lískovec",
+          desc: "A favourite park with grassy areas and mature trees, hosting regular community clean-ups organised by local associations.",
+          history: "The park was laid out in the 1970s as part of housing estate planning and has been gradually improved to serve all generations." },
+      },
+      {
+        id: "hriste-labska", photo: null, emoji: "⚽",
+        cs: { name: "Hřiště u ZŠ Labská", location: "Labská, Brno-Starý Lískovec",
+          desc: "Sportovní areál u základní školy Labská. Slouží žákům přes den a veřejnosti po vyučování — ideální místo pro fotbal, basketbal i volný pohyb.",
+          history: "Hřiště bylo vybudováno společně se školou v 60. letech a od té doby prošlo několika rekonstrukcemi povrchu." },
+        en: { name: "Sports field, ZŠ Labská", location: "Labská, Brno-Starý Lískovec",
+          desc: "The sports area beside Labská primary school serves pupils during the day and the public after hours — ideal for football, basketball and free play.",
+          history: "Built alongside the school in the 1960s, the pitch has been resurfaced several times since." },
+      },
+      {
+        id: "park-kroupova", photo: null, emoji: "🌳",
+        cs: { name: "Zeleň u Kroupovy", location: "Kroupova, Brno-Starý Lískovec",
+          desc: "Zelený pás podél ulice Kroupova poskytuje stín a prostor k odpočinku. Místní ho využívají pro procházky s dětmi i domácími mazlíčky.",
+          history: "Stromořadí podél Kroupovy bylo vysazeno při výstavbě okolní zástavby a tvoří jeden z mála přirozených zelených koridorů v části obce." },
+        en: { name: "Green strip, Kroupova", location: "Kroupova, Brno-Starý Lískovec",
+          desc: "A green belt along Kroupova street providing shade and a place to rest, popular for walks with children and pets.",
+          history: "The tree line was planted during the surrounding construction and forms one of the few natural green corridors in this part of the district." },
+      },
+      {
+        id: "hriste-kosmonautu", photo: null, emoji: "🛝",
+        cs: { name: "Dětské hřiště Kosmonautů", location: "Kosmonautů, Brno-Starý Lískovec",
+          desc: "Jedno z nejfrekventovanějších dětských hřišť v obvodu. Houpačky, skluzavky a pískoviště lákají rodiny z celého sídliště.",
+          history: "Hřiště bylo obnoveno v roce 2019 za přispění městské části a nahradilo původní zastaralé vybavení z 80. let." },
+        en: { name: "Playground, Kosmonautů", location: "Kosmonautů, Brno-Starý Lískovec",
+          desc: "One of the busiest playgrounds in the district. Swings, slides and a sandpit attract families from across the estate.",
+          history: "Renovated in 2019 with city-district funding, replacing the original equipment from the 1980s." },
+      },
+      {
+        id: "lesopark", photo: null, emoji: "🍃",
+        cs: { name: "Lesopark na hranici obvodu", location: "Jihozápadní okraj, Brno-Starý Lískovec",
+          desc: "Přírodní lesopark na jihozápadní hranici obvodu navazuje na Kohoutovický les. Oblíbené místo pro procházky, nordic walking i výlety s dětmi.",
+          history: "Lesní porosty zde existují od středověku. V moderní době slouží jako přirozený biokoridor a útočiště pro ptactvo i drobnou zvěř." },
+        en: { name: "Forest park, SW border", location: "Southwest edge, Brno-Starý Lískovec",
+          desc: "A natural forest park on the south-western boundary connecting to Kohoutovice forest — popular for walks, nordic walking and family outings.",
+          history: "Woodland has existed here since medieval times. Today it serves as a natural wildlife corridor and refuge for birds and small animals." },
+      },
+      {
+        id: "komunitni-zahrada", photo: null, emoji: "🌻",
+        cs: { name: "Komunitní zahrada", location: "Starý Lískovec (plánovaná lokalita)",
+          desc: "Plánovaná komunitní zahrada, kde by si sousedé mohli pěstovat zeleninu, bylinky a ovoce. Projekt podporuje náš volební program.",
+          history: "Komunitní zahrady se v Brně rozvíjí od roku 2010. Starý Lískovec zatím vlastní prostor nemá — chceme to změnit." },
+        en: { name: "Community garden", location: "Starý Lískovec (planned location)",
+          desc: "A planned community garden where neighbours could grow vegetables, herbs and fruit together — a project supported by our programme.",
+          history: "Community gardens have been developing in Brno since 2010. Starý Lískovec has no dedicated space yet — we want to change that." },
+      },
+    ]
+  },
+  {
+    id: 2, emoji: "🏛️",
+    cs: { title: "Kultura a školy" },
+    en: { title: "Culture & schools" },
+    pairs: [
+      {
+        id: "kulturni-dum", photo: null, emoji: "🎭",
+        cs: { name: "Kulturní dům Starý Lískovec", location: "Starý Lískovec, Brno",
+          desc: "Centrum kulturního a společenského života ve čtvrti. Konají se zde plesy, divadelní představení, výstavy a komunitní akce včetně zahájení naší kampaně.",
+          history: "Kulturní dům byl vybudován v 70. letech jako součást vybavenosti sídliště. Prošel rekonstrukcí a dnes nabízí moderní zázemí pro kulturní život obvodu." },
+        en: { name: "Starý Lískovec Community Centre", location: "Starý Lískovec, Brno",
+          desc: "The hub of cultural and community life in the district — hosting balls, theatre, exhibitions and events, including the launch of our campaign.",
+          history: "Built in the 1970s as part of the housing estate amenities, the centre was renovated and now offers modern facilities for local cultural life." },
+      },
+      {
+        id: "zs-labska", photo: null, emoji: "🎒",
+        cs: { name: "ZŠ Labská", location: "Labská, Brno-Starý Lískovec",
+          desc: "Největší základní škola v Starém Lískovci. Vzdělává stovky dětí z obvodu a okolí. Naším cílem je zajistit jí kvalitní zázemí a dostatek míst.",
+          history: "Škola byla otevřena v roce 1967 a nese název ulice, na níž stojí. Za svou historii vychovala celé generace Lískoveckých." },
+        en: { name: "Labská Primary School", location: "Labská, Brno-Starý Lískovec",
+          desc: "The largest primary school in Starý Lískovec, educating hundreds of local children. Our programme aims to secure its quality facilities and capacity.",
+          history: "The school opened in 1967 and is named after the street it stands on. Over the decades it has educated entire generations of Lískovec residents." },
+      },
+      {
+        id: "knihovna", photo: null, emoji: "📚",
+        cs: { name: "Místní knihovna", location: "Starý Lískovec, Brno",
+          desc: "Pobočka Moravské zemské knihovny v Starém Lískovci. Nabízí výpůjčky, dětský koutek a přednáškové akce. Místo debat a setkání.",
+          history: "Knihovna v obvodu funguje od 80. let a postupně rozšiřovala svou nabídku. Dnes je důležitým komunitním prostorem pro vzdělávání i volný čas." },
+        en: { name: "Local library", location: "Starý Lískovec, Brno",
+          desc: "A branch of the Moravian Regional Library offering loans, a children's corner and lecture events — a venue for debates and community meetings.",
+          history: "The library has been serving the district since the 1980s, gradually expanding its offer into an important community space for education and leisure." },
+      },
+      {
+        id: "sokolovna", photo: null, emoji: "🤸",
+        cs: { name: "Sokolovna Starý Lískovec", location: "Starý Lískovec, Brno",
+          desc: "Tělocvična a spolkový dům místního Sokola. Nabízí sportovní aktivity pro děti i dospělé a hostí komunitní setkání po celý rok.",
+          history: "Sokolská jednota v Starém Lískovci působí od počátku 20. století a sokolovna je symbolem kontinuity spolkového života v obvodu." },
+        en: { name: "Sokol hall, Starý Lískovec", location: "Starý Lískovec, Brno",
+          desc: "The gym and clubhouse of the local Sokol association, offering sports activities for children and adults and hosting community events year-round.",
+          history: "The Sokol association in Starý Lískovec dates to the early 20th century; the hall symbolises the continuity of civic life in the district." },
+      },
+      {
+        id: "kostel", photo: null, emoji: "⛪",
+        cs: { name: "Kostel sv. Jana Nepomuckého", location: "Starý Lískovec, Brno",
+          desc: "Farní kostel jako duchovní a architektonická dominanta obvodu. Místo pravidelných bohoslužeb i kulturních akcí.",
+          history: "Kostel sv. Jana Nepomuckého pochází z 18. století a je jednou z nejstarších staveb v Starém Lískovci, připomínající historii obce před výstavbou sídliště." },
+        en: { name: "St John of Nepomuk Church", location: "Starý Lískovec, Brno",
+          desc: "The parish church — a spiritual and architectural landmark of the district, hosting regular services and cultural events.",
+          history: "The Church of St John of Nepomuk dates from the 18th century and is one of the oldest buildings in Starý Lískovec, recalling the village that preceded the housing estate." },
+      },
+      {
+        id: "ms", photo: null, emoji: "🧒",
+        cs: { name: "Mateřská škola", location: "Starý Lískovec, Brno",
+          desc: "Mateřská škola v obvodu je nezbytnou součástí zázemí pro mladé rodiny. Kapacita a kvalita předškolní výchovy patří mezi naše hlavní priority.",
+          history: "Mateřská škola v Starém Lískovci vznikla spolu se sídlišťní zástavbou v 60.–70. letech a od té doby pečuje o nejmenší obyvatele čtvrti." },
+        en: { name: "Kindergarten", location: "Starý Lískovec, Brno",
+          desc: "The local kindergarten is essential infrastructure for young families. Capacity and quality of pre-school care are key priorities in our programme.",
+          history: "The kindergarten was established alongside the housing estate construction in the 1960s–70s and has cared for the district's youngest residents ever since." },
+      },
+    ]
+  },
+  {
+    id: 3, emoji: "🏘️",
+    cs: { title: "Ulice a historie" },
+    en: { title: "Streets & history" },
+    pairs: [
+      {
+        id: "kosmonautu", photo: null, emoji: "🚀",
+        cs: { name: "Ulice Kosmonautů", location: "Kosmonautů, Brno-Starý Lískovec",
+          desc: "Jedna z hlavních ulic sídliště, lemovaná panelovými domy a vzrostlými stromy. Centrem každodenního života mnoha rodin.",
+          history: "Ulice dostala název v roce 1963 na počest sovětských kosmonautů. Jan Novotný, jeden z našich kandidátů, tu žije posledních deset let." },
+        en: { name: "Kosmonautů Street", location: "Kosmonautů, Brno-Starý Lískovec",
+          desc: "One of the estate's main streets, lined with panel-block buildings and mature trees — the centre of everyday life for many families.",
+          history: "The street was named in 1963 in honour of Soviet cosmonauts. Jan Novotný, one of our candidates, has lived here for the past ten years." },
+      },
+      {
+        id: "slanska", photo: null, emoji: "🛣️",
+        cs: { name: "Slánská ulice", location: "Slánská, Brno-Starý Lískovec",
+          desc: "Rušná ulice procházející obvodem, kde vedeme debatu o rekonstrukci chodníků a plánované cyklotrase. Bezpečnost chodců je klíčové téma.",
+          history: "Slánská patří k nejstarším komunikacím v oblasti a spojuje Starý Lískovec s přilehlými čtvrtěmi. Její úprava je dlouhodobě plánovaná." },
+        en: { name: "Slánská Street", location: "Slánská, Brno-Starý Lískovec",
+          desc: "A busy street through the district where we debate pavement renovation and a planned cycle path — pedestrian safety is a key issue.",
+          history: "Slánská is one of the oldest routes in the area, connecting Starý Lískovec to adjacent neighbourhoods. Its improvement has long been on the planning agenda." },
+      },
+      {
+        id: "namesti", photo: null, emoji: "🏪",
+        cs: { name: "Malé náměstíčko u obchodního centra", location: "Centrum, Brno-Starý Lískovec",
+          desc: "Neformální veřejný prostor u obchodního centra, kde se lidé přirozeně potkávají. Chceme ho zklidnit a přidat zeleň a místa k sezení.",
+          history: "Prostor vznikl organicky s výstavbou obchodní vybavenosti sídliště. Dnes funguje jako de facto náměstí, ačkoli nikdy nebyl jako náměstí navržen." },
+        en: { name: "Small square by the shopping centre", location: "Centre, Brno-Starý Lískovec",
+          desc: "An informal public space by the shopping centre where people naturally gather. We want to calm traffic here and add greenery and seating.",
+          history: "The space emerged organically with the estate's commercial development. Today it functions as a de facto square, though it was never designed as one." },
+      },
+      {
+        id: "albert", photo: null, emoji: "🛒",
+        cs: { name: "Albert Starý Lískovec", location: "Starý Lískovec, Brno",
+          desc: "Hlavní supermarket v obvodu a přirozený bod každodenního setkávání. Okolí obchodu chceme zkulturnit a zpřístupnit pro chodce a cyklisty.",
+          history: "Obchodní centrum bylo vybudováno v 90. letech a nahradilo původní menší prodejny ze sídlištní éry. Dnes je nenahraditelnou součástí infrastruktury obvodu." },
+        en: { name: "Albert, Starý Lískovec", location: "Starý Lískovec, Brno",
+          desc: "The district's main supermarket and a natural daily meeting point. We want to improve the surrounding area for pedestrians and cyclists.",
+          history: "The shopping centre was built in the 1990s, replacing the smaller estate-era shops. It is now an indispensable part of the district's infrastructure." },
+      },
+      {
+        id: "labska-ul", photo: null, emoji: "🏫",
+        cs: { name: "Ulice Labská", location: "Labská, Brno-Starý Lískovec",
+          desc: "Klidná ulice v srdci obvodu nesoucí jméno řeky Labe. Nachází se tu základní škola, zástavba rodinných domů i bytové domy.",
+          history: "Pojmenování podle řeky Labe je součástí sídlištní tradice pojmenování ulic po českých vodních tocích. Ulice vznikla v 60. letech spolu s přilehlou školou." },
+        en: { name: "Labská Street", location: "Labská, Brno-Starý Lískovec",
+          desc: "A quiet street in the heart of the district named after the Elbe river, home to the primary school alongside family and apartment housing.",
+          history: "Named after the Elbe as part of the estate tradition of naming streets after Czech waterways. The street was created in the 1960s together with the adjacent school." },
+      },
+      {
+        id: "historicke-jadro", photo: null, emoji: "🏚️",
+        cs: { name: "Historické jádro obce", location: "Původní zástavba, Brno-Starý Lískovec",
+          desc: "Starý Lískovec existoval jako samostatná obec dlouho před výstavbou sídliště. Původní zástavba s usedlostmi a statky je stále patrná v severní části obvodu.",
+          history: "První písemná zmínka o Starém Lískovci pochází z roku 1365. Obec byla připojena k Brnu v roce 1944 a v 60. letech výrazně přestavěna sídlištní zástavbou." },
+        en: { name: "Historic village core", location: "Original settlement, Brno-Starý Lískovec",
+          desc: "Starý Lískovec existed as an independent village long before the housing estate. Original farmsteads and cottages are still visible in the northern part of the district.",
+          history: "The first written record of Starý Lískovec dates to 1365. The village was incorporated into Brno in 1944 and largely rebuilt with housing estates in the 1960s." },
+      },
+    ]
+  }
+];
+
+// ══════════════════════════════════════════════════════════
+//  i18n
+// ══════════════════════════════════════════════════════════
+const UI = {
+  cs: {
+    back_link: "← Zpět na web", title: "PEXESO\nSTARÝ LÍSKOVEC",
+    subtitle: "Poznej místa naší čtvrti — otočení dvou stejných karet odkryje příběh místa.",
+    seo_heading: "Místa Starého Lískovce ve hře",
+    round_label: "kolo", pairs_label: "dvojice",
+    round_done: "Kolo splněno!", moves_label: "tahů",
+    next_round: "Další kolo →", replay_round: "Hrát znovu",
+    back_to_rounds: "Výběr kol", all_done_title: "Znáš Lískovec!",
+    all_done_sub: "Prošel/a jsi všechna tři kola a poznal/a 18 míst naší čtvrti. Skvělá práce!",
+    all_done_cta: "Poznej naše kandidáty →", restart: "Hrát znovu",
+    info_close: "Pokračovat ve hře",
+    footer_text: "Hra vznikla jako součást kampaně Starý Lískovec ON — koalice Pirátů a Zelených pro komunální volby Brno 2026.",
+    done_badge: "✓ Splněno",
+    moves: "Tahů",
+  },
+  en: {
+    back_link: "← Back to site", title: "MEMORY GAME\nSTARÝ LÍSKOVEC",
+    subtitle: "Discover the places of our neighbourhood — match two cards to reveal the story of a place.",
+    seo_heading: "Places of Starý Lískovec in the game",
+    round_label: "round", pairs_label: "pairs",
+    round_done: "Round complete!", moves_label: "moves",
+    next_round: "Next round →", replay_round: "Play again",
+    back_to_rounds: "Round select", all_done_title: "You know Lískovec!",
+    all_done_sub: "You completed all three rounds and discovered 18 places in our neighbourhood. Well done!",
+    all_done_cta: "Meet our candidates →", restart: "Play again",
+    info_close: "Continue playing",
+    footer_text: "This game was created as part of the Starý Lískovec ON campaign — a coalition of Pirates and Greens for the Brno 2026 municipal elections.",
+    done_badge: "✓ Done",
+    moves: "Moves",
+  }
+};
+
+let lang = "cs";
+function t(key) { return UI[lang][key] || UI.cs[key] || key; }
+function applyI18n() {
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    el.innerHTML = t(el.dataset.i18n).replace(/\n/g, "<br>");
+  });
+  document.documentElement.lang = lang;
+  document.getElementById("lang-btn").textContent = lang === "cs" ? "EN" : "CZ";
+}
+
+// ══════════════════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════════════════
+let currentRound = null;
+let flipped = [];
+let matched = [];
+let moves = 0;
+let locked = false;
+let completedRounds = [];
+let startTime = 0;
+
+// ══════════════════════════════════════════════════════════
+//  SCREENS
+// ══════════════════════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  window.scrollTo(0, 0);
+}
+
+// ══════════════════════════════════════════════════════════
+//  ROUND SELECT SCREEN
+// ══════════════════════════════════════════════════════════
+function renderSelect() {
+  applyI18n();
+  const grid = document.getElementById("rounds-grid");
+  grid.innerHTML = ROUNDS.map(r => {
+    const done = completedRounds.includes(r.id);
+    return `<button class="round-card${done ? " done" : ""}" data-round="${r.id}">
+      <div class="round-card__emoji">${r.emoji}</div>
+      <div class="round-card__title">${r[lang].title}</div>
+      <div class="round-card__sub">${t("round_label")} ${r.id} · 6 ${t("pairs_label")}</div>
+      ${done ? `<span class="round-card__badge">${t("done_badge")}</span>` : ""}
+    </button>`;
+  }).join("");
+  grid.querySelectorAll(".round-card").forEach(btn => {
+    btn.addEventListener("click", () => startRound(parseInt(btn.dataset.round)));
+  });
+  renderSeoList();
+  showScreen("screen-select");
+}
+
+function renderSeoList() {
+  const list = document.getElementById("seo-list");
+  list.innerHTML = ROUNDS.map(r =>
+    `<h3 style="font-family:var(--font-d);font-size:1.2rem;color:var(--green);margin:1.5rem 0 0.75rem">${r[lang].title}</h3>` +
+    r.pairs.map(p => {
+      const d = p[lang];
+      return `<div class="seo-place"><h3>${d.name}</h3><p>${d.location} — ${d.desc} ${d.history}</p></div>`;
+    }).join("")
+  ).join("");
+}
+
+// ══════════════════════════════════════════════════════════
+//  GAME
+// ══════════════════════════════════════════════════════════
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startRound(roundId) {
+  currentRound = ROUNDS.find(r => r.id === roundId);
+  flipped = []; matched = []; moves = 0; locked = false;
+  startTime = Date.now();
+  renderGame();
+  showScreen("screen-game");
+}
+
+function renderGame() {
+  const r = currentRound;
+  // Header
+  document.getElementById("game-header").innerHTML = `
+    <div>
+      <span style="color:var(--muted);font-size:0.8rem">${r.emoji} ${r[lang].title}</span>
+      <div class="game-title">${r.id === 1 ? "🌳" : r.id === 2 ? "🏛️" : "🏘️"} ${t("round_label").toUpperCase()} ${r.id}</div>
+    </div>
+    <div class="game-score">${t("moves")}: <span id="moves-count">0</span></div>`;
+
+  // Cards: 2 of each pair, shuffled
+  const cards = shuffle(r.pairs.flatMap(p => [
+    { pairId: p.id, ...p },
+    { pairId: p.id, ...p },
+  ]));
+
+  const grid = document.getElementById("grid");
+  grid.innerHTML = cards.map((c, i) => {
+    const d = c[lang];
+    const photoHtml = c.photo
+      ? `<img src="${c.photo}" alt="${d.name}" loading="lazy" />`
+      : `<div class="card__photo-placeholder">${c.emoji}</div>`;
+    return `<div class="card" data-pair="${c.pairId}" data-idx="${i}">
+      <div class="card__inner">
+        <div class="card__face card__back">
+          <img src="../assets/logo-slon.svg" alt="Starý Lískovec ON" />
+        </div>
+        <div class="card__face card__front">
+          ${photoHtml}
+          <div class="card__label">${d.name}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+
+  grid.querySelectorAll(".card").forEach(card => {
+    card.addEventListener("click", () => onCardClick(card));
+  });
+}
+
+function onCardClick(card) {
+  if (locked) return;
+  if (card.classList.contains("flipped") || card.classList.contains("matched")) return;
+  card.classList.add("flipped");
+  flipped.push(card);
+  if (flipped.length === 2) {
+    moves++;
+    document.getElementById("moves-count").textContent = moves;
+    locked = true;
+    checkMatch();
+  }
+}
+
+function checkMatch() {
+  const [a, b] = flipped;
+  if (a.dataset.pair === b.dataset.pair) {
+    // Match!
+    a.classList.add("matched");
+    b.classList.add("matched");
+    matched.push(a.dataset.pair);
+    flipped = [];
+    locked = false;
+    // Show info card
+    const pair = currentRound.pairs.find(p => p.id === a.dataset.pair);
+    setTimeout(() => showInfoCard(pair), 400);
+  } else {
+    // No match — flip back
+    setTimeout(() => {
+      a.classList.remove("flipped");
+      b.classList.remove("flipped");
+      flipped = [];
+      locked = false;
+    }, 900);
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+//  INFO CARD
+// ══════════════════════════════════════════════════════════
+function showInfoCard(pair) {
+  const d = pair[lang];
+  const overlay = document.getElementById("info-overlay");
+  document.getElementById("info-name").textContent = d.name;
+  document.getElementById("info-location").textContent = d.location;
+  document.getElementById("info-desc").textContent = d.desc;
+  document.getElementById("info-history").textContent = d.history;
+  const media = document.getElementById("info-media");
+  if (pair.photo) {
+    media.innerHTML = `<img class="info-card__img" src="${pair.photo}" alt="${d.name}" />`;
+  } else {
+    media.innerHTML = `<div class="info-card__img-placeholder">${pair.emoji}</div>`;
+  }
+  overlay.classList.add("visible");
+  document.getElementById("info-close").textContent = t("info_close");
+  // After closing, check if round is done
+  document.getElementById("info-close").onclick = () => {
+    overlay.classList.remove("visible");
+    if (matched.length === currentRound.pairs.length) {
+      setTimeout(showRoundEnd, 300);
+    }
+  };
+}
+
+// ══════════════════════════════════════════════════════════
+//  ROUND END
+// ══════════════════════════════════════════════════════════
+function showRoundEnd() {
+  if (!completedRounds.includes(currentRound.id)) {
+    completedRounds.push(currentRound.id);
+  }
+  const elapsed = Math.round((Date.now() - startTime) / 1000);
+  document.getElementById("end-stats").innerHTML =
+    `<b>${moves}</b> ${t("moves_label")} · <b>${elapsed}s</b>`;
+
+  const nextRound = ROUNDS.find(r => r.id === currentRound.id + 1);
+  const btns = document.getElementById("end-btns");
+
+  if (completedRounds.length === ROUNDS.length) {
+    setTimeout(() => showScreen("screen-all-done"), 200);
+    return;
+  }
+
+  btns.innerHTML = `
+    ${nextRound ? `<button class="btn btn--green" id="btn-next">${t("next_round")}</button>` : ""}
+    <button class="btn btn--ghost" id="btn-replay-round">${t("replay_round")}</button>
+    <button class="btn btn--ghost" id="btn-back-rounds">${t("back_to_rounds")}</button>`;
+
+  document.getElementById("btn-replay-round").onclick = () => startRound(currentRound.id);
+  document.getElementById("btn-back-rounds").onclick = renderSelect;
+  if (nextRound) document.getElementById("btn-next").onclick = () => startRound(nextRound.id);
+
+  showScreen("screen-round-end");
+}
+
+// ══════════════════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════════════════
+document.getElementById("lang-btn").addEventListener("click", () => {
+  lang = lang === "cs" ? "en" : "cs";
+  // Re-render current screen
+  const active = document.querySelector(".screen.active").id;
+  if (active === "screen-select") renderSelect();
+  else if (active === "screen-game") { renderGame(); applyI18n(); }
+  else applyI18n();
+});
+
+document.getElementById("btn-restart").addEventListener("click", () => {
+  completedRounds = [];
+  renderSelect();
+});
+
+// Close info card on overlay background tap
+document.getElementById("info-overlay").addEventListener("click", e => {
+  if (e.target === e.currentTarget) document.getElementById("info-close").click();
+});
+
+renderSelect();
+</script>
+</body>
+</html>
