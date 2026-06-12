@@ -223,7 +223,7 @@ const CONTENT = {
       "Podporujeme aktivní životní styl, kvalitní vzdělávání a ochranu zeleně ve městě.",
       "Jsme tu pro vás, připraveni naslouchat a pracovat s plným nasazením.",
       "Jsme koalice Pirátů a Zelených.",
-      "Děkujeme, že nám věříte a podporujete naši vizi pro Starý Lískovec.",
+      "Děkujeme, že nám věříte a podporujete naši vizi pro Brno – Starý Lískovec.",
     ],
     en: [
       "We are a team of people who care about Starý Lískovec.",
@@ -231,7 +231,7 @@ const CONTENT = {
       "We support an active lifestyle, quality education and the protection of urban greenery.",
       "We are here for you, ready to listen and work with full commitment.",
       "We are a coalition of the Pirates and the Greens.",
-      "Thank you for believing in us and supporting our vision for Starý Lískovec.",
+      "Thank you for believing in us and supporting our vision for Brno – Starý Lískovec.",
     ],
   },
 
