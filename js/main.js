@@ -276,4 +276,12 @@
   } else {
     init();
   }
+
+  /* ---- Print: force-open all <details> so programme text prints fully ---- */
+  window.addEventListener("beforeprint", function () {
+    document.querySelectorAll("details").forEach(function (d) { d.open = true; });
+  });
+  window.addEventListener("afterprint", function () {
+    document.querySelectorAll("details").forEach(function (d) { d.open = false; });
+  });
 })();

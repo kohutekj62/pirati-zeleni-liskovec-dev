@@ -667,10 +667,11 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
     text-shadow: none !important;
   }
 
-  /* Hide interactive / decorative chrome */
+  /* Hide: interactive chrome, web-only instructions, empty placeholders */
   .dev-banner,
   .site-header,
   .hero__cta,
+  .hero__toggle,
   .lang-toggle,
   .menu-btn,
   .flip-card__front,
@@ -679,24 +680,45 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
   .site-footer__social,
   .site-footer__nav,
   .skip-link,
-  .events__nav { display: none !important; }
+  .events__nav,
+  .about__photo,
+  [data-placeholder],
+  .program-card__chevron { display: none !important; }
 
-  /* Make all <details> blocks open so programme text prints fully */
-  details { display: block !important; }
-  details > * { display: block !important; }
+  /* Hero: compact — just kicker + title, no full-page spread */
+  .hero {
+    min-height: 0 !important;
+    padding: 1.5rem 0 1rem !important;
+    page-break-after: avoid;
+  }
+  .hero__title { font-size: 3rem !important; line-height: 1.1 !important; }
+  .hero__kicker { font-size: 0.9rem !important; }
+  .hero__tagline { font-size: 1rem !important; margin-top: 0.25rem !important; }
 
-  /* Decent typography for print */
-  body { font-size: 11pt; line-height: 1.5; }
+  /* Program lead "Klikněte na bod..." is web-only — hide it */
+  #program .section__lead { display: none !important; }
+
+  /* Program cards: remove card chrome, show as plain sections */
+  .program-card { border: none !important; border-radius: 0 !important; padding: 0 !important; margin-bottom: 1.5rem !important; }
+  .program-card summary { list-style: none !important; cursor: default !important; }
+  .program-card__body { padding: 0 !important; margin-top: 0.4rem !important; }
+
+  /* Candidate cards: show photo face, remove 3D chrome */
+  .flip-card { height: auto !important; perspective: none !important; }
+  .flip-card__inner { transform: none !important; position: static !important; display: block !important; }
+  .flip-card__back { position: static !important; transform: none !important; }
+
+  /* Decent typography */
+  body { font-size: 11pt; line-height: 1.6; }
   h1, h2, h3 { page-break-after: avoid; }
-  section { page-break-inside: avoid; }
+  section { page-break-inside: auto; }
+  p { orphans: 3; widows: 3; }
 
-  /* Keep links readable — show the href after link text */
+  /* Show URLs after external links */
   a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #555 !important; }
-  a[href^="#"]::after { content: ""; } /* skip anchor links */
+  a[href^="#"]::after { content: ""; }
 
-  /* Candidate cards: show the back (photo) face on paper */
-  .flip-card__inner { transform: rotateY(180deg); }
-
-  /* Footer: just the copyright line */
+  /* Footer: just the copyright line, no dividers */
   .site-footer__inner { display: none !important; }
+  .site-footer__bottom { border-top: none !important; }
 }
