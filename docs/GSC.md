@@ -159,4 +159,16 @@ The homepage ranks for our brand name. To rank for competitive queries like "kom
 
 ---
 
+---
+
+## Deferred — implement when real events / bios are ready
+
+**3. Event schema (JSON-LD)** — add `Event` structured data in `render.js` once event details are confirmed. Google shows these as rich results with date + location directly in search.
+
+**6. Candidate Person schema** — add `Person` structured data for all 21 candidates once bios are finalised. Helps Google surface candidates by name search.
+
+**12. Google Business Profile** — create free listing at `business.google.com`. Appears on Maps and in branded search right panel. Needs verified address/contact.
+
+---
+
 *Last updated: June 2026*

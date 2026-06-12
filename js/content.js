@@ -78,6 +78,8 @@ const CONTENT = {
       hero_tagline:  "Otevřeně, nápaditě. Koalice Pirátů a Zelených pro náš Starý Lískovec.",
       hero_cta_1:    "Náš program",
       hero_cta_2:    "Setkejme se",
+      hero_cta_share: "Sdílet",
+      where_to_vote: "Kde volit?",
       hero_logo_alt: "Logo Starý Lískovec ON",
 
       // -- Section titles + lead sentences --
@@ -154,6 +156,8 @@ const CONTENT = {
       hero_tagline:  "Open and novel. A coalition of the Pirates and the Greens for our Starý Lískovec.",
       hero_cta_1:    "Our programme",
       hero_cta_2:    "Meet us",
+      hero_cta_share: "Share",
+      where_to_vote: "Where to vote?",
       hero_logo_alt: "Starý Lískovec ON logo",
 
       about_title:    "About us",

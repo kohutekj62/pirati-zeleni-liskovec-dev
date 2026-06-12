@@ -277,6 +277,20 @@
     init();
   }
 
+  /* ---- Web Share API: show share button only when browser supports it ---- */
+  (function () {
+    var btn = document.getElementById("share-btn");
+    if (!btn || !navigator.share) return;
+    btn.hidden = false;
+    btn.addEventListener("click", function () {
+      navigator.share({
+        title: document.title,
+        text:  "Starý Lískovec ON — koalice Pirátů a Zelených, komunální volby Brno 2026",
+        url:   window.location.href,
+      }).catch(function () { /* user cancelled or error — do nothing */ });
+    });
+  }());
+
   /* ---- Print: force-open all <details> so programme text prints fully ---- */
   window.addEventListener("beforeprint", function () {
     document.querySelectorAll("details").forEach(function (d) { d.open = true; });
