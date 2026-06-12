@@ -13,15 +13,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: Arial, "Helvetica Neue", sans-serif;
       padding: 2rem;
     }
 
     .card {
       background: #fff;
       border-radius: 16px;
-      padding: 28px 28px 24px;
-      width: 280px;
+      padding: 20px;
+      width: 264px;
       text-align: center;
       box-shadow: 0 6px 32px rgba(0,0,0,0.18);
     }
@@ -30,28 +29,13 @@
       width: 224px;
       height: auto;
       display: block;
-      margin: 0 auto 8px;
-    }
-
-    .card__title {
-      font-family: "Bebas Neue", "Arial Narrow", Impact, sans-serif;
-      font-size: 1.55rem;
-      letter-spacing: 0.04em;
-      color: #111;
-      line-height: 1.1;
-      margin-bottom: 4px;
-    }
-
-    .card__sub {
-      font-size: 0.8rem;
-      color: #666;
-      margin-bottom: 18px;
+      margin: 0 auto;
     }
 
     .card__qr-link {
       display: block;
       width: 224px;
-      margin: 0 auto 12px;
+      margin: 0 auto;
       border-radius: 8px;
       overflow: hidden;
       border: 2px solid #111;
@@ -64,37 +48,9 @@
     #qr-box img,
     #qr-box canvas { width: 224px !important; height: 224px !important; display: block !important; }
 
-    .card__url {
-      font-size: 0.65rem;
-      color: #888;
-      word-break: break-all;
-      margin-bottom: 20px;
-      letter-spacing: 0.01em;
-    }
-
-    .card__cta {
-      display: inline-block;
-      background: #8dc540;
-      color: #000;
-      font-weight: 700;
-      font-size: 0.9rem;
-      padding: 0.55rem 1.5rem;
-      border-radius: 999px;
-      text-decoration: none;
-    }
-    .card__cta:hover { background: #6fa72f; }
-
-    .card__footer {
-      margin-top: 18px;
-      font-size: 0.7rem;
-      color: #aaa;
-    }
-
-    /* ── Print ── */
     @media print {
       body { background: #fff; padding: 0; display: block; }
-      .card { box-shadow: none; border-radius: 0; width: 100%; padding: 16px; }
-      .card__cta { display: none; }
+      .card { box-shadow: none; border-radius: 0; width: 100%; padding: 12px; }
     }
   </style>
 </head>
@@ -102,28 +58,13 @@
   <div class="card">
     <img class="card__elephant"
          src="https://kohutekj62.github.io/SL-ON/assets/who-is-who.png"
-         alt="Starý Lískovec ON – slon" />
-
-    <p class="card__title">PEXESO<br>STARÝ LÍSKOVEC</p>
-    <p class="card__sub">Naskenuj a zahraj si – zdarma v prohlížeči</p>
-
+         alt="Starý Lískovec ON" />
     <a class="card__qr-link"
        href="https://kohutekj62.github.io/SL-ON/pexeso/"
        target="_blank"
-       rel="noopener"
-       title="Otevřít pexeso">
+       rel="noopener">
       <div id="qr-box"></div>
     </a>
-
-    <p class="card__url">kohutekj62.github.io/SL-ON/pexeso/</p>
-
-    <a class="card__cta"
-       href="https://kohutekj62.github.io/SL-ON/pexeso/"
-       target="_blank" rel="noopener">
-      Hrát online →
-    </a>
-
-    <p class="card__footer">Starý Lískovec ON &mdash; koalice Pirátů a Zelených</p>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
