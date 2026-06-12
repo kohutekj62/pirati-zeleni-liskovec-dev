@@ -69,7 +69,6 @@ const RENDER = (function () {
     CONTENT.program.forEach(function (item, i) {
       var data = item[L()] || item.cs;
       var summary = el("summary", { class: "program-card__summary", children: [
-        el("span", { class: "program-card__num", text: String(i + 1) }),
         el("span", { class: "program-card__icon", text: item.icon || "", attrs: { "aria-hidden": "true" } }),
         el("h3",   { class: "program-card__title", text: data.title }),
         el("span", { class: "program-card__chevron", text: "▾", attrs: { "aria-hidden": "true" } }),
@@ -105,9 +104,17 @@ const RENDER = (function () {
         "aria-label": t("card_flip_to_photo") + ": " + p.name,
       }, children: [ el("span", { class: "flip-card__inner", children: [front, back] }) ] });
 
+      var subtitleParts = [];
+      if (p.age) subtitleParts.push(p.age + " let");
+      if (data.profession) subtitleParts.push(data.profession);
+      var subtitleEl = subtitleParts.length
+        ? el("p", { class: "person__subtitle", text: subtitleParts.join(" · ") })
+        : null;
+
       var info = el("div", { class: "person__info", children: [
         el("span", { class: "party-tag " + (isZeleni ? "party-tag--zeleni" : "party-tag--pirati"), text: p.party }),
         el("h3",   { class: "person__name", text: p.name }),
+        subtitleEl,
         el("p",    { class: "person__bio", text: data.bio }),
       ]});
 
@@ -116,53 +123,198 @@ const RENDER = (function () {
   }
 
   /* ====================================================================== */
-  /* 4) SETKEJME SE  —  event timeline (past events fade automatically)      */
+  /* 3b) OSTATNÍ KANDIDÁTI  —  expandable list below the 8 main cards       */
   /* ====================================================================== */
-  function renderEvents() {
-    var list = document.getElementById("events-list");
-    clear(list);
-    var today = new Date(); today.setHours(0, 0, 0, 0);
+  function renderOtherCandidates() {
+    var box = document.getElementById("people-other");
+    clear(box);
+    var others = CONTENT.people_other;
+    if (!others || !others.length) return;
 
-    CONTENT.events.forEach(function (ev) {
+    var offset = CONTENT.people.length; // main candidates count (8), so list starts at 9
+    var items = others.map(function (c, i) {
+      var isZeleni = (c.party || "").toLowerCase().indexOf("zelen") === 0;
+      var partyTag = c.party
+        ? el("span", { class: "party-tag " + (isZeleni ? "party-tag--zeleni" : "party-tag--pirati"), text: c.party })
+        : el("span", { class: "candidates-other__open" });
+      return el("li", { class: "candidates-other__item", children: [
+        el("span", { class: "candidates-other__pos", text: String(offset + i + 1) + "." }),
+        partyTag,
+        el("span", { class: "candidates-other__name" + (c.party ? "" : " candidates-other__name--open"), text: c.name }),
+        el("span", { class: "candidates-other__prof", text: c.profession }),
+      ]});
+    });
+
+    var list = el("ul", { class: "candidates-other__list", children: items });
+    var summary = el("summary", { class: "candidates-other__summary", children: [
+      el("span", { text: t("other_candidates_label") + " (" + others.length + ")" }),
+      el("span", { class: "candidates-other__chevron", text: "▾", attrs: { "aria-hidden": "true" } }),
+    ]});
+    box.appendChild(el("details", { class: "candidates-other", children: [summary, list] }));
+  }
+
+  /* ====================================================================== */
+  /* 4) SETKEJME SE  —  4-event window with ◀ ▶ navigation                  */
+  /* ====================================================================== */
+  var _eventsStart = null; /* null = auto-detect anchor on first render */
+
+  function renderEvents() {
+    var container = document.getElementById("events-list");
+    clear(container);
+
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    var all = CONTENT.events.slice().sort(function (a, b) {
+      return a.date < b.date ? -1 : a.date > b.date ? 1 : 0;
+    });
+    if (!all.length) return;
+
+    var PAGE = 4;
+    var maxStart = Math.max(0, all.length - PAGE);
+
+    /* On first render auto-scroll to the first upcoming event */
+    if (_eventsStart === null) {
+      _eventsStart = maxStart; /* default: show last PAGE if all past */
+      for (var i = 0; i < all.length; i++) {
+        if (new Date(all[i].date + "T00:00:00") >= today) {
+          _eventsStart = Math.min(i, maxStart);
+          break;
+        }
+      }
+    }
+
+    var start = Math.max(0, Math.min(_eventsStart, maxStart));
+    var slice = all.slice(start, start + PAGE);
+
+    function buildItem(ev, isNearest) {
       var data = ev[L()] || ev.cs;
       var isPast = new Date(ev.date + "T00:00:00") < today;
+      var cls = "event" + (isPast ? " event--past" : "") + (isNearest ? " event--nearest" : "");
 
-      var dateLine = el("span", { class: "event__date", text: formatDate(ev.date) + (ev.time ? " · " + ev.time : "") });
+      var dateLine = el("span", { class: "event__date",
+        text: formatDate(ev.date) + (ev.time ? " · " + ev.time : "") });
       if (isPast) dateLine.appendChild(el("span", { class: "event__badge", text: t("event_past") }));
 
       var body = el("div", { children: [
         dateLine,
-        el("h3", { class: "event__title", text: data.title }),
+        el("h3",  { class: "event__title", text: data.title }),
         el("div", { class: "event__place", text: data.place }),
-        el("p",  { class: "event__desc", text: data.desc }),
+        el("p",   { class: "event__desc",  text: data.desc }),
+      ]});
+      return el("li", { class: cls, children: [
+        el("span", { class: "event__dot", attrs: { "aria-hidden": "true" } }), body,
+      ]});
+    }
+
+    /* Timeline — nearest upcoming event gets the glowing dot */
+    var nearestIdx = -1;
+    for (var j = 0; j < slice.length; j++) {
+      if (new Date(slice[j].date + "T00:00:00") >= today) { nearestIdx = j; break; }
+    }
+
+    var items = slice.map(function (ev, idx) { return buildItem(ev, idx === nearestIdx); });
+    container.appendChild(el("ol", { class: "events", children: items }));
+
+    /* Navigation — only when there are more events than PAGE */
+    if (all.length > PAGE) {
+      var canPrev = start > 0;
+      var canNext = start + PAGE < all.length;
+
+      var prevBtn = el("button", { class: "events-nav__btn", attrs: { type: "button" }, children: [
+        el("span", { text: "▲", attrs: { "aria-hidden": "true" } }),
+        el("span", { text: t("events_older") }),
+      ]});
+      var nextBtn = el("button", { class: "events-nav__btn", attrs: { type: "button" }, children: [
+        el("span", { text: "▼", attrs: { "aria-hidden": "true" } }),
+        el("span", { text: t("events_newer") }),
       ]});
 
-      list.appendChild(el("li", {
-        class: "event" + (isPast ? " event--past" : ""),
-        children: [ el("span", { class: "event__dot", attrs: { "aria-hidden": "true" } }), body ],
-      }));
-    });
+      if (!canPrev) prevBtn.setAttribute("disabled", "disabled");
+      if (!canNext) nextBtn.setAttribute("disabled", "disabled");
+
+      prevBtn.addEventListener("click", function () {
+        _eventsStart = Math.max(0, start - PAGE); renderEvents();
+      });
+      nextBtn.addEventListener("click", function () {
+        _eventsStart = Math.min(maxStart, start + PAGE); renderEvents();
+      });
+
+      /* top nav (older) inserted BEFORE the timeline ol */
+      container.insertBefore(
+        el("div", { class: "events-nav events-nav--top", children: [prevBtn] }),
+        container.querySelector("ol.events")
+      );
+      /* bottom nav (newer) appended AFTER */
+      container.appendChild(el("div", { class: "events-nav events-nav--bottom", children: [nextBtn] }));
+    }
   }
 
   /* ====================================================================== */
-  /* 5) AKTUALITY  (news cards)                                              */
+  /* 5) AKTUALITY  —  horizontal carousel, 3 at a time, newest left         */
   /* ====================================================================== */
+  var _newsStart = null; /* null = auto, always open on newest */
+
   function renderNews() {
-    var grid = document.getElementById("news-grid");
-    clear(grid);
-    CONTENT.news.forEach(function (n) {
+    var container = document.getElementById("news-grid");
+    clear(container);
+
+    /* sort newest-first so index 0 = most recent */
+    var all = CONTENT.news.slice().sort(function (a, b) {
+      return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
+    });
+    if (!all.length) return;
+
+    var PAGE = window.innerWidth <= 480 ? 1 : 3;
+    var maxStart = Math.max(0, all.length - PAGE);
+    if (_newsStart === null) _newsStart = 0;
+    var start = Math.max(0, Math.min(_newsStart, maxStart));
+    var slice = all.slice(start, start + PAGE);
+
+    var canPrev = start > 0;               /* can scroll to newer (left) */
+    var canNext = start + PAGE < all.length; /* can scroll to older (right) */
+    var atOldEnd = !canNext;
+
+    function buildCard(n, isOldest) {
       var data = n[L()] || n.cs;
       var media = n.image
         ? el("img", { class: "news-card__media", attrs: { src: "assets/" + n.image, alt: data.title, loading: "lazy" } })
         : el("div", { class: "news-card__media media-placeholder", attrs: { "data-placeholder": "" } });
-
       var body = el("div", { class: "news-card__body", children: [
         el("span", { class: "news-card__date", text: formatDate(n.date) }),
         el("h3",   { class: "news-card__title", text: data.title }),
         el("p",    { class: "news-card__excerpt", text: data.excerpt }),
       ]});
-      grid.appendChild(el("article", { class: "news-card", children: [media, body] }));
+      return el("article", {
+        class: "news-card" + (isOldest ? " news-card--oldest" : ""),
+        children: [media, body],
+      });
+    }
+
+    var cards = slice.map(function (n, idx) {
+      return buildCard(n, atOldEnd && idx === slice.length - 1);
     });
+
+    var prevBtn = el("button", { class: "news-carousel__btn", text: "‹",
+      attrs: { type: "button", "aria-label": t("events_newer") } });
+    var nextBtn = el("button", { class: "news-carousel__btn", text: "›",
+      attrs: { type: "button", "aria-label": t("events_older") } });
+
+    if (!canPrev) prevBtn.setAttribute("disabled", "disabled");
+    if (!canNext) nextBtn.setAttribute("disabled", "disabled");
+
+    prevBtn.addEventListener("click", function () {
+      _newsStart = Math.max(0, start - 1); renderNews();
+    });
+    nextBtn.addEventListener("click", function () {
+      _newsStart = Math.min(maxStart, start + 1); renderNews();
+    });
+
+    container.appendChild(el("div", { class: "news-carousel", children: [
+      prevBtn,
+      el("div", { class: "news-cards", children: cards }),
+      nextBtn,
+    ]}));
+
+    renderPlaceholders(); /* fill media-placeholder text for newly created cards */
   }
 
   /* ====================================================================== */
@@ -196,7 +348,7 @@ const RENDER = (function () {
       var socialBox = el("div", { class: "contact__social" });
       socials.forEach(function (s) {
         socialBox.appendChild(el("a", { text: s.short, attrs: {
-          href: s.url, target: "_blank", rel: "noopener", "aria-label": s.label, title: s.label,
+          href: s.url, target: "_blank", rel: "noopener noreferrer", "aria-label": s.label, title: s.label,
         }}));
       });
       details.appendChild(el("li", { children: [
@@ -211,7 +363,7 @@ const RENDER = (function () {
     clear(ul);
     socialLinks().forEach(function (s) {
       ul.appendChild(el("li", { children: [
-        el("a", { text: s.short, attrs: { href: s.url, target: "_blank", rel: "noopener", "aria-label": s.label, title: s.label } }),
+        el("a", { text: s.short, attrs: { href: s.url, target: "_blank", rel: "noopener noreferrer", "aria-label": s.label, title: s.label } }),
       ]}));
     });
   }
@@ -231,7 +383,7 @@ const RENDER = (function () {
     function card(modifier, name, links) {
       var linkBox = el("div", { class: "partner-card__links" });
       links.forEach(function (lk) {
-        if (lk.url) linkBox.appendChild(el("a", { text: lk.label, attrs: { href: lk.url, target: "_blank", rel: "noopener" } }));
+        if (lk.url) linkBox.appendChild(el("a", { text: lk.label, attrs: { href: lk.url, target: "_blank", rel: "noopener noreferrer" } }));
       });
       return el("div", { class: "partner-card partner-card--" + modifier, children: [
         el("h3", { class: "partner-card__name", text: name }), linkBox,
@@ -258,17 +410,80 @@ const RENDER = (function () {
     });
   }
 
+  /* ====================================================================== */
+  /* Structured data — inject Person + Event JSON-LD once on first load    */
+  /* ====================================================================== */
+  var _structuredDataInjected = false;
+
+  function renderStructuredData() {
+    if (_structuredDataInjected) return;
+    _structuredDataInjected = true;
+
+    var BASE = "https://www.staryliskovec-on.cz/";
+    var ORG  = BASE + "#organization";
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    var graph = [];
+
+    /* Person schema for each named top-8 candidate */
+    CONTENT.people.forEach(function (p) {
+      if (!p.name || p.name === "Volné místo") return;
+      var entry = {
+        "@type": "Person",
+        "name": p.name,
+        "memberOf": { "@id": ORG }
+      };
+      if (p.age) entry["age"] = p.age;
+      if (p.cs && p.cs.profession) entry["jobTitle"] = p.cs.profession;
+      graph.push(entry);
+    });
+
+    /* Event schema for upcoming events only */
+    CONTENT.events.forEach(function (ev) {
+      var evDate = new Date(ev.date + "T00:00:00");
+      if (evDate < today) return;
+      var data = ev.cs;
+      var entry = {
+        "@type": "Event",
+        "name": data.title,
+        "startDate": ev.date + (ev.time && ev.time.match(/^\d{1,2}:\d{2}$/) ? "T" + ev.time : ""),
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "location": {
+          "@type": "Place",
+          "name": data.place,
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Brno",
+            "addressRegion": "Jihomoravský kraj",
+            "addressCountry": "CZ"
+          }
+        },
+        "organizer": { "@id": ORG },
+        "description": data.desc
+      };
+      graph.push(entry);
+    });
+
+    if (!graph.length) return;
+    var script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.textContent = JSON.stringify({ "@context": "https://schema.org", "@graph": graph });
+    document.head.appendChild(script);
+  }
+
   /* ---- run everything ---- */
   function renderAll() {
     renderAbout();
     renderProgram();
     renderPeople();
+    renderOtherCandidates();
     renderEvents();
     renderNews();
     renderContact();
     renderFooterSocial();
     renderPartners();
     renderPlaceholders();
+    renderStructuredData();
   }
 
   /* Rebuild the lists whenever the language changes */

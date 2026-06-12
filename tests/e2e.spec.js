@@ -26,9 +26,12 @@ test.describe("Starý Lískovec ON website", () => {
 
   test("builds the right number of items from content.js", async ({ page }) => {
     await expect(page.locator("#program-list .program-card")).toHaveCount(6);
-    await expect(page.locator("#people-grid .person")).toHaveCount(5);
-    await expect(page.locator("#events-list .event")).toHaveCount(10);
-    await expect(page.locator("#news-grid .news-card")).toHaveCount(3);
+    await expect(page.locator("#people-grid .person")).toHaveCount(8);
+    await expect(page.locator("#events-list .event")).toHaveCount(4);
+    // Mobile viewport (≤480px) shows 1 news card at a time; desktop shows 3.
+    const vp = page.viewportSize();
+    const expectedNews = vp && vp.width <= 480 ? 1 : 3;
+    await expect(page.locator("#news-grid .news-card")).toHaveCount(expectedNews);
   });
 
   test("the menu links point at the sections", async ({ page }) => {

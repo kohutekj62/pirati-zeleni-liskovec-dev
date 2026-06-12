@@ -159,6 +159,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
   display: inline-flex; align-items: center;
   width: 2.1em; height: 1.1em; padding: 0.12em;
   background: #2a2a2a; border-radius: var(--radius-pill); vertical-align: middle;
+  box-shadow: 0 0 0 2.5px rgba(141, 197, 64, 0.4);
 }
 .toggle-switch__knob {
   width: 0.86em; height: 0.86em; margin-left: auto; /* knob on the right = ON */
@@ -183,6 +184,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .brand { display: inline-flex; align-items: center; gap: 0.6rem; color: var(--color-text); }
 .brand:hover { color: var(--color-text); }
 .brand__logo { width: 44px; height: 44px; border-radius: 8px; }
+.brand__svg  { height: 40px; width: auto; display: block; }
 .brand__name { font-size: 1.5rem; line-height: 1; }
 .brand__on { color: var(--color-green); }
 
@@ -231,11 +233,13 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
    ---------------------------------------------------------------------------- */
 .hero {
   position: relative; overflow: hidden;
-  /* a soft violet→green neon glow on the black background */
+  border-top: 3px solid var(--color-green);
+  border-bottom: 3px solid var(--color-green);
   background:
     radial-gradient(60% 60% at 80% 10%, rgba(122, 46, 142, 0.35), transparent 60%),
     radial-gradient(50% 50% at 10% 90%, rgba(141, 197, 64, 0.18), transparent 60%),
-    var(--color-bg);
+    linear-gradient(to right, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.50) 100%),
+    url('../header-photo.jpg') center / cover no-repeat;
 }
 .hero__inner {
   display: flex; align-items: center; gap: var(--gap);
@@ -249,7 +253,14 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
   padding: 0.35rem 0.9rem;
 }
 .hero__title { font-size: clamp(3rem, 11vw, 7rem); margin: 0; }
+.hero__title > span:first-child {
+  background: linear-gradient(90deg, var(--color-violet-soft), var(--color-yellow));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 .hero__on { display: inline-flex; align-items: center; gap: 0.3em; color: var(--color-green); }
+.hero__toggle { display: flex; margin: 0.75rem 0 0; font-size: clamp(2rem, 6vw, 3.5rem); }
 .hero__tagline { font-size: clamp(1.1rem, 2.5vw, 1.5rem); color: var(--color-muted); max-width: 30ch; margin: 1rem 0 2rem; }
 .hero__cta { display: flex; flex-wrap: wrap; gap: 1rem; }
 
@@ -309,7 +320,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
    LIDÉ  (candidate flip-cards — the elephant → photo feature)
    ---------------------------------------------------------------------------- */
 .people-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--gap);
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap);
 }
 .person { text-align: center; }
 
@@ -349,10 +360,17 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
   padding: 0.25rem 0.7rem; border-radius: var(--radius-pill); white-space: nowrap;
 }
 .flip-card.is-flipped .flip-card__hint { opacity: 0; }
-.flip-card:hover .flip-card__inner { box-shadow: 0 0 0 2px var(--color-green), var(--shadow); }
+/* On true pointer/mouse devices: hover over the whole card flips it to the photo */
+@media (hover: hover) {
+  .flip-card:hover .flip-card__inner {
+    transform: rotateY(180deg);
+    box-shadow: 0 0 0 2px var(--color-green), var(--shadow);
+  }
+}
 
 .person__info { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
 .person__name { font-size: 1.3rem; font-family: var(--font-body); font-weight: 700; margin: 0; }
+.person__subtitle { color: var(--color-muted); font-size: 0.8rem; font-weight: 500; margin: 0; text-align: center; }
 .person__bio  { color: var(--color-muted); font-size: 0.95rem; margin: 0.3rem 0 0; text-align: left; }
 
 /* party tag */
@@ -361,11 +379,35 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .party-tag--pirati { background: var(--pirati); }
 .party-tag--zeleni { background: var(--zeleni); }
 
+/* expandable secondary candidates list (positions 9–20) */
+.candidates-other { margin-top: calc(var(--gap) * 1.5); }
+.candidates-other__summary {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.75rem 1.1rem; list-style: none; cursor: pointer; user-select: none;
+  background: var(--color-surface-2); border: 1px solid #2a2730; border-radius: var(--radius);
+  font-weight: 700; font-size: 1rem; color: var(--color-text);
+}
+.candidates-other__summary::-webkit-details-marker { display: none; }
+.candidates-other__chevron { transition: transform var(--transition); display: inline-block; }
+.candidates-other[open] .candidates-other__chevron { transform: rotate(180deg); }
+.candidates-other__list { margin: 0.5rem 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.15rem; }
+.candidates-other__item {
+  display: grid; grid-template-columns: 2.2rem 5rem 1fr auto;
+  align-items: center; gap: 0.6rem; padding: 0.45rem 1.1rem;
+  border-radius: calc(var(--radius) - 4px);
+}
+.candidates-other__item:nth-child(odd) { background: rgba(255, 255, 255, 0.03); }
+.candidates-other__pos { color: var(--color-muted); font-size: 0.85rem; text-align: right; }
+.candidates-other__name { font-weight: 600; font-size: 0.95rem; }
+.candidates-other__name--open { font-weight: 400; color: var(--color-muted); font-style: italic; }
+.candidates-other__open { display: inline-block; width: 5rem; }
+.candidates-other__prof { color: var(--color-muted); font-size: 0.875rem; text-align: right; }
+
 /* ----------------------------------------------------------------------------
-   SETKEJME SE  (events timeline)
+   SETKEJME SE  (events — vertical timeline, 4-event window with ◀ ▶ nav)
    ---------------------------------------------------------------------------- */
 .events { list-style: none; padding: 0; margin: 0; position: relative; max-width: 760px; margin-inline: auto; }
-.events::before { /* the vertical line */
+.events::before { /* the vertical gradient line */
   content: ""; position: absolute; left: 28px; top: 8px; bottom: 8px; width: 2px;
   background: linear-gradient(var(--color-violet), var(--color-green));
 }
@@ -373,6 +415,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .event__dot {
   position: absolute; left: 19px; top: 4px; width: 20px; height: 20px; border-radius: 50%;
   background: var(--color-green); border: 3px solid var(--color-bg); box-shadow: 0 0 0 2px var(--color-green);
+  transition: box-shadow var(--transition);
 }
 .section--alt .event__dot { border-color: var(--color-surface); }
 .event__date { color: var(--color-yellow); font-weight: 700; font-size: 0.95rem; }
@@ -381,13 +424,60 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .event__desc  { color: var(--color-muted); margin: 0.2rem 0 0; }
 .event--past { opacity: 0.55; }
 .event--past .event__dot { background: #555; box-shadow: 0 0 0 2px #555; }
+/* nearest upcoming event — larger glowing dot + bigger title */
+.event--nearest .event__dot {
+  width: 26px; height: 26px; left: 16px; top: 2px;
+  box-shadow: 0 0 0 3px var(--color-green), 0 0 14px rgba(141, 197, 64, 0.45);
+}
+.event--nearest .event__title { font-size: 1.4rem; }
 .event__badge { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
   background: #444; color: #fff; padding: 0.1rem 0.5rem; border-radius: var(--radius-pill); margin-left: 0.5rem; }
 
+/* navigation — ▲ above, ▼ below the timeline, centered on the dot column */
+.events-nav {
+  max-width: 760px; margin-inline: auto;
+  display: flex; justify-content: flex-start; /* align with the dot column */
+  padding-left: 8px; /* nudge so the button centres over the timeline dot column */
+}
+.events-nav--top  { margin-bottom: 0.5rem; }
+.events-nav--bottom { margin-top: 0.25rem; }
+.events-nav__btn {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  padding: 0.35rem 0.9rem; border-radius: var(--radius-pill); cursor: pointer;
+  background: var(--color-surface-2); border: 1px solid var(--color-green);
+  color: var(--color-green); font-size: 0.8rem;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+.events-nav__btn:not([disabled]):hover {
+  background: var(--color-surface); border-color: var(--color-green); color: var(--color-text);
+}
+.events-nav__btn[disabled] { opacity: 0.3; cursor: default; border-color: #2a2730; color: var(--color-muted); }
+
 /* ----------------------------------------------------------------------------
-   AKTUALITY  (news cards)
+   AKTUALITY  (news carousel — 3 cards, big side arrows, newest on left)
    ---------------------------------------------------------------------------- */
-.news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--gap); }
+.news-carousel {
+  display: flex; align-items: stretch; gap: 0.5rem;
+}
+.news-cards {
+  flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap);
+  min-width: 0; /* prevent grid from overflowing flex container */
+}
+.news-carousel__btn {
+  flex-shrink: 0; width: 3rem;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3.5rem; line-height: 1; font-weight: 300;
+  background: transparent; border: none; cursor: pointer;
+  color: var(--color-green);
+  transition: color var(--transition);
+  padding: 0;
+}
+.news-carousel__btn:not([disabled]):hover { color: var(--color-text); }
+.news-carousel__btn[disabled] { color: rgba(255, 255, 255, 0.18); opacity: 0.4; cursor: default; }
+
+/* oldest card grayed — signals the end of available content */
+.news-card--oldest { opacity: 0.45; filter: grayscale(55%); }
+
 .news-card {
   background: var(--color-surface-2); border: 1px solid #2a2730; border-radius: var(--radius);
   overflow: hidden; display: flex; flex-direction: column; transition: transform var(--transition);
@@ -536,14 +626,23 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
   .partners-list { grid-template-columns: 1fr; }
   .program-card__body { padding-left: 1.4rem; }
 
+  .people-grid { grid-template-columns: repeat(2, 1fr); }
+  .candidates-other__item { grid-template-columns: 2.2rem 4.5rem 1fr; }
+  .candidates-other__prof { display: none; }
+
+  .event { padding-left: 60px; }
+  .events::before { left: 20px; }
+  .event__dot { left: 11px; }
+  .event--nearest .event__dot { left: 8px; width: 22px; height: 22px; top: 3px; }
+  .event--nearest .event__title { font-size: 1.2rem; }
+
   .site-footer__inner { grid-template-columns: 1fr; gap: 1.5rem; }
 }
 
 @media (max-width: 480px) {
   .brand__name { font-size: 1.2rem; }
-  .event { padding-left: 60px; }
-  .events::before { left: 20px; }
-  .event__dot { left: 11px; }
+  .people-grid { grid-template-columns: 1fr; }
+  .news-cards { grid-template-columns: 1fr; }
 }
 
 /* ----------------------------------------------------------------------------
