@@ -653,3 +653,50 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
   * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
   .flip-card__inner { transition: none; }
 }
+
+/* ----------------------------------------------------------------------------
+   PRINT STYLESHEET
+   Voters who print the programme page get readable black-on-white output.
+   ---------------------------------------------------------------------------- */
+@media print {
+  /* White background, black text throughout */
+  *, *::before, *::after {
+    background: #fff !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Hide interactive / decorative chrome */
+  .dev-banner,
+  .site-header,
+  .hero__cta,
+  .lang-toggle,
+  .menu-btn,
+  .flip-card__front,
+  .flip-card__hint,
+  .to-top,
+  .site-footer__social,
+  .site-footer__nav,
+  .skip-link,
+  .events__nav { display: none !important; }
+
+  /* Make all <details> blocks open so programme text prints fully */
+  details { display: block !important; }
+  details > * { display: block !important; }
+
+  /* Decent typography for print */
+  body { font-size: 11pt; line-height: 1.5; }
+  h1, h2, h3 { page-break-after: avoid; }
+  section { page-break-inside: avoid; }
+
+  /* Keep links readable — show the href after link text */
+  a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #555 !important; }
+  a[href^="#"]::after { content: ""; } /* skip anchor links */
+
+  /* Candidate cards: show the back (photo) face on paper */
+  .flip-card__inner { transform: rotateY(180deg); }
+
+  /* Footer: just the copyright line */
+  .site-footer__inner { display: none !important; }
+}
