@@ -285,11 +285,11 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 /* ----------------------------------------------------------------------------
    O NÁS  (About)
    ---------------------------------------------------------------------------- */
-.about__grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--gap); align-items: center; }
+.about__grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--gap); align-items: stretch; }
 .about__text p { margin: 0 0 1rem; font-size: 1.08rem; }
 .about__text p:first-child { font-size: 1.3rem; color: #fff; } /* lead-in sentence stands out */
-.about__photo { min-height: 320px; border-radius: var(--radius); overflow: hidden; }
-.about__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.about__photo { border-radius: var(--radius); overflow: hidden; } /* stretches to the text-column height */
+.about__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
 
 /* ----------------------------------------------------------------------------
    PROGRAM  (6 expandable cards — built with native <details> so they work
@@ -626,6 +626,9 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 
   .about__grid,
   .contact__grid { grid-template-columns: 1fr; }
+  /* On mobile: show the team photo above the body text, full-width at natural height */
+  .about__photo { order: -1; }
+  .about__photo img { height: auto; }
   .program-list,
   .partners-list { grid-template-columns: 1fr; }
   .program-card__body { padding-left: 1.4rem; }
