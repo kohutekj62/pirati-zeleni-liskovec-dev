@@ -662,34 +662,32 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .noscript-msg { padding: 1rem; text-align: center; background: #FEC900; color: #000; }
 
 /* ----------------------------------------------------------------------------
-   PEXESO TEASER  —  brand-gradient interlude between Program and People.
+   PEXESO TEASER  —  compact callout between Program and Lidé.
    ---------------------------------------------------------------------------- */
 .pexeso-teaser {
-  padding-block: clamp(2.5rem, 6vw, 4rem);
-  background: linear-gradient(135deg, #12032a 0%, #1a0635 50%, #0a160a 100%);
-  border-top: 2px solid var(--color-violet);
-  border-bottom: 2px solid var(--color-green);
+  padding-block: 2rem;
+  background: var(--color-bg);
+  border-top: 1px solid #2a2730;
+  border-bottom: 1px solid #2a2730;
   text-align: center;
 }
-.pexeso-teaser__inner { max-width: 560px; }
-.pexeso-teaser__emoji { font-size: 2.8rem; line-height: 1; margin-bottom: 0.75rem; }
+.pexeso-teaser__inner { max-width: 540px; }
 .pexeso-teaser__title {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3rem);
-  background: linear-gradient(90deg, var(--color-violet-light), var(--color-yellow));
-  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  margin-bottom: 0.5rem; line-height: 1.15;
+  font-size: 1.2rem; font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.2rem;
 }
-.pexeso-teaser__sub { color: var(--color-muted); font-size: 1.1rem; margin-bottom: 1.75rem; }
-
+.pexeso-teaser__sub {
+  color: var(--color-muted); font-size: 1rem; margin-bottom: 1.25rem;
+}
 .btn--pexeso {
-  display: inline-block; padding: 0.85rem 2.2rem;
-  border-radius: var(--radius-pill); font-weight: 700; font-size: 1rem;
-  background: var(--color-yellow); color: #000;
-  text-decoration: none; transition: background var(--transition), transform 0.15s;
-  border: 2px solid transparent;
+  display: inline-block; padding: 0.6rem 1.6rem;
+  border-radius: var(--radius-pill); font-weight: 700; font-size: 0.9rem;
+  background: transparent; color: var(--color-yellow);
+  border: 2px solid var(--color-yellow);
+  text-decoration: none; transition: background var(--transition), color var(--transition);
 }
-.btn--pexeso:hover { background: var(--color-green); transform: translateY(-2px); }
+.btn--pexeso:hover { background: var(--color-yellow); color: #000; }
 
 @media print { .pexeso-teaser { display: none !important; } }
 
