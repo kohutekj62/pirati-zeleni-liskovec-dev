@@ -35,7 +35,7 @@ test.describe("Starý Lískovec ON website", () => {
   });
 
   test("the menu links point at the sections", async ({ page }) => {
-    const expected = ["#about", "#program", "#people", "#meet", "#news", "#contact", "#partners"];
+    const expected = ["#about", "#program", "#people", "#meet", "#news", "#contact", "#partners", "pexeso/"];
     const hrefs = await page.locator(".main-nav a").evaluateAll(
       (els) => els.map((a) => a.getAttribute("href"))
     );
@@ -107,6 +107,11 @@ test.describe("Starý Lískovec ON website", () => {
   });
 
   test("contact form accepts a properly filled submit", async ({ page }) => {
+    // Mock the Formspree API so CI never hits the real endpoint
+    // (external calls fail in sandboxed runners and waste the monthly quota).
+    await page.route("**/formspree.io/**", route =>
+      route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ ok: true }) })
+    );
     await page.fill("#cf-name", "Jan Tester");
     await page.fill("#cf-email", "jan@example.com");
     await page.fill("#cf-message", "Dobrý den, toto je testovací zpráva.");
