@@ -1,98 +1,108 @@
-# SL-ON — Next Steps (as of 2026-06-14)
+# SL-ON — Next Steps (updated 2026-06-14)
 
-## State of the repo
+## Current state
 
-Branch: **master**  
-Last commit: `a84e1f8` — "Ground all 81 places: coordinates, azimuths, web URLs"
+Branch: **master**
 
-The pexeso minigame is fully wired:
-- All content lives in `pexeso/data/places.csv` (81 places, 9 rounds)
-- CSV is loaded at runtime via `fetch()` — no build step
-- Each place card shows Street View and Web link buttons if the columns are filled
-- README section 11 has full maintenance instructions
+The pexeso is restructured to **6 real thematic rounds** (52 places, down from 83).
+All 31 generic/duplicate/planned places removed.  
+4 real photos exist (round 2 schools). All other cards show emoji placeholder.
 
 ---
 
-## Priority 1 — Verify coordinates on your machine
+## Round structure
 
-Google Maps is blocked in the cloud environment, so coordinate verification must happen locally.
+| # | Emoji | Czech | EN | Places |
+|---|-------|-------|-----|--------|
+| 1 | 🌳 | Příroda a parky | Nature & parks | 8 |
+| 2 | 🎓 | Školy a kultura | Schools & culture | 9 |
+| 3 | 🏛️ | Vybavenost | Public services | 8 |
+| 4 | 💼 | Práce a firmy | Work & business | 9 |
+| 5 | 🏆 | Sport a volný čas | Sport & leisure | 9 |
+| 6 | 🚃 | Doprava a místa | Transport & places | 9 |
+
+---
+
+## Priority 1 — Verify coordinates on your own machine
 
 ```bash
 git pull origin master
-cd path/to/SL-ON
-npm install playwright
-npx playwright install chromium
 node pexeso/tools/verify-coords.js
 ```
 
-This saves a Street View screenshot per place to `pexeso/tools/coord-check/<id>.png`  
-and prints a URL table.
+Saves Street View screenshot per place → `pexeso/tools/coord-check/<id>.png`.  
+To fix: edit `lat`, `lng`, `azimuth` in `pexeso/data/places.csv`, commit.
 
-**To fix a wrong location:**
-1. Open `pexeso/data/places.csv` in Excel (File → Import → UTF-8)
-2. Edit `lat`, `lng`, and/or `azimuth` for the offending row
-3. Save as CSV UTF-8
-4. `git add pexeso/data/places.csv && git commit -m "fix coords: <id>" && git push`
-
-How to find correct coordinates and azimuth from Google Maps Street View:
-- Navigate to the spot in Street View
-- Copy URL — it contains `@<lat>,<lng>,3a,…,<azimuth>h`
-- The number before `h` is the azimuth (compass heading the camera faces)
+How to find coordinates and azimuth from Google Maps Street View:
+- Navigate to the spot → copy URL
+- URL contains `@<lat>,<lng>,3a,…,<azimuth>h`
+- The number before `h` is the azimuth (0=north, 90=east, 180=south, 270=west)
 
 ---
 
-## Priority 2 — Fill in missing web URLs (46 places have none)
+## Priority 2 — Add photos (48 of 52 places still show emoji)
 
-Open `pexeso/data/places.csv`, find rows where `web` is empty.  
-Places most likely to have websites you can search for:
+Drop photos as JPEG into `pexeso/assets/raw photos/` — name each file after the place id.  
+Then run:
 
-| id | name | hint |
-|----|------|------|
-| `kulturni-dum` | Kulturní dům | try staryliskovec.cz or KJM |
-| `sokolovna` | Sokolovna | TJ Sokol Starý Lískovec |
-| `kostel` | Kostel sv. Jana | farnost Bosonohy / arcibrno.cz |
-| `ms` | Mateřská škola | hledej na staryliskovec.cz |
-| `zdravotni-stredisko` | Zdravotní středisko | hledej provozovatele |
-| `delika-lahudky` | Delika Lahůdky | hledej na firmy.cz |
-| `stk-jihlavska` | STK Jihlavská | hledej STK Brno Jihlavská |
-| `sady-druzstvo` | Sady Ševčík | hledej bytové družstvo |
+```bash
+node pexeso/tools/import-photos.js
+```
 
----
+Script auto-converts to WebP 1200×900 px, moves file to correct folder, updates CSV.  
+Commit and push.
 
-## Priority 3 — Add real photos
+Asset folder per round:
 
-Photos go in `pexeso/assets/<category>/` (e.g. `pexeso/assets/nature/park-pod-sidlistem.jpg`).  
-Then set the `photo` column in the CSV to the filename (e.g. `park-pod-sidlistem.jpg`).  
-Recommended: 800×600 px JPG, < 200 KB.
-
-Categories used: `nature`, `culture`, `streets`, `civic`, `business`, `artarch`, `transport`, `sport`
+| Round | Folder |
+|-------|--------|
+| 1 Příroda | `pexeso/assets/priroda-parky/` |
+| 2 Školy | `pexeso/assets/skoly/` |
+| 3 Vybavenost | `pexeso/assets/obcanska-vybavenost/` |
+| 4 Práce | `pexeso/assets/zamestnavatele/` |
+| 5 Sport | `pexeso/assets/sport-volny-cas/` |
+| 6 Doprava | `pexeso/assets/doprava/` |
 
 ---
 
-## Priority 4 — Content & campaign
+## Priority 3 — Candidate photos (3 cards broken, 8 seats unfilled)
 
-- `assets/people/` — add candidate photos and fill bios in `index.html`
-- News section — replace placeholder posts with real campaign updates
-- Newsletter — pick an email tool (Mailchimp / Ecomail / Substack) and set `newsletterAction` in `index.html`
-- QR code in `pexeso/pamphlet.html` — update URL before printing
+Photos missing on disk (flip cards show elephant instead):
+- `assets/people/ayudh-ray.jpg`
+- `assets/people/katerina-krizova.jpg`
+- `assets/people/jakub-czapek.jpg`  ← note: convention is firstname-lastname
+
+Also 8 candidates in `js/content.js` are still listed as `"Volné místo"` — fill in names and bios when the list is finalised.
 
 ---
 
-## Priority 5 — Polish before launch
+## Priority 4 — Campaign content
 
-- **Dev banner** — find `dev_banner` in `index.html` translations and set it to `""` to hide it
-- **Bebas Neue diacritics** — section headings (Pirátské Listy etc.) show wrong glyphs for Czech letters; replace font or use a subset that includes diacritics
-- **OG / social preview** — set real `og:image` and `og:description` in `<head>`
+- **News** — 6 placeholder posts in `js/content.js` → replace with real updates; add `image:` filenames pointing to `assets/`
+- **Newsletter** — set `newsletterAction` in `js/content.js` once email tool chosen (Mailchimp / Ecomail / MailerLite)
+- **Zelení region link** — `zeleniRegion` is empty in config
+- **QR code** in `pexeso/pamphlet.html` — update URL before print run
+- **Dev banner** — set `dev_banner: ""` in `js/content.js` (CS + EN) before public launch
+
+---
+
+## Priority 5 — Polish
+
+- **Bebas Neue diacritics** — headings show wrong glyphs for Czech ě/á/í etc.; swap to a font subset that includes latin-ext
+- **OG / social preview** — `og:image` in `index.html` should be a real campaign photo (not the placeholder)
 
 ---
 
 ## File map (quick reference)
 
-| File | What to edit |
-|------|-------------|
-| `pexeso/data/places.csv` | ★ All pexeso content — open in Excel |
-| `pexeso/tools/verify-coords.js` | Playwright Street View checker — run locally |
-| `pexeso/assets/` | Drop photos here |
-| `index.html` | Main campaign page (candidates, news, newsletter) |
-| `assets/people/` | Candidate photos |
-| `README.md` | Section 11 = full pexeso maintenance guide |
+| File | Purpose |
+|------|---------|
+| `pexeso/data/places.csv` | ★ All pexeso content — edit in Excel (save as CSV UTF-8, no BOM) |
+| `pexeso/tools/import-photos.js` | Drop JPEGs in `raw photos/`, run this to convert + wire |
+| `pexeso/tools/verify-coords.js` | Run locally to screenshot Street View for every place |
+| `pexeso/tools/update_coords.py` | One-shot coord seeding script (already applied — don't re-run over verified data) |
+| `pexeso/assets/<round>/` | WebP photos go here (managed by import-photos.js) |
+| `js/content.js` | Main site text: candidates, news, config, nav labels |
+| `assets/people/` | Candidate flip-card photos |
+| `index.html` | Main site skeleton (don't edit unless changing structure) |
+| `README.md` | Full developer guide |

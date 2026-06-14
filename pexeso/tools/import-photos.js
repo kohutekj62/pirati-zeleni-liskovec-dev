@@ -38,15 +38,12 @@ const QUALITY = 82;   // WebP quality → targets ~80–120 KB for a typical bui
 
 // round_id → subfolder inside pexeso/assets/
 const ROUND_FOLDER = {
-  1: 'priroda-parky',
-  2: 'skoly',
-  3: 'ulice-jmena',
-  4: 'obcanska-vybavenost',
-  5: 'zamestnavatele',
-  6: 'ulice-jmena',
-  7: 'umeni-architektura',
-  8: 'doprava',
-  9: 'sport-volny-cas',
+  1: 'priroda-parky',       // Příroda a parky
+  2: 'skoly',               // Školy a kultura
+  3: 'obcanska-vybavenost', // Vybavenost
+  4: 'zamestnavatele',      // Práce a firmy
+  5: 'sport-volny-cas',     // Sport a volný čas
+  6: 'doprava',             // Doprava a místa
 };
 
 // ── Main ──────────────────────────────────────────────────────────────────────

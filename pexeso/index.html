@@ -551,9 +551,7 @@ function renderSelect() {
 
 function renderRoundsGrid() {
   const grid = document.getElementById("rounds-grid");
-  // Only rounds 1–6 appear on the selection screen (the rest are "bonus" rounds
-  // accessible via the CSV — raise the limit here if you add more active rounds).
-  grid.innerHTML = ROUNDS.slice(0, 6).map(r => {
+  grid.innerHTML = ROUNDS.map(r => {
     const done = completedRounds.includes(r.id); // show ✓ badge if already finished
     return `<button class="round-card${done ? " done" : ""}" data-round="${r.id}">
       <div class="round-card__emoji">${r.emoji}</div>
@@ -833,8 +831,7 @@ function showRoundEnd() {
   document.getElementById("end-stats").innerHTML =
     `<b>${moves}</b> ${t("moves_label")} · <b>${elapsed}s</b>`;
 
-  // Only rounds 1–6 count toward "all done"; bonus rounds don't trigger the finale.
-  const nextRound = ROUNDS.slice(0, 6).find(r => r.id === currentRound.id + 1);
+  const nextRound = ROUNDS.find(r => r.id === currentRound.id + 1);
   const btns = document.getElementById("end-btns");
 
   if (completedRounds.length >= 6) {

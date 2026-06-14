@@ -371,7 +371,7 @@ const CONTENT = {
       en: { profession: "teaching assistant, student of pedagogy", bio: "Kateřina has lived in Starý Lískovec for almost her entire life. She is now raising two children here with her husband, and through them discovered just how important cultural life really is. As a founding member of Blechy v kožichu she works to revive the cultural scene and bring the community in our district together." },
     },
     {
-      name: "Jakub Czapek", party: "Piráti", photo: "czapek-jakub.jpg",
+      name: "Jakub Czapek", party: "Piráti", photo: "jakub-czapek.jpg",
       cs: { bio: "Bio bude doplněno." },
       en: { bio: "Bio to be added." },
     },
