@@ -1,0 +1,13 @@
+#!/bin/sh
+# Auto cache-busting: re-stamp ?v=<hash> on css/js references before every commit,
+# then re-stage the HTML pages if the stamps changed. Never lets a stale-cache
+# slip through. See tools/stamp-assets.js.
+
+node tools/stamp-assets.js >/dev/null 2>&1 || {
+  echo "stamp-assets.js failed — commit aborted"; exit 1;
+}
+
+# Re-stage the HTML pages so the refreshed stamps are part of this commit
+git add index.html pexeso/index.html
+
+exit 0
