@@ -193,7 +193,17 @@
     .info-card__name     { font-family: var(--font-d); font-size: 1.8rem; color: var(--yellow); line-height: 1; margin-bottom: 0.25rem; }
     .info-card__location { font-size: 0.82rem; color: var(--green); margin-bottom: 0.75rem; }
     .info-card__desc     { font-size: 0.92rem; line-height: 1.6; color: var(--text); margin-bottom: 0.5rem; }
-    .info-card__history  { font-size: 0.82rem; line-height: 1.5; color: var(--muted); font-style: italic; margin-bottom: 1.25rem; }
+    .info-card__history  { font-size: 0.82rem; line-height: 1.5; color: var(--muted); font-style: italic; margin-bottom: 0.9rem; }
+    .info-card__links { display: flex; gap: 0.55rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .info-card__link {
+      display: inline-flex; align-items: center;
+      padding: 0.28rem 0.8rem; border-radius: 999px; font-size: 0.76rem; font-weight: 600;
+      text-decoration: none; border: 1px solid; transition: background 0.15s, color 0.15s;
+    }
+    .info-card__link--map { border-color: var(--green); color: var(--green); }
+    .info-card__link--map:hover { background: var(--green); color: #000; }
+    .info-card__link--web { border-color: #555; color: var(--muted); }
+    .info-card__link--web:hover { border-color: var(--yellow); color: var(--yellow); }
     .info-card__close {
       width: 100%; padding: 0.7rem; background: var(--green); color: #000;
       font-family: var(--font-b); font-size: 0.95rem; font-weight: 700;
@@ -312,6 +322,7 @@
     <p class="info-card__location" id="info-location"></p>
     <p class="info-card__desc"    id="info-desc"></p>
     <p class="info-card__history" id="info-history"></p>
+    <div id="info-links" class="info-card__links"></div>
     <button class="info-card__close" id="info-close" data-i18n="info_close">Pokračovat ve hře</button>
   </div>
 </div>
@@ -349,7 +360,7 @@ const ROUNDS = [
     en: { title: "Nature & parks" },
     places: [
       {
-        id: "park-pod-sidlistem", photo: null, emoji: "🌲",
+        id: "park-pod-sidlistem", photo: null, emoji: "🌲", coords: "49.1730,16.5870", web: null,
         cs: { name: "Park Pod sídlištěm", location: "Pod sídlištěm, Brno-Starý Lískovec",
           desc: "Oblíbený park místních obyvatel s travnatými plochami a vzrostlými stromy. Pravidelně se zde konají komunitní úklidy, které organizují místní spolky.",
           history: "Park vznikl v 70. letech 20. století jako součást plánování sídlištní zástavby. Prošel postupnými úpravami a dnes slouží všem generacím." },
@@ -358,7 +369,7 @@ const ROUNDS = [
           history: "The park was laid out in the 1970s as part of housing estate planning and has been gradually improved to serve all generations." },
       },
       {
-        id: "hriste-labska", photo: null, emoji: "⚽",
+        id: "hriste-labska", photo: null, emoji: "⚽", coords: "49.1718,16.5862", web: null,
         cs: { name: "Hřiště u ZŠ Labská", location: "Labská, Brno-Starý Lískovec",
           desc: "Sportovní areál u základní školy Labská. Slouží žákům přes den a veřejnosti po vyučování — ideální místo pro fotbal, basketbal i volný pohyb.",
           history: "Hřiště bylo vybudováno společně se školou v 60. letech a od té doby prošlo několika rekonstrukcemi povrchu." },
@@ -367,7 +378,7 @@ const ROUNDS = [
           history: "Built alongside the school in the 1960s, the pitch has been resurfaced several times since." },
       },
       {
-        id: "park-kroupova", photo: null, emoji: "🌳",
+        id: "park-kroupova", photo: null, emoji: "🌳", coords: "49.1728,16.5848", web: null,
         cs: { name: "Zeleň u Kroupovy", location: "Kroupova, Brno-Starý Lískovec",
           desc: "Zelený pás podél ulice Kroupova poskytuje stín a prostor k odpočinku. Místní ho využívají pro procházky s dětmi i domácími mazlíčky.",
           history: "Stromořadí podél Kroupovy bylo vysazeno při výstavbě okolní zástavby a tvoří jeden z mála přirozených zelených koridorů v části obce." },
@@ -376,7 +387,7 @@ const ROUNDS = [
           history: "The tree line was planted during the surrounding construction and forms one of the few natural green corridors in this part of the district." },
       },
       {
-        id: "hriste-kosmonautu", photo: null, emoji: "🛝",
+        id: "hriste-kosmonautu", photo: null, emoji: "🛝", coords: "49.1715,16.5855", web: null,
         cs: { name: "Dětské hřiště Kosmonautů", location: "Kosmonautů, Brno-Starý Lískovec",
           desc: "Jedno z nejfrekventovanějších dětských hřišť v obvodu. Houpačky, skluzavky a pískoviště lákají rodiny z celého sídliště.",
           history: "Hřiště bylo obnoveno v roce 2019 za přispění městské části a nahradilo původní zastaralé vybavení z 80. let." },
@@ -385,7 +396,7 @@ const ROUNDS = [
           history: "Renovated in 2019 with city-district funding, replacing the original equipment from the 1980s." },
       },
       {
-        id: "lesopark", photo: null, emoji: "🍃",
+        id: "lesopark", photo: null, emoji: "🍃", coords: "49.1672,16.5780", web: null,
         cs: { name: "Lesopark na hranici obvodu", location: "Jihozápadní okraj, Brno-Starý Lískovec",
           desc: "Přírodní lesopark na jihozápadní hranici obvodu navazuje na Kohoutovický les. Oblíbené místo pro procházky, nordic walking i výlety s dětmi.",
           history: "Lesní porosty zde existují od středověku. V moderní době slouží jako přirozený biokoridor a útočiště pro ptactvo i drobnou zvěř." },
@@ -394,7 +405,7 @@ const ROUNDS = [
           history: "Woodland has existed here since medieval times. Today it serves as a natural wildlife corridor and refuge for birds and small animals." },
       },
       {
-        id: "komunitni-zahrada", photo: null, emoji: "🌻",
+        id: "komunitni-zahrada", photo: null, emoji: "🌻", coords: "49.1722,16.5870", web: null,
         cs: { name: "Komunitní zahrada", location: "Starý Lískovec (plánovaná lokalita)",
           desc: "Plánovaná komunitní zahrada, kde by si sousedé mohli pěstovat zeleninu, bylinky a ovoce. Projekt podporuje náš volební program.",
           history: "Komunitní zahrady se v Brně rozvíjí od roku 2010. Starý Lískovec zatím vlastní prostor nemá — chceme to změnit." },
@@ -403,7 +414,7 @@ const ROUNDS = [
           history: "Community gardens have been developing in Brno since 2010. Starý Lískovec has no dedicated space yet — we want to change that." },
       },
       {
-        id: "zahradky", photo: null, emoji: "🥕",
+        id: "zahradky", photo: null, emoji: "🥕", coords: "49.1685,16.5800", web: null,
         cs: { name: "Zahrádkářská kolonie", location: "Jihozápadní okraj, Brno-Starý Lískovec",
           desc: "Rozsáhlá kolonie zahrádek na okraji sídliště, kde místní pěstují zeleninu, ovoce i okrasné rostliny. Klidné místo pro relaxaci a kontakt s přírodou.",
           history: "Zahrádkářské kolonie vznikaly v Brně od 50. let jako kompenzace sídlištního způsobu bydlení. Tato kolonie funguje od 60. let a sdružuje přes 80 zahrádkářů." },
@@ -412,7 +423,7 @@ const ROUNDS = [
           history: "Allotment colonies spread across Brno from the 1950s as compensation for apartment living. This one has operated since the 1960s with over 80 plot-holders." },
       },
       {
-        id: "dtj-hriste", photo: null, emoji: "🏟️",
+        id: "dtj-hriste", photo: null, emoji: "🏟️", coords: "49.1750,16.5892", web: null,
         cs: { name: "Sportoviště DTJ", location: "Starý Lískovec, Brno",
           desc: "Sportovní areál Dělnické tělovýchovné jednoty s hřišti pro fotbal, tenis a volnočasové aktivity. Středisko sportu pro celé sídliště.",
           history: "DTJ působí v Starém Lískovci od meziválečného období. Areál byl rozšířen v 80. letech a dodnes slouží desítkám sportovních oddílů pro děti i dospělé." },
@@ -428,7 +439,7 @@ const ROUNDS = [
     en: { title: "Culture & schools" },
     places: [
       {
-        id: "kulturni-dum", photo: null, emoji: "🎭",
+        id: "kulturni-dum", photo: null, emoji: "🎭", coords: "49.1728,16.5865", web: null,
         cs: { name: "Kulturní dům Starý Lískovec", location: "Starý Lískovec, Brno",
           desc: "Centrum kulturního a společenského života ve čtvrti. Konají se zde plesy, divadelní představení, výstavy a komunitní akce včetně zahájení naší kampaně.",
           history: "Kulturní dům byl vybudován v 70. letech jako součást vybavenosti sídliště. Prošel rekonstrukcí a dnes nabízí moderní zázemí pro kulturní život obvodu." },
@@ -437,7 +448,7 @@ const ROUNDS = [
           history: "Built in the 1970s as part of the housing estate amenities, the centre was renovated and now offers modern facilities for local cultural life." },
       },
       {
-        id: "zs-labska", photo: null, emoji: "🎒",
+        id: "zs-labska", photo: null, emoji: "🎒", coords: "49.1718,16.5862", web: "https://www.zslabska.cz",
         cs: { name: "ZŠ Labská", location: "Labská 27, Brno–Starý Lískovec",
           desc: "Největší základní škola v obvodu s 464 žáky a 20 třídami. Nabízí sportovní třídy zaměřené na lední hokej od 5. ročníku. Součástí areálu je bazén, dvě tělocvičny a rozsáhlé venkovní hřiště.",
           history: "Škola byla otevřena v roce 1967 a nese název ulice, na níž stojí. Za svou historii vychovala celé generace obyvatel Lískovce." },
@@ -446,7 +457,7 @@ const ROUNDS = [
           history: "The school opened in 1967 and is named after the street it stands on. Over the decades it has educated entire generations of Lískovec residents." },
       },
       {
-        id: "zs-bosonozska", photo: null, emoji: "🏫",
+        id: "zs-bosonozska", photo: null, emoji: "🏫", coords: "49.1690,16.5888", web: "https://www.zsbosonozska.cz",
         cs: { name: "ZŠ Bosonožská", location: "Bosonožská 9, Brno–Starý Lískovec",
           desc: "Škola s 504 žáky a 22 třídami, fakultní škola Pedagogické fakulty MU. Disponuje dvěma tělocvičnami, novým venkovním hřištěm, jazykovými učebnami a dvěma počítačovými laboratořemi.",
           history: "Spolupracuje s Masarykovou univerzitou jako místo praxe budoucích učitelů. Leží na jihozápadním okraji obvodu a je dobře dostupná tramvajemi i autobusy." },
@@ -455,7 +466,7 @@ const ROUNDS = [
           history: "The school cooperates with Masaryk University as a training ground for future teachers. It is well served by trams and buses on the south-western edge of the district." },
       },
       {
-        id: "zs-premyslovny", photo: null, emoji: "🧒",
+        id: "zs-premyslovny", photo: null, emoji: "🧒", coords: "49.1748,16.5892", web: "https://www.zspremyslovny.cz",
         cs: { name: "ZŠ a MŠ Elišky Přemyslovny", location: "Elišky Přemyslovny 10, Brno–Starý Lískovec",
           desc: "Menší škola rodinného typu s přibližně 270 žáky, jejíž součástí je i mateřská škola. Příjemná atmosféra a přímé propojení se samosprávou MČ jsou jejím hlavním rysem.",
           history: "Školu zřizuje přímo MČ Brno-Starý Lískovec. Je pojmenovaná po Elišce Přemyslovně, české královně ze 14. století." },
@@ -464,7 +475,7 @@ const ROUNDS = [
           history: "Established directly by the Starý Lískovec city district. Named after Eliška Přemyslovna, a 14th-century Bohemian queen." },
       },
       {
-        id: "knihovna", photo: null, emoji: "📚",
+        id: "knihovna", photo: null, emoji: "📚", coords: "49.1730,16.5865", web: null,
         cs: { name: "Místní knihovna", location: "Starý Lískovec, Brno",
           desc: "Pobočka Moravské zemské knihovny v Starém Lískovci. Nabízí výpůjčky, dětský koutek a přednáškové akce. Místo debat a setkání.",
           history: "Knihovna v obvodu funguje od 80. let a postupně rozšiřovala svou nabídku. Dnes je důležitým komunitním prostorem pro vzdělávání i volný čas." },
@@ -473,7 +484,7 @@ const ROUNDS = [
           history: "The library has been serving the district since the 1980s, gradually expanding its offer into an important community space for education and leisure." },
       },
       {
-        id: "sokolovna", photo: null, emoji: "🤸",
+        id: "sokolovna", photo: null, emoji: "🤸", coords: "49.1728,16.5860", web: null,
         cs: { name: "Sokolovna Starý Lískovec", location: "Starý Lískovec, Brno",
           desc: "Tělocvična a spolkový dům místního Sokola. Nabízí sportovní aktivity pro děti i dospělé a hostí komunitní setkání po celý rok.",
           history: "Sokolská jednota v Starém Lískovci působí od počátku 20. století a sokolovna je symbolem kontinuity spolkového života v obvodu." },
@@ -482,7 +493,7 @@ const ROUNDS = [
           history: "The Sokol association in Starý Lískovec dates to the early 20th century; the hall symbolises the continuity of civic life in the district." },
       },
       {
-        id: "kostel", photo: null, emoji: "⛪",
+        id: "kostel", photo: null, emoji: "⛪", coords: "49.1755,16.5900", web: null,
         cs: { name: "Kostel sv. Jana Nepomuckého", location: "Starý Lískovec, Brno",
           desc: "Farní kostel jako duchovní a architektonická dominanta obvodu. Místo pravidelných bohoslužeb i kulturních akcí.",
           history: "Kostel sv. Jana Nepomuckého pochází z 18. století a je jednou z nejstarších staveb v Starém Lískovci, připomínající historii obce před výstavbou sídliště." },
@@ -491,7 +502,7 @@ const ROUNDS = [
           history: "The Church of St John of Nepomuk dates from the 18th century and is one of the oldest buildings in Starý Lískovec, recalling the village that preceded the housing estate." },
       },
       {
-        id: "ms", photo: null, emoji: "🧒",
+        id: "ms", photo: null, emoji: "🧒", coords: "49.1725,16.5858", web: null,
         cs: { name: "Mateřská škola", location: "Starý Lískovec, Brno",
           desc: "Mateřská škola v obvodu je nezbytnou součástí zázemí pro mladé rodiny. Kapacita a kvalita předškolní výchovy patří mezi naše hlavní priority.",
           history: "Mateřská škola v Starém Lískovci vznikla spolu se sídlišťní zástavbou v 60.–70. letech a od té doby pečuje o nejmenší obyvatele čtvrti." },
@@ -500,7 +511,7 @@ const ROUNDS = [
           history: "The kindergarten was established alongside the housing estate construction in the 1960s–70s and has cared for the district's youngest residents ever since." },
       },
       {
-        id: "zdravotni-stredisko", photo: null, emoji: "🏥",
+        id: "zdravotni-stredisko", photo: null, emoji: "🏥", coords: "49.1730,16.5862", web: null,
         cs: { name: "Zdravotní středisko", location: "Starý Lískovec, Brno",
           desc: "Ambulantní středisko nabízí praktické lékaře, pediatry a specialisty přímo v obvodu. Dostupná zdravotní péče v docházkové vzdálenosti je pro rodiny zásadní.",
           history: "Středisko bylo vybudováno jako součást komplexní vybavenosti sídliště v 70. letech. Po modernizaci zajišťuje základní zdravotní péči pro tisíce obyvatel." },
@@ -509,7 +520,7 @@ const ROUNDS = [
           history: "Built as part of the comprehensive estate amenities in the 1970s, the centre was modernised and now serves thousands of residents." },
       },
       {
-        id: "posta", photo: null, emoji: "📬",
+        id: "posta", photo: null, emoji: "📬", coords: "49.1728,16.5862", web: null,
         cs: { name: "Pošta Starý Lískovec", location: "Starý Lískovec, Brno",
           desc: "Místní pobočka České pošty obsluhující potřeby celého obvodu — pro balíky, platby i úřední zásilky. Místo, kam chodí každý.",
           history: "Poštovní provoz v Starém Lískovci byl zřízen po připojení k Brnu v roce 1944. Dnešní pobočka je výsledkem opakovaných modernizací poštovní sítě." },
@@ -525,7 +536,7 @@ const ROUNDS = [
     en: { title: "Streets & history" },
     places: [
       {
-        id: "kosmonautu", photo: null, emoji: "🚀",
+        id: "kosmonautu", photo: null, emoji: "🚀", coords: "49.1715,16.5855", web: null,
         cs: { name: "Ulice Kosmonautů", location: "Kosmonautů, Brno-Starý Lískovec",
           desc: "Jedna z hlavních ulic sídliště, lemovaná panelovými domy a vzrostlými stromy. Centrem každodenního života mnoha rodin.",
           history: "Ulice dostala název v roce 1963 na počest sovětských kosmonautů. Jan Novotný, jeden z našich kandidátů, tu žije posledních deset let." },
@@ -534,7 +545,7 @@ const ROUNDS = [
           history: "The street was named in 1963 in honour of Soviet cosmonauts. Jan Novotný, one of our candidates, has lived here for the past ten years." },
       },
       {
-        id: "slanska", photo: null, emoji: "🛣️",
+        id: "slanska", photo: null, emoji: "🛣️", coords: "49.1720,16.5880", web: null,
         cs: { name: "Slánská ulice", location: "Slánská, Brno-Starý Lískovec",
           desc: "Rušná ulice procházející obvodem, kde vedeme debatu o rekonstrukci chodníků a plánované cyklotrase. Bezpečnost chodců je klíčové téma.",
           history: "Slánská patří k nejstarším komunikacím v oblasti a spojuje Starý Lískovec s přilehlými čtvrtěmi. Její úprava je dlouhodobě plánovaná." },
@@ -543,7 +554,7 @@ const ROUNDS = [
           history: "Slánská is one of the oldest routes in the area, connecting Starý Lískovec to adjacent neighbourhoods. Its improvement has long been on the planning agenda." },
       },
       {
-        id: "namesti", photo: null, emoji: "🏪",
+        id: "namesti", photo: null, emoji: "🏪", coords: "49.1722,16.5865", web: null,
         cs: { name: "Malé náměstíčko u obchodního centra", location: "Centrum, Brno-Starý Lískovec",
           desc: "Neformální veřejný prostor u obchodního centra, kde se lidé přirozeně potkávají. Chceme ho zklidnit a přidat zeleň a místa k sezení.",
           history: "Prostor vznikl organicky s výstavbou obchodní vybavenosti sídliště. Dnes funguje jako de facto náměstí, ačkoli nikdy nebyl jako náměstí navržen." },
@@ -552,7 +563,7 @@ const ROUNDS = [
           history: "The space emerged organically with the estate's commercial development. Today it functions as a de facto square, though it was never designed as one." },
       },
       {
-        id: "albert", photo: null, emoji: "🛒",
+        id: "albert", photo: null, emoji: "🛒", coords: "49.1720,16.5862", web: null,
         cs: { name: "Albert Starý Lískovec", location: "Starý Lískovec, Brno",
           desc: "Hlavní supermarket v obvodu a přirozený bod každodenního setkávání. Okolí obchodu chceme zkulturnit a zpřístupnit pro chodce a cyklisty.",
           history: "Obchodní centrum bylo vybudováno v 90. letech a nahradilo původní menší prodejny ze sídlištní éry. Dnes je nenahraditelnou součástí infrastruktury obvodu." },
@@ -561,7 +572,7 @@ const ROUNDS = [
           history: "The shopping centre was built in the 1990s, replacing the smaller estate-era shops. It is now an indispensable part of the district's infrastructure." },
       },
       {
-        id: "labska-ul", photo: null, emoji: "🏫",
+        id: "labska-ul", photo: null, emoji: "🏫", coords: "49.1718,16.5858", web: null,
         cs: { name: "Ulice Labská", location: "Labská, Brno-Starý Lískovec",
           desc: "Klidná ulice v srdci obvodu nesoucí jméno řeky Labe. Nachází se tu základní škola, zástavba rodinných domů i bytové domy.",
           history: "Pojmenování podle řeky Labe je součástí sídlištní tradice pojmenování ulic po českých vodních tocích. Ulice vznikla v 60. letech spolu s přilehlou školou." },
@@ -570,7 +581,7 @@ const ROUNDS = [
           history: "Named after the Elbe as part of the estate tradition of naming streets after Czech waterways. The street was created in the 1960s together with the adjacent school." },
       },
       {
-        id: "historicke-jadro", photo: null, emoji: "🏚️",
+        id: "historicke-jadro", photo: null, emoji: "🏚️", coords: "49.1755,16.5912", web: null,
         cs: { name: "Historické jádro obce", location: "Původní zástavba, Brno-Starý Lískovec",
           desc: "Starý Lískovec existoval jako samostatná obec dlouho před výstavbou sídliště. Původní zástavba s usedlostmi a statky je stále patrná v severní části obvodu.",
           history: "První písemná zmínka o Starém Lískovci pochází z roku 1365. Obec byla připojena k Brnu v roce 1944 a v 60. letech výrazně přestavěna sídlištní zástavbou." },
@@ -579,7 +590,7 @@ const ROUNDS = [
           history: "The first written record of Starý Lískovec dates to 1365. The village was incorporated into Brno in 1944 and largely rebuilt with housing estates in the 1960s." },
       },
       {
-        id: "garace", photo: null, emoji: "🅿️",
+        id: "garace", photo: null, emoji: "🅿️", coords: "49.1718,16.5848", web: null,
         cs: { name: "Garážové domy", location: "Starý Lískovec, Brno",
           desc: "Řadové garáže a garážové domy jsou typickým prvkem sídlištní krajiny. Debata o jejich přestavbě na komunitní prostory nebo moderní parkovací domy je stále aktuální.",
           history: "Garáže byly stavěny od 70. let jako reakce na rostoucí automobilizaci sídliště. Dnes jsou předmětem diskuse o modernizaci veřejného prostoru a dopravě v klidu." },
@@ -588,7 +599,7 @@ const ROUNDS = [
           history: "The garages were built from the 1970s in response to growing car ownership. Today they are the subject of discussions about modernising public space and parking management." },
       },
       {
-        id: "vltavska", photo: null, emoji: "🛤️",
+        id: "vltavska", photo: null, emoji: "🛤️", coords: "49.1712,16.5852", web: null,
         cs: { name: "Ulice Vltavská", location: "Vltavská, Brno-Starý Lískovec",
           desc: "Klidnější obytná ulice pojmenovaná po řece Vltavě. Typická ukázka sídlištní zástavby s potenciálem pro zklidnění dopravy a zlepšení veřejného prostoru.",
           history: "Jako mnohé ulice v Starém Lískovci nese jméno českého vodního toku. Zástavba vznikla v 60.–70. letech jako součást první vlny rozvoje sídliště." },
@@ -604,7 +615,7 @@ const ROUNDS = [
     en: { title: "Public services" },
     places: [
       {
-        id: "urad-mc", photo: null, emoji: "🏢",
+        id: "urad-mc", photo: null, emoji: "🏢", coords: "49.1730,16.5862", web: "https://www.staryliskovec.cz",
         cs: { name: "Úřad MČ Brno-Starý Lískovec", location: "Oderská 4, Brno–Starý Lískovec",
           desc: "Sídlo samosprávy MČ. Odbory zajišťují stavební agendu, sociální dávky, majetkové záležitosti i evidenci obyvatel. Úřad zřizuje místní školy, zdravotní středisko i domovy pro seniory.",
           history: "MČ Brno-Starý Lískovec vznikla v roce 1990 po obnovení samosprávy. Zastupitelstvo má 21 členů a schází se zpravidla jednou měsíčně." },
@@ -613,7 +624,7 @@ const ROUNDS = [
           history: "The city district was established in 1990 after the restoration of self-government. The 21-member council meets roughly once a month." },
       },
       {
-        id: "domov-kosmonautu", photo: null, emoji: "👴",
+        id: "domov-kosmonautu", photo: null, emoji: "👴", coords: "49.1715,16.5875", web: null,
         cs: { name: "Domov pro seniory Kosmonautů", location: "Kosmonautů 21, Brno–Starý Lískovec",
           desc: "Domov pro seniory s kapacitou 119 klientů, zahrnující i oddělení se zvláštním režimem (DZR) pro klienty s demencí. Poskytuje péči, ošetřovatelství a aktivizační programy.",
           history: "Nese název ulice, pojmenované v 60. letech na počest sovětských kosmonautů. Jeden ze dvou domovů pro seniory, které město Brno provozuje přímo v Starém Lískovci." },
@@ -622,7 +633,7 @@ const ROUNDS = [
           history: "Named after the street, which was named in the 1960s in honour of Soviet cosmonauts. One of two city-run senior care homes in Starý Lískovec." },
       },
       {
-        id: "domov-mikulaskovo", photo: null, emoji: "🏠",
+        id: "domov-mikulaskovo", photo: null, emoji: "🏠", coords: "49.1735,16.5875", web: null,
         cs: { name: "Domov pro seniory Mikuláškovo nám.", location: "Mikuláškovo náměstí 20, Brno–Starý Lískovec",
           desc: "Menší domov pro seniory s kapacitou 60 lůžek zaměřený na individuální přístup a aktivní trávení volného času. Leží v klidné části obvodu u malého náměstíčka.",
           history: "Spolu s domovem na Kosmonautů tvoří páteřní síť péče o seniory v Starém Lískovci. Oba jsou zřizovány přímo statutárním městem Brnem." },
@@ -631,7 +642,7 @@ const ROUNDS = [
           history: "Together with the Kosmonautů home it forms the backbone of senior care in Starý Lískovec. Both are operated directly by the City of Brno." },
       },
       {
-        id: "poliklinika-psl", photo: null, emoji: "🏥",
+        id: "poliklinika-psl", photo: null, emoji: "🏥", coords: "49.1728,16.5868", web: null,
         cs: { name: "Poliklinika Starý Lískovec", location: "U Pošty 14, Brno–Starý Lískovec",
           desc: "Soukromá poliklinika nabízející praktické lékaře, zubaře, specialisty, rehabilitaci, lékárnu i optiku na jednom místě. Součástí skupiny Privamed od roku 2016.",
           history: "Navazuje na tradici zdravotního střediska z 70. let. Název ulice U Pošty napovídá, že hned vedle stojí i pobočka České pošty — dvě klíčové instituce sídliště naproti sobě." },
@@ -640,7 +651,7 @@ const ROUNDS = [
           history: "Continues the tradition of the health centre built in the 1970s. The street name U Pošty reflects that the district post office stands right next door." },
       },
       {
-        id: "fn-brno", photo: null, emoji: "🏨",
+        id: "fn-brno", photo: null, emoji: "🏨", coords: "49.1792,16.5802", web: "https://www.fnbrno.cz",
         cs: { name: "FN Brno — areál Bohunice", location: "Jihlavská 20, hranice Bohunice / Starý Lískovec",
           desc: "Velký pavilonový komplex fakultní nemocnice zasahující na katastr Starého Lískovce. Poskytuje specializovanou péči celému jihomoravskému regionu a je výukovou základnou LF MU.",
           history: "Výstavba areálu probíhala od 60. let. Nejnovější výškový pavilon L stojí přímo na území Starého Lískovce a je dominantou viditelnou z celé části jihu Brna." },
@@ -649,7 +660,7 @@ const ROUNDS = [
           history: "Construction began in the 1960s. The newest high-rise pavilion L stands on Starý Lískovec territory and is a landmark visible from across the south of Brno." },
       },
       {
-        id: "kjm-pobocka", photo: null, emoji: "📖",
+        id: "kjm-pobocka", photo: null, emoji: "📖", coords: "49.1720,16.5840", web: "https://www.kjm.cz",
         cs: { name: "Knihovna J. Mahena — pobočka", location: "Kurská 1, Brno–Starý Lískovec",
           desc: "Pobočka Knihovny Jiřího Mahena dostupná tramvajemi 6 a 8 (zastávka Dunajská). Vedle výpůjček nabízí výstavy, přednášky a Lekotéku — půjčovnu hraček pro rodiny s dětmi.",
           history: "KJM je největší veřejná knihovna v Jihomoravském kraji. Lískovecká pobočka úzce spolupracuje se zdejšími školami a je kontaktním místem sítě EUROPE DIRECT." },
@@ -658,7 +669,7 @@ const ROUNDS = [
           history: "The Jiří Mahen Library is the largest public library in South Moravia. The Starý Lískovec branch works closely with local schools and is an EUROPE DIRECT contact point." },
       },
       {
-        id: "sdh-liskovec", photo: null, emoji: "🚒",
+        id: "sdh-liskovec", photo: null, emoji: "🚒", coords: "49.1762,16.5920", web: null,
         cs: { name: "SDH Brno–Starý Lískovec", location: "Točná 5, Brno–Starý Lískovec",
           desc: "Místní jednotka sboru dobrovolných hasičů (JPO V/1) s 11 členy, připravená k výjezdu 24 hodin denně do 10 minut od výzvy. Zasahuje u 30 a více událostí ročně.",
           history: "Sbor byl založen 3. ledna 1904 s 31 zakládajícími členy. Zbrojnici na Točné vybudovaly dobrovolnické jednotky z Lískovce a Bohunic svépomocí od roku 1956." },
@@ -667,7 +678,7 @@ const ROUNDS = [
           history: "Founded on 3 January 1904 with 31 founding members. The current fire station was built by volunteer units from Lískovec and Bohunice by self-help from 1956." },
       },
       {
-        id: "posta-brno25", photo: null, emoji: "📮",
+        id: "posta-brno25", photo: null, emoji: "📮", coords: "49.1728,16.5870", web: null,
         cs: { name: "Pošta Brno 25", location: "U pošty 16, Brno–Starý Lískovec",
           desc: "Pobočka České pošty obsluhující celý obvod — zásilky, platby i úřední doručování. Budova pojmenovala celou okolní ulici U pošty a sousedí s polikliniku.",
           history: "Poštovní provoz v Starém Lískovci byl zřízen po připojení k Brnu v roce 1944. Stojí hned vedle Polikliniky Starý Lískovec — dvě základní instituce sídliště na jednom místě." },
@@ -683,7 +694,7 @@ const ROUNDS = [
     en: { title: "Businesses & employers" },
     places: [
       {
-        id: "campus-science-park", photo: null, emoji: "🏙️",
+        id: "campus-science-park", photo: null, emoji: "🏙️", coords: "49.1772,16.5818", web: "https://campus-brno.cz",
         cs: { name: "Campus Science Park", location: "Palachovo náměstí 2, Brno–Starý Lískovec",
           desc: "Největší kancelářský a výzkumný komplex v Jihomoravském kraji s plochou přes 50 000 m² v pěti budovách. Sídlí tu pobočky AT&T, Oracle, Honeywell, IBM, DHL i Accenture. Certifikováno LEED.",
           history: "Areál byl dokončen v roce 2015 a v roce 2016 získal cenu Best of Realty. Sousedí s kampusem Masarykovy univerzity a areálem FN Brno Bohunice — vzdělávací a pracovní „trojúhelník”." },
@@ -692,7 +703,7 @@ const ROUNDS = [
           history: "Completed in 2015, the park won the Best of Realty award in 2016. It sits adjacent to Masaryk University and the FN Brno Bohunice hospital campus, creating a unique education-research-business triangle." },
       },
       {
-        id: "seznam-cz", photo: null, emoji: "💻",
+        id: "seznam-cz", photo: null, emoji: "💻", coords: "49.1770,16.5820", web: "https://www.seznam.cz",
         cs: { name: "Seznam.cz", location: "Palachovo náměstí 4, Brno–Starý Lískovec",
           desc: "Největší česká internetová firma má kancelářskou pobočku přímo v Starém Lískovci. Provozuje nejnavštěvovanější český portál, Mapy.cz, Firmy.cz, Sreality i zpravodajský iDnes.",
           history: "Seznam.cz byl spuštěn v roce 1996 jako webový adresář a ve svém zlatém věku dominoval českému internetu. Brněnská pobočka se podílí na vývoji klíčových produktů firmy." },
@@ -701,7 +712,7 @@ const ROUNDS = [
           history: "Seznam.cz launched in 1996 as a web directory and once dominated Czech internet the way Google dominates the West. The Brno branch contributes to the company's core product development." },
       },
       {
-        id: "campus-square", photo: null, emoji: "🛍️",
+        id: "campus-square", photo: null, emoji: "🛍️", coords: "49.1775,16.5808", web: null,
         cs: { name: "Campus Square", location: "Palachovo náměstí, Brno–Starý Lískovec",
           desc: "Nákupní centrum s hypermarketem a desítkami prodejen, jídelen a služeb. Spolu se sousedním Campus Science Parkem tvoří nové komerční jádro Starého Lískovce a zaměstnává stovky lidí.",
           history: "Otevřeno ve stejném období jako Campus Science Park. Projekt CAMPUS propojuje nákupní centrum, kancelářský park, univerzitní kampus a nemocnici do jednoho koherentního urbanistického celku." },
@@ -710,7 +721,7 @@ const ROUNDS = [
           history: "Opened in the same period as Campus Science Park. The CAMPUS project links the shopping centre, office park, university campus and hospital into one coherent urban ensemble." },
       },
       {
-        id: "lf-mu-bohunice", photo: null, emoji: "🎓",
+        id: "lf-mu-bohunice", photo: null, emoji: "🎓", coords: "49.1798,16.5795", web: "https://www.med.muni.cz",
         cs: { name: "LF MU — kampus Bohunice", location: "Kamenice 5, Bohunice (hranice Starého Lískovce)",
           desc: "Výukový a výzkumný kampus Lékařské fakulty Masarykovy univerzity na hranici Starého Lískovce. Stovky vědců a akademiků pracují na výzkumu v biomedicíně a klinické medicíně.",
           history: "LF MU patří k nejprestižnějším lékařským fakultám v ČR. Kampus v Bohunicích vznikal od 70. let souběžně s Fakultní nemocnicí — unikátní propojení kliniky a výuky v jednom areálu." },
@@ -719,7 +730,7 @@ const ROUNDS = [
           history: "MU Faculty of Medicine is one of the most prestigious medical faculties in the Czech Republic. The Bohunice campus was built from the 1970s alongside the Faculty Hospital, creating a unique clinic-teaching symbiosis." },
       },
       {
-        id: "kaminoflex", photo: null, emoji: "🏭",
+        id: "kaminoflex", photo: null, emoji: "🏭", coords: "49.1708,16.5842", web: "https://www.kaminoflex.cz",
         cs: { name: "KAMINOFLEX s.r.o.", location: "Sevastopolská 10, Brno–Starý Lískovec",
           desc: "Rodinná firma specializující se na výrobu nerezových komínových systémů a příslušenství. Produkty dodává topným technikům a stavebním firmám po celé České republice.",
           history: "Firma byla založena v roce 1992 — na úsvitu české podnikatelské éry — a vyrostla z malé dílny v jednoho ze zavedených výrobců komínové techniky v regionu." },
@@ -728,7 +739,7 @@ const ROUNDS = [
           history: "Founded in 1992 at the dawn of Czech entrepreneurship, the company grew from a small workshop into one of the region's established chimney technology manufacturers." },
       },
       {
-        id: "sady-druzstvo", photo: null, emoji: "🍎",
+        id: "sady-druzstvo", photo: null, emoji: "🍎", coords: "49.1698,16.5832", web: null,
         cs: { name: "Sady Starý Lískovec, s.d.", location: "Martina Ševčíka 46, Brno–Starý Lískovec",
           desc: "Zemědělské a obchodní družstvo pěstující ovoce na plochách u Lískovce. Jedna z mála živých zemědělských organizací přímo v katastru brněnského sídliště.",
           history: "Navazuje na tradici sadů, které obklopovaly vesničku Starý Lískovec před zástavbou panelovými bloky v 60.–80. letech. V katastru plném betonu stále nese zemědělskou paměť místa." },
@@ -737,7 +748,7 @@ const ROUNDS = [
           history: "It continues the tradition of orchards surrounding the old village before it was replaced by panel-block housing in the 1960s–80s, keeping the area's agricultural memory alive." },
       },
       {
-        id: "stk-jihlavska", photo: null, emoji: "🚗",
+        id: "stk-jihlavska", photo: null, emoji: "🚗", coords: "49.1700,16.5808", web: null,
         cs: { name: "STK Jihlavská", location: "Jihlavská, Brno–Starý Lískovec",
           desc: "Stanice technické kontroly zajišťující pravidelné STK a emise pro osobní i nákladní vozidla. Slouží řidičům z celého jihozápadního Brna.",
           history: "STK jsou v ČR provozovány soukromými subjekty pod státní licencí od roku 1995. Jihlavská tvoří přirozený koridor vedoucí z Brna na Jihlavu a dál do Prahy — proto tu stanice vyrostla." },
@@ -746,7 +757,7 @@ const ROUNDS = [
           history: "Vehicle inspection stations in the Czech Republic have been run by private operators under state licence since 1995. Jihlavská is a natural corridor running from Brno to Jihlava and onward to Prague." },
       },
       {
-        id: "synlab-psl", photo: null, emoji: "🔬",
+        id: "synlab-psl", photo: null, emoji: "🔬", coords: "49.1728,16.5868", web: "https://www.synlab.cz",
         cs: { name: "SYNLAB — odběrové pracoviště", location: "U Pošty 14, Brno–Starý Lískovec",
           desc: "Diagnostická laboratoř a odběrové místo mezinárodní skupiny SYNLAB. Nabízí krevní testy, rozbory a preventivní diagnostiku přímo v areálu polikliniky na U Pošty.",
           history: "SYNLAB je jedním z největších poskytovatelů laboratorní diagnostiky v Evropě s více než 500 laboratořemi ve 36 zemích. Brněnská pobočka sídlí v areálu Polikliniky Starý Lískovec." },
@@ -755,7 +766,7 @@ const ROUNDS = [
           history: "SYNLAB is one of Europe's largest laboratory diagnostics providers with over 500 labs in 36 countries. The Brno branch is located in the Starý Lískovec polyclinic complex on U Pošty." },
       },
       {
-        id: "zapletal-kovo", photo: null, emoji: "🚪",
+        id: "zapletal-kovo", photo: null, emoji: "🚪", coords: "49.1745,16.5892", web: null,
         cs: { name: "Zapletal – Kovo, a.s.", location: "Elišky Přemyslovny 8, Brno–Starý Lískovec",
           desc: "Výrobce protipožárních bran, dveří a uzávěrů pro obchodní centra, průmyslové haly, metro i tunely. Jejich požárně odolné uzávěry s motorickým pohonem a řídicí elektronikou chrání životy v krizových situacích.",
           history: "Firma byla zapsána v roce 2001 a specializuje se na jeden z technicky nejnáročnějších segmentů kovoobrábění. Jméno Zapletal je v Lískovci dobře zakotveno — firma sídlí kousek od ZŠ Přemyslovny." },
@@ -764,7 +775,7 @@ const ROUNDS = [
           history: "Registered in 2001, the company occupies one of the technically most demanding metalworking niches. The Zapletal name is well rooted in Lískovec — the firm sits a short walk from ZŠ Přemyslovny." },
       },
       {
-        id: "beghelli-elplast", photo: null, emoji: "💡",
+        id: "beghelli-elplast", photo: null, emoji: "💡", coords: "49.1682,16.5892", web: null,
         cs: { name: "BEGHELLI – ELPLAST, a.s.", location: "Elišky Junkové 6, Brno (hranice Bosonoh a Starého Lískovce)",
           desc: "Výrobce nouzového a LED osvětlení pro kanceláře, průmysl i veřejné budovy s ~95 zaměstnanci. Nová hala z roku 2021 jako první v ČR integruje technologii ničící viry přímo do svítidel.",
           history: "Tradice světelné výroby na tomto místě sahá přes 140 let. Česká firma Elplast byla v roce 1999 akvizována italskou Beghelli S.p.A. Výrobní areál zaujímá 11 000 m² zastřešené plochy." },
@@ -773,7 +784,7 @@ const ROUNDS = [
           history: "The tradition of light manufacturing on this site spans over 140 years. Czech firm Elplast was acquired by Italy's Beghelli S.p.A. in 1999. The production site covers 11,000 m² under roof." },
       },
       {
-        id: "delika-lahudky", photo: null, emoji: "🥪",
+        id: "delika-lahudky", photo: null, emoji: "🥪", coords: "49.1698,16.5862", web: null,
         cs: { name: "DELIKA lahůdky, s.r.o.", location: "U Hřiště 21a, Brno–Starý Lískovec",
           desc: "Výrobce klasických českých chlebíčků, obložených mís, salátů a pomazánek. Denně zásobuje cateringové akce a prodejny po celém Brně. Provozovna sídlí přímo za restaurací Potrefená husa.",
           history: "Firma drží tradici české lahůdkářské výroby od počátku 90. let. Název „za Potrefenou husou” se ujal mezi místními díky sousedství se stejnojmennou restaurací na U Hřiště 21b." },
@@ -789,7 +800,7 @@ const ROUNDS = [
     en: { title: "Street names & stories" },
     places: [
       {
-        id: "palachuv-namesti", photo: null, emoji: "🕯️",
+        id: "palachuv-namesti", photo: null, emoji: "🕯️", coords: "49.1772,16.5818", web: null,
         cs: { name: "Palachovo náměstí", location: "Palachovo náměstí, Brno–Starý Lískovec",
           desc: "Náměstí nese jméno Jana Palacha (1948–1969), studenta, který se 16. 1. 1969 upálil na Václavském náměstí na protest proti sovětské invazi. Zemřel tři dny poté.",
           history: "Palach se stal symbolem odporu. Výročí jeho činu v roce 1989 předcházela protest, který spustil sametovou revoluci. Pojmenování náměstí (2007) je přímý kontrast se sovětskými názvy okolních ulic." },
@@ -798,7 +809,7 @@ const ROUNDS = [
           history: "Palach became a symbol of resistance. The anniversary of his act was central to protests that preceded the 1989 Velvet Revolution. The square was named in 2007 — a post-communist tribute standing in stark contrast to Soviet street names around it." },
       },
       {
-        id: "dunajska-ul", photo: null, emoji: "🌊",
+        id: "dunajska-ul", photo: null, emoji: "🌊", coords: "49.1718,16.5840", web: null,
         cs: { name: "Dunajská (dříve Kirovova)", location: "Dunajská, Brno–Starý Lískovec",
           desc: "Ulice nesla od roku 1974 jméno Sergeje Kirova (1886–1934), sovětského komunistického vůdce. Po sametové revoluci byla v srpnu 1991 přejmenována na Dunajskou.",
           history: "Kirovova vražda v roce 1934 se stala záminkou Stalinových velkých čistek, v nichž zahynuly miliony lidí. Přejmenování je viditelným důkazem de-komunizace místního názvosloví po roce 1989." },
@@ -807,7 +818,7 @@ const ROUNDS = [
           history: "Kirov's assassination in 1934 was used as a pretext for Stalin's Great Purge, in which millions perished. The renaming is concrete evidence of the de-communisation of the estate's street map after 1989." },
       },
       {
-        id: "kurska-ul", photo: null, emoji: "⚔️",
+        id: "kurska-ul", photo: null, emoji: "⚔️", coords: "49.1720,16.5838", web: null,
         cs: { name: "Kurská", location: "Kurská, Brno–Starý Lískovec",
           desc: "Ulice připomíná bitvu u Kurského oblouku (červenec–srpen 1943) — největší tankovou bitvu v historii a poslední velkou německou ofenzivu na východní frontě. Na Kurské 1 dnes sídlí pobočka Knihovny J. Mahena.",
           history: "Pojmenována 19. 12. 1974 jako součást shluku sovětsko-geografických názvů. Vítězství u Kurska zlomilo německou ofenzivní sílu na východě a otevřelo cestu sovětskému postupu až do Berlína." },
@@ -816,7 +827,7 @@ const ROUNDS = [
           history: "Named on 19 December 1974 as part of a cluster of Soviet-geography names. The Kursk victory broke German offensive capability in the East and opened the road all the way to Berlin." },
       },
       {
-        id: "krymska-ul", photo: null, emoji: "🗺️",
+        id: "krymska-ul", photo: null, emoji: "🗺️", coords: "49.1712,16.5845", web: null,
         cs: { name: "Krymská", location: "Krymská, Brno–Starý Lískovec",
           desc: "Ulice nese název Krymského poloostrova, pojmenovaná 19. 12. 1974. Krym byl v sovětské éře symbolem hrdinného odporu; po ruské anexi v roce 2014 a invazi 2022 dostalo pojmenování zcela nový citlivý rozměr.",
           history: "Krymská tvoří s Kurskou a Sevastopolskou trojici sovětských názvů pojmenovaných ve stejný den v roce 1974. Debaty o přejmenování Krymské se v Brně vrátily na program po roce 2022." },
@@ -825,7 +836,7 @@ const ROUNDS = [
           history: "Krymská forms a trio with Kurská and Sevastopolská — all three Soviet-geography names given on the same day in 1974. Debates about renaming Krymská resurfaced on the Brno council agenda after 2022." },
       },
       {
-        id: "sevastopolska-ul", photo: null, emoji: "⚓",
+        id: "sevastopolska-ul", photo: null, emoji: "⚓", coords: "49.1708,16.5842", web: null,
         cs: { name: "Sevastopolská", location: "Sevastopolská, Brno–Starý Lískovec",
           desc: "Ulice pojmenovaná 19. 12. 1974 po Sevastopolu — hlavním přístavu Černomořské flotily. Odkazuje na obléhání Sevastopolu 1941–42, jeden z nejtragičtějších momentů sovětské válečné mytologie.",
           history: "Sevastopolská, Kurská a Krymská — tři sovětské názvy dané ve stejný den v roce 1974. Na Sevastopolské 10 dnes sídlí výrobce komínů KAMINOFLEX, jeden z místních průmyslových podniků." },
@@ -834,7 +845,7 @@ const ROUNDS = [
           history: "Sevastopolská, Kurská and Krymská — three Soviet-geography names all given on the same day in 1974. Chimney-maker KAMINOFLEX operates from Sevastopolská 10, one of the estate's industrial survivors." },
       },
       {
-        id: "soustalova-ul", photo: null, emoji: "🎖️",
+        id: "soustalova-ul", photo: null, emoji: "🎖️", coords: "49.1728,16.5848", web: null,
         cs: { name: "Šoustalova", location: "Šoustalova, Brno–Starý Lískovec",
           desc: "Ulice nese jméno Antonína Vladimíra Šoustala (1890–1919), rodáka ze Starého Lískovce. Kožešník zajatý z c.k. armády se přidal k Čs. legiím a zemřel na úplavici v Irkutsku na Sibiři.",
           history: "Pojmenována 10. 5. 1945 — hned po osvobození. Šoustal je přímým místním hrdinou: narodil se v Lískovci, bojoval za vznik Československa a zahynul daleko od domova. Jeho hrob je v Irkutsku." },
@@ -843,7 +854,7 @@ const ROUNDS = [
           history: "Named on 10 May 1945 — immediately after liberation. Šoustal is a direct local hero: born in Lískovec, he fought for the founding of Czechoslovakia and died far from home. His grave is in Irkutsk." },
       },
       {
-        id: "jemelkova-ul", photo: null, emoji: "✊",
+        id: "jemelkova-ul", photo: null, emoji: "✊", coords: "49.1740,16.5855", web: null,
         cs: { name: "Jemelkova", location: "Jemelkova, Brno–Starý Lískovec",
           desc: "Ulice nese jméno Josefa Jemelky (1910–1941), mlynáře ze Starého Lískovce, který byl nacisty popraven za materiální podporu rodinám uvězněných odbojářů. Byl mu in memoriam udělen Čs. válečný kříž.",
           history: "Pojmenována 25. 9. 1946. Jemelka je přímým mučedníkem protektorátní éry z lískovecké komunity. Připomíná civilní odpor — ne jen vojáky — a tvoří s Šoustalovou pomník hrdinů obou světových válek." },
@@ -852,7 +863,7 @@ const ROUNDS = [
           history: "Named on 25 September 1946. Jemelka is a direct local martyr of the Protectorate era. The street memorialises civilian resistance and pairs with Šoustalova as a memorial to local heroes of both world wars." },
       },
       {
-        id: "u-leskavy", photo: null, emoji: "💧",
+        id: "u-leskavy", photo: null, emoji: "💧", coords: "49.1752,16.5898", web: null,
         cs: { name: "U Leskavy", location: "U Leskavy, Brno–Starý Lískovec",
           desc: "Ulice je pojmenována po říčce Leska (Leskava), která protéká oblastí a dala jméno celé čtvrti. Slovo „Lískovec” pochází ze stejného kořene jako starý německý název „Leskau” — oba od tohoto potoka.",
           history: "Leskava je doložena ve středověkých dokumentech, ves Lískovec od roku 1314. U Leskavy nese etymologický původ celého obvodu — jméno ulice odhaluje, proč se čtvrť vůbec jmenuje Lískovec." },
@@ -861,7 +872,7 @@ const ROUNDS = [
           history: "The Leskava is recorded in medieval documents; the village of Lískovec dates to 1314. U Leskavy carries the etymological origin of the entire district — the street name unlocks why the neighbourhood is called Lískovec at all." },
       },
       {
-        id: "klobasova-ul", photo: null, emoji: "🏡",
+        id: "klobasova-ul", photo: null, emoji: "🏡", coords: "49.1745,16.5918", web: null,
         cs: { name: "Klobásova", location: "Klobásova, Brno–Starý Lískovec",
           desc: "Ulice nesoucí jméno rodu Klobásů, jejichž usedlost (č.p. 4) patřila k zakládajícím hospodářstvím původní vsi. Sleduje trasu starého vesnického průvozu přes historické jádro Starého Lískovce.",
           history: "Přestože název dnes zní jako klobása, jde o staré moravské příjmení. Ulice prochází jedinou částí obvodu, která předchází zástavbě panelových domů 60.–80. let — přímý otisk předsídlištní vsi." },
@@ -870,7 +881,7 @@ const ROUNDS = [
           history: "Though the name today coincides with the Czech word for sausage, it is in fact an old Moravian surname. The street runs through the only part of the district that predates the 1960s–80s panel housing." },
       },
       {
-        id: "irkutska-ul", photo: null, emoji: "❄️",
+        id: "irkutska-ul", photo: null, emoji: "❄️", coords: "49.1708,16.5848", web: null,
         cs: { name: "Irkutská", location: "Irkutská, Brno–Starý Lískovec",
           desc: "Ulice pojmenovaná 19. 12. 1974 po sibiřském Irkutsku. Ale právě v Irkutsku zemřel lískovecký legionář Šoustal — po němž je pojmenována sousední Šoustalova. Komunistický režim tuto ironii nikdy neuvedl.",
           history: "Komunisté pojmenovali Irkutskou jako hold sovětskému městu, aniž by připomněli, že Irkutsk je místem posledního odpočinku místního legionáře. Šoustalova a Irkutská tak tvoří nechtěný — a dojemný — historický pár." },
@@ -879,7 +890,7 @@ const ROUNDS = [
           history: "The communists named Irkutská as a tribute to a Soviet city without acknowledging that Irkutsk holds the grave of a local legionnaire. Šoustalova and Irkutská form an unintentional — and poignant — historical pair." },
       },
       {
-        id: "kyjevska-ul", photo: null, emoji: "🇺🇦",
+        id: "kyjevska-ul", photo: null, emoji: "🇺🇦", coords: "49.1710,16.5850", web: null,
         cs: { name: "Kyjevská", location: "Kyjevská, Brno–Starý Lískovec",
           desc: "Ulice pojmenovaná 19. 12. 1974 na připomínku účasti čs. vojáků na osvobození Kyjeva v listopadu 1943. Brigáda přišla o 30 padlých a 77 raněných.",
           history: "Komunistický režim zdůraznil sovětsko-české spojenectví. Dnes, kdy Brno patří k největším centrům pomoci Ukrajinoám v ČR, nese název Kyjevská ulice zcela novou a naléhavou aktuálnost." },
@@ -888,7 +899,7 @@ const ROUNDS = [
           history: "The communist regime emphasised Czech-Soviet wartime alliance. Today, with Brno among the largest centres of Ukrainian support in the Czech Republic, the street name carries an entirely new and urgent resonance." },
       },
       {
-        id: "sevcikova-ul", photo: null, emoji: "🔨",
+        id: "sevcikova-ul", photo: null, emoji: "🔨", coords: "49.1698,16.5832", web: null,
         cs: { name: "Martina Ševčíka", location: "Martina Ševčíka, Brno–Starý Lískovec",
           desc: "Ulice nese jméno Martina Ševčíka (1883–1944), brněnského komunálního dělníka a odborového organizátora, který byl nacisty umučen za účast v odboji proti okupaci.",
           history: "Pojmenována 25. září 1946 — stejný den jako Jemelkova. Shodou okolností byli oba muži lískovecká oběť nacistické éry uctěná najednou: dva civilisté, dvě ulice, jeden den." },
@@ -904,7 +915,7 @@ const ROUNDS = [
     en: { title: "Art & architecture" },
     places: [
       {
-        id: "chatrny-socha", photo: null, emoji: "🗿",
+        id: "chatrny-socha", photo: null, emoji: "🗿", coords: "49.1722,16.5862", web: null,
         cs: { name: "Pět segmentů kruhu", location: "Labská, Brno–Starý Lískovec",
           desc: "Betonová barevná plastika Dalibora Chatrného z roku 1982 stojí u dětského hřiště na Labské. Pět segmentů geometricky uspořádaných do oblouku tvoří jeho jedinou architektonickou realizaci.",
           history: "Chatrný (1925–2012) byl nejvýznamnějším brněnským konceptuálním umělcem 20. stol. Dílo vzniklo na zakázku Brnoinvesty jako povinná výzdoba nového sídliště. V roce 2015 bylo restaurováno k nedožitým 90. narozeninám autora." },
@@ -913,7 +924,7 @@ const ROUNDS = [
           history: "Chatrný (1925–2012) was Brno's most significant conceptual artist of the 20th century. The work was commissioned by Brnoinvesta as mandatory estate decoration. Restored in 2015 to mark what would have been the artist's 90th birthday." },
       },
       {
-        id: "prvni-materstvi", photo: null, emoji: "🤱",
+        id: "prvni-materstvi", photo: null, emoji: "🤱", coords: "49.1735,16.5875", web: null,
         cs: { name: "První mateřství", location: "Mikuláškovo náměstí, Brno–Starý Lískovec",
           desc: "Bronzová socha těhotné ženy v nadživotní velikosti (220 × 60 cm) na mramorovém podstavci na Mikuláškově náměstí. Autorka Dana Marková ji vytvořila v roce 1987.",
           history: "Vznikla v době, kdy povinná výzdoba veřejných prostor v nových sídlištích přinášela zakázky sochařkám i sochaři mimo hlavní proud. Jemný humanismus sochy je v kontrastu s drsnou paneláčkou kolem." },
@@ -922,7 +933,7 @@ const ROUNDS = [
           history: "Created when mandatory public-space decoration in new housing estates provided commissions for artists outside the mainstream. The sculpture's quiet humanism stands in contrast with the concrete blocks surrounding it." },
       },
       {
-        id: "koupaliste-sl", photo: null, emoji: "🏊",
+        id: "koupaliste-sl", photo: null, emoji: "🏊", coords: "49.1748,16.5918", web: null,
         cs: { name: "Koupaliště Starý Lískovec", location: "Klobásova 79, Brno–Starý Lískovec",
           desc: "Letní venkovní koupaliště s plaveckým bazénem, dětským bazénem, tobogánem a travnatou loučí. Otevřeno každoročně od května do září; večerní koupání patří k tradicím čtvrti.",
           history: "Koupaliště stojí hned vedle historického jádra na Klobásově — jedno z mála míst, kde se sídlišťní éra a předválečná vesnice střetávají. V roce 2024 bylo vypsáno výběrové řízení na projektovou dokumentaci rekonstrukce." },
@@ -931,7 +942,7 @@ const ROUNDS = [
           history: "The pool stands right next to the historic village core on Klobásova — one of the few places where the estate era and the pre-war village meet. A design tender for a full reconstruction was launched in 2024." },
       },
       {
-        id: "vista-liskovec", photo: null, emoji: "🏗️",
+        id: "vista-liskovec", photo: null, emoji: "🏗️", coords: "49.1698,16.5818", web: null,
         cs: { name: "Vista Lískovec", location: "Jihlavská, Brno–Starý Lískovec",
           desc: "Pět budov včetně 18patrové věže se 260 byty, která bude dominantou jižního Brna s výhledem přes celé město. Developer Creditas Real Estate zahájil výstavbu v říjnu 2025, nastěhování se plánuje koncem roku 2028.",
           history: "Projekt Vista záměrně kontrastuje s okolní paneláčkou: moderní fasáda, zelené střechy, terasy a tramvajová zastávka přímo u budovy. Věž bude nejvyšší stavbou v Starém Lískovci od doby postavení panelových domů." },
@@ -940,7 +951,7 @@ const ROUNDS = [
           history: "The Vista project deliberately contrasts with the surrounding panel-block estate: modern facade, green roofs, terraces and a tram stop at the door. The tower will be the tallest structure in Starý Lískovec since the panels went up." },
       },
       {
-        id: "panelova-architektura", photo: null, emoji: "🧱",
+        id: "panelova-architektura", photo: null, emoji: "🧱", coords: "49.1722,16.5865", web: null,
         cs: { name: "Architektura sídliště", location: "Brno–Starý Lískovec",
           desc: "Panelové domy z let 1971–1981 tvoří vizuální identitu celého Lískovce. Projektovány jako komplexní urbanistická jednotka s parky, školami a obchody — výsledek posledního velkého pokusu o plánované město.",
           history: "Sídliště Starý Lískovec bylo navrženo pro 29 265 obyvatel v 9 232 bytech. Dnes se bloky postupně zateplují, mění barvy fasád a získávají nové výrazy — živá vrstvená architektura přes dekády." },
@@ -949,7 +960,7 @@ const ROUNDS = [
           history: "The Starý Lískovec estate was designed for 29,265 residents in 9,232 apartments. Today the blocks are progressively insulated, repainted and remodelled — layered living architecture across the decades." },
       },
       {
-        id: "street-art-sl", photo: null, emoji: "🎨",
+        id: "street-art-sl", photo: null, emoji: "🎨", coords: "49.1718,16.5858", web: null,
         cs: { name: "Street art a graffiti", location: "Brno–Starý Lískovec",
           desc: "Legální graffiti a murály proměnily několik zdí a podchodů sídliště na venkovní galerie. Organizace Ratolest koordinovala projekty výzdoby veřejných ploch v Lískovci — barevné zdi místo šedi betonu.",
           history: "Brněnská street art scéna patří k nejaktivnějším v ČR. V Lískovci navazuje na tradici komunitních projektů: malování zdí jako způsob, jak si obyvatelé přivlastňují prostor sídliště a proměňují jeho charakter." },
@@ -958,7 +969,7 @@ const ROUNDS = [
           history: "Brno's street art scene is one of the most active in the Czech Republic. In Lískovec it builds on a tradition of community projects: painting walls as a way for residents to reclaim and transform their estate." },
       },
       {
-        id: "trafostanice-art", photo: null, emoji: "⚡",
+        id: "trafostanice-art", photo: null, emoji: "⚡", coords: "49.1725,16.5855", web: null,
         cs: { name: "Malované trafostanice", location: "Brno–Starý Lískovec",
           desc: "Distribuční trafostanice EG.D rozseté po sídlišti dostaly nové kabáty od brněnských street art umělců. Betonové boxy, dříve šedé a neviditelné, jsou dnes miniaturními galeriemi v ulicích.",
           history: "Projekt výzdoby trafostanic rozjela skupina Malujeme jinak ve spolupráci s distributorem EG.D. Brno bylo jedním z prvních měst v ČR, kde se tento přístup k proměně technické infrastruktury prosadil." },
@@ -967,7 +978,7 @@ const ROUNDS = [
           history: "The transformer decoration project was launched by the group Malujeme jinak in cooperation with distributor EG.D. Brno was one of the first cities in the Czech Republic where this approach to transforming technical infrastructure took hold." },
       },
       {
-        id: "liskovec-mozaiky", photo: null, emoji: "🔷",
+        id: "liskovec-mozaiky", photo: null, emoji: "🔷", coords: "49.1720,16.5868", web: null,
         cs: { name: "Mozaiky a reliéfy na fasádách", location: "Brno–Starý Lískovec",
           desc: "Panelové domy z 70. a 80. let nesou na vstupech a štítech abstraktní i figurální mozaiky a keramické reliéfy. Jsou pozůstatkem povinné umělecké výzdoby veřejných staveb za socialismu.",
           history: "Zákon o povinné výzdobě vyhrazoval procento z investice na umění. Výsledkem jsou stovky děl v brněnských sídlištích, z nichž mnohá čeká zánik při rekonstrukcích. Lískovecké mozaiky jsou dosud nedostatečně zdokumentovány." },
@@ -983,7 +994,7 @@ const ROUNDS = [
     en: { title: "Getting around" },
     places: [
       {
-        id: "tramvaj-smycka", photo: null, emoji: "🔄",
+        id: "tramvaj-smycka", photo: null, emoji: "🔄", coords: "49.1695,16.5828", web: null,
         cs: { name: "Tramvajová smyčka Starý Lískovec", location: "Smyčka Starý Lískovec, Brno",
           desc: "Konečná zastávka tramvajových linek 6 a 8 je přirozeným středem MHD sítě v obvodu. Tramvaje tu obracejí ve smyčce a cestující z celé čtvrti míří k jedinému uzlovému bodu.",
           history: "Starý Lískovec je jedno z mála sídlišť v Brně s přímým tramvajovým napojením. Smyčka funguje od vybudování sídliště v 70. letech a je páteří každodenní mobility tisíců obyvatel." },
@@ -992,7 +1003,7 @@ const ROUNDS = [
           history: "Starý Lískovec is one of the few Brno housing estates with direct tram access. The loop has served as the backbone of daily mobility for thousands of residents since the estate was built in the 1970s." },
       },
       {
-        id: "linka-6", photo: null, emoji: "6️⃣",
+        id: "linka-6", photo: null, emoji: "6️⃣", coords: "49.1695,16.5828", web: null,
         cs: { name: "Tramvajová linka 6", location: "Starý Lískovec ↔ Královo Pole nádraží",
           desc: "Linka 6 jezdí ze Starého Lískovce přes centrum Brna (Česká, nám. Svobody) až na Královo Pole nádraží — 14 zastávek, přibližně 17 minut. Centrum je tak dostupné bez přestupu.",
           history: "Linka 6 patří k páteřním tramvajovým spojům jižního Brna. Pro obyvatele sídliště je to nejrychlejší cesta do práce, na nákupy i do kulturních institucí v centru." },
@@ -1001,7 +1012,7 @@ const ROUNDS = [
           history: "Line 6 is one of the backbone tram routes of southern Brno. For estate residents it is the fastest route to work, shopping and the cultural institutions in the city centre." },
       },
       {
-        id: "linka-8", photo: null, emoji: "8️⃣",
+        id: "linka-8", photo: null, emoji: "8️⃣", coords: "49.1695,16.5828", web: null,
         cs: { name: "Tramvajová linka 8", location: "Starý Lískovec ↔ Líšeň / Medlánky",
           desc: "Linka 8 je křížová linka spojující Starý Lískovec přes centrum s Líšní a Medlánkami — 26 zastávek end-to-end. Umožňuje přejezd celého Brna bez přestupu na jediném voze.",
           history: "Díky lince 8 se dá z Lískovce dojet do čtvrtí na opačném konci města za jednu jízdenku bez přestupu. Tento přímý spoj napříč Brnem je na sídlišti považován za samozřejmost, která jinde v Brně chybí." },
@@ -1010,7 +1021,7 @@ const ROUNDS = [
           history: "Thanks to line 8, residents can reach districts on the opposite side of Brno without changing trams. This direct city-wide connection is taken for granted in Lískovec but is rare in other parts of Brno." },
       },
       {
-        id: "jihlavska-silnice", photo: null, emoji: "🛣️",
+        id: "jihlavska-silnice", photo: null, emoji: "🛣️", coords: "49.1700,16.5810", web: null,
         cs: { name: "Jihlavská — brána na západ", location: "Jihlavská, Brno–Starý Lískovec",
           desc: "Jihlavská ulice je hlavní jihozápadní výpadovka z Brna, přímé napojení na dálnici D1/E50 směr Jihlava a Praha. Pro motoristy z Lískovce je to nejrychlejší cesta ven z města.",
           history: "Jihlavská existuje jako trasa z Brna na západ od středověku. Sídliště Starý Lískovec vyrostlo podél ní v 70. letech — lískovecká adresa tedy doslova leží na staré obchodní stezce." },
@@ -1019,7 +1030,7 @@ const ROUNDS = [
           history: "Jihlavská has served as the route from Brno westward since medieval times. The Starý Lískovec estate was built alongside it in the 1970s — a Lískovec address literally sits on an old trade road." },
       },
       {
-        id: "tramvaj-bosonohy", photo: null, emoji: "🚧",
+        id: "tramvaj-bosonohy", photo: null, emoji: "🚧", coords: "49.1688,16.5820", web: null,
         cs: { name: "Plánovaná tramvaj do Bosonoh", location: "Skalní, Brno–Starý Lískovec / Bosonohy",
           desc: "Strategie rozvoje tramvajové sítě Brna do roku 2035 schválila prodloužení smyčky Starý Lískovec přes ulici Skalní do Bosonoh — více než 1 km nové dvojkolejnice. Realizace v první fázi do roku 2030.",
           history: "Prodloužení propojí Bosonohy s rychlou tramvají do centra Brna poprvé v historii. Pro Lískovecké sousedy v Bosonohách to znamená konec závislosti na autu nebo autobuse." },
@@ -1028,7 +1039,7 @@ const ROUNDS = [
           history: "The extension will connect Bosonohy to fast tram access to Brno city centre for the first time. For Lískovec's neighbours in Bosonohy it means the end of dependence on a car or bus." },
       },
       {
-        id: "autobusy-ids", photo: null, emoji: "🚌",
+        id: "autobusy-ids", photo: null, emoji: "🚌", coords: "49.1718,16.5855", web: null,
         cs: { name: "Autobusy IDS JMK 403 a 404", location: "Labská / Humenná, Brno–Starý Lískovec",
           desc: "Regionální autobusové linky 403 (→ Omice) a 404 (→ Radostice) zajišťují napojení okolních obcí na MHD v Starém Lískovci. Ze zastávek na Labské a Humenné se dá přestoupit na tramvaj.",
           history: "IDS JMK (Integrovaný dopravní systém Jihomoravského kraje) propojuje Brno s okolními obcemi jednotnou jízdenkou. Lískovecká smyčka je tak přestupním uzlem nejen pro sídliště, ale i pro dojíždějící z vesnic." },
@@ -1037,7 +1048,7 @@ const ROUNDS = [
           history: "IDS JMK (South Moravia Integrated Transport) links Brno to surrounding municipalities on a single ticket. The Lískovec terminus acts as an interchange not just for estate residents but also for commuters from nearby villages." },
       },
       {
-        id: "cyklostezka-jihlavska", photo: null, emoji: "🚲",
+        id: "cyklostezka-jihlavska", photo: null, emoji: "🚲", coords: "49.1700,16.5812", web: null,
         cs: { name: "Cykloinfrastruktura podél Jihlavské", location: "Jihlavská, Brno–Starý Lískovec",
           desc: "Podél Jihlavské vede jedna z hlavních brněnských cyklokoridorů propojující Starý Lískovec s centrem a Bosonohami. Sdílená kola Nextbike jsou dostupná ve stanicích v obvodu.",
           history: "Rozvoj cyklistické infrastruktury v Brně se zrychlil po roce 2020. Lískovecký úsek patří k diskutovaným místům — chybí místy fyzické oddělení cyklistů od aut na rušné Jihlavské." },
@@ -1046,7 +1057,7 @@ const ROUNDS = [
           history: "Cycling infrastructure development in Brno accelerated after 2020. The Lískovec section is a debated stretch — in places cyclists lack physical separation from cars on the busy Jihlavská road." },
       },
       {
-        id: "potrefena-husa", photo: null, emoji: "🍺",
+        id: "potrefena-husa", photo: null, emoji: "🍺", coords: "49.1698,16.5860", web: "https://www.potrefenahusa.cz",
         cs: { name: "Potrefená husa", location: "U Hřiště 21b, Brno–Starý Lískovec",
           desc: "Gastropub řetězce Pivovary Staropramen s vybranými čepy, grilovanými jídly a sportovními přenosy. Jeden ze dvou brněnských výčepů sítě, která má dnes přibližně 19 poboček v ČR a SR.",
           history: "Potrefená husa byl spuštěna v roce 1999 v pražských Vinohradech jako projekt, který měl povznést úroveň české hospodské kultury. Lískovecká hospoda sousedí s výrobnou chlebíčků DELIKA — jen zeď dělí gastropub od lahůdkárny." },
@@ -1062,7 +1073,7 @@ const ROUNDS = [
     en: { title: "Sport & leisure" },
     places: [
       {
-        id: "tatran-fotbal", photo: null, emoji: "⚽",
+        id: "tatran-fotbal", photo: null, emoji: "⚽", coords: "49.1748,16.5918", web: null,
         cs: { name: "TJ Tatran SL — fotbal", location: "Klobásova 79, Brno–Starý Lískovec",
           desc: "Fotbalový oddíl TJ Tatran Starý Lískovec hraje jihomoravské amatérské soutěže. Areál na Klobásové sdílí s tenisovým oddílem a koupališ­těm — přirozené sportovní centrum čtvrti.",
           history: "Klub byl založen v roce 1950. Za sedm dekád vychoval generace lískoveckých fotbalistů a stojí u historického jádra obce, kde fotbal na louce předcházel i samotnému sídlišti." },
@@ -1071,7 +1082,7 @@ const ROUNDS = [
           history: "Founded in 1950, the club has raised generations of Lískovec footballers over seven decades. It stands at the historic village core, where football on the meadow preceded even the housing estate itself." },
       },
       {
-        id: "tatran-tenis", photo: null, emoji: "🎾",
+        id: "tatran-tenis", photo: null, emoji: "🎾", coords: "49.1748,16.5916", web: null,
         cs: { name: "TJ Tatran SL — tenis", location: "Klobásova 79, Brno–Starý Lískovec",
           desc: "Čtyři antukové kurty se zrekonstruovanými šatnami a sprchou. Oddíl pořádá juniorské tréninky a účastní se přeboru Jihomoravského kraje. Přijímá nové členy.",
           history: "Tenisová sekce TJ Tatran je součástí komplexu, který kombinuje fotbal, tenis a koupališ­tě na jednom pozemku. Antuka na Klobásové je letním rituálem pro stovky místních hráčů." },
@@ -1080,7 +1091,7 @@ const ROUNDS = [
           history: "The TJ Tatran tennis section is part of a complex combining football, tennis and the outdoor pool on one site. The clay courts at Klobásova are a summer ritual for hundreds of local players." },
       },
       {
-        id: "fitness-petra", photo: null, emoji: "💪",
+        id: "fitness-petra", photo: null, emoji: "💪", coords: "49.1718,16.5862", web: null,
         cs: { name: "Fitness PETRA", location: "Labská 27 (vstup Oderská), Brno–Starý Lískovec",
           desc: "Jediné klasické fitness centrum přímo v obvodu: posilovna, indoor cycling, aerobik, bodyform, pilates i trampolínové lekce. Součástí je bar s nápoji a nabídka osobního trenéra.",
           history: "Fitness PETRA se nachází v suterénu panelového domu u ZŠ Labská — typický příklad repurpose sídlištní nebytové plochy ze 70. let. Slouží místním i přespolním, kteří sem dojíždějí z okolních čtvrtí." },
@@ -1089,7 +1100,7 @@ const ROUNDS = [
           history: "Fitness PETRA occupies a basement of a panel block next to ZŠ Labská — a typical example of repurposing 1970s estate non-residential space. It serves both locals and visitors commuting from neighbouring districts." },
       },
       {
-        id: "outdoor-fitness", photo: null, emoji: "🏋️",
+        id: "outdoor-fitness", photo: null, emoji: "🏋️", coords: "49.1728,16.5872", web: null,
         cs: { name: "Venkovní fitness — Sluníčka", location: "Rekreační zóna Sluníčka, Brno–Starý Lískovec",
           desc: "Bezplatné venkovní posilovací prvky v parku Sluníčka pro každého: stíhadla, chodítka, bradla. Cvičení na čerstvém vzduchu bez registrace a poplatků.",
           history: "Venkovní fitness prvky jsou součástí programu Brna na oživení veřejného prostoru sídlišť. Vybavení v Lískovci dodala firma Colmex. Sluníčka park je oblíbeným místem rodin s dětmi i seniorů." },
@@ -1098,7 +1109,7 @@ const ROUNDS = [
           history: "Outdoor fitness equipment is part of Brno's programme to revitalise housing estate public spaces. The Lískovec installation was supplied by Colmex. Sluníčka park is popular with families and seniors alike." },
       },
       {
-        id: "dum-rytirskych-ctnosti", photo: null, emoji: "⚔️",
+        id: "dum-rytirskych-ctnosti", photo: null, emoji: "⚔️", coords: "49.1755,16.5868", web: "https://www.drcs.cz",
         cs: { name: "Dům rytířských ctností", location: "Hermannova 3, Brno–Starý Lískovec",
           desc: "Jeden z nejstarších a nejznámějších HEMA klubů v ČR — trénují historický šerm evropskými zbraněmi: dlouhý meč, dýka, polearm. Veřejná vystoupení i pravidelné tréninky.",
           history: "Klub byl založen 26. srpna 2005 (IČO 27008452) v Starém Lískovci a od té doby šíří historický europský šerm (Historical European Martial Arts). Sídlo v Lískovci je symbolické — bojová škola v mírném sídlišti." },
@@ -1107,7 +1118,7 @@ const ROUNDS = [
           history: "Founded on 26 August 2005 in Starý Lískovec, the club has spent two decades spreading Historical European Martial Arts in the Czech Republic. A martial arts school in a peaceful housing estate — an unexpected pairing." },
       },
       {
-        id: "bosonozsky-hajek", photo: null, emoji: "🌲",
+        id: "bosonozsky-hajek", photo: null, emoji: "🌲", coords: "49.1648,16.5788", web: null,
         cs: { name: "Bosonožský hájek", location: "Na hranici Bosonoh a Starého Lískovce",
           desc: "Přírodní rezervace o rozloze 46,77 ha vyhlášená v roce 1985. Žije tu 347 druhů makromycetů (hub) — jeden z mykologicky nejvýznamnějších lokalit v JMK — a 8 druhů planě rostoucích orchidejí.",
           history: "Hájek je dostupný pěšky přímo ze Starého Lískovce a nabízí útočiště přírody doslova za rohem sídliště. Cyklistika je v rezervaci zakázána. Nejkrásnější je brzy zjara za sněženek a orchidejí." },
@@ -1116,7 +1127,7 @@ const ROUNDS = [
           history: "The grove is reachable on foot directly from Starý Lískovec, offering a nature refuge around the corner from the housing estate. Cycling is prohibited in the reserve. Most beautiful in early spring for snowdrops and orchids." },
       },
       {
-        id: "poldr-leskava", photo: null, emoji: "💧",
+        id: "poldr-leskava", photo: null, emoji: "💧", coords: "49.1668,16.5808", web: null,
         cs: { name: "Poldr na Leskavě", location: "Horní tok Leskavy, Bosonohy / Starý Lískovec",
           desc: "Suchá retenční nádrž na horním toku říčky Leskavy chrání Bosonohy a níže položené lokality před povodněmi. Spádové území 2,8 km². Okolní hráze a louky slouží k procházkám.",
           history: "Leskava je ta samá říčka, která dala jméno Lískovci. Poldr tu zachytává přívalové srážky dřív, než se vlna dostane dolů do zástavby. Voda v nádrži stojí jen při povodních — jinak je to zelená plocha pro psy a chodce." },
@@ -1125,7 +1136,7 @@ const ROUNDS = [
           history: "The Leskava is the very stream that gave Lískovec its name. The poldr captures storm runoff before the wave reaches the built-up area below. Water fills only during flood events — otherwise it is a green space for dog-walkers and hikers." },
       },
       {
-        id: "stezka-bosonohy-sl", photo: null, emoji: "🚶",
+        id: "stezka-bosonohy-sl", photo: null, emoji: "🚶", coords: "49.1672,16.5820", web: null,
         cs: { name: "Pěší a cyklo trasa Bosonohy–Starý Lískovec", location: "Bosonohy – smyčka tramvaje SL",
           desc: "Bezpečná pěší a cyklistická spojnice Bosonoh se zastávkami tramvají 6 a 8 v Starém Lískovci. Vznikla jako projekt Brna na zlepšení nemotorizované dopravy mezi sousedními čtvrtěmi.",
           history: "Projekt realizovalo město Brno a oceňují ho především bosonožští, kteří dojíždějí na tramvaj. Trasa kopíruje část Leskavského údolí a kombinuje každodenní funkci s příjemnou trasou přírodou." },
@@ -1171,6 +1182,7 @@ const UI = {
     share_round_text: "Poznáváme místa Starého Lískovce — zahraj si pexeso s námi!",
     share_all_text:   "Poznáváme místa Starého Lískovce — zahraj si pexeso s námi!",
     share_copied: "Zkopírováno!",
+    link_map: "Mapa ↗", link_web: "Web ↗",
   },
   en: {
     title: "PEXESO STARÝ LÍSKOVEC",
@@ -1191,6 +1203,7 @@ const UI = {
     share_round_text: "We're discovering the places of Starý Lískovec — play the memory game with us!",
     share_all_text:   "We're discovering the places of Starý Lískovec — play the memory game with us!",
     share_copied: "Copied!",
+    link_map: "Map ↗", link_web: "Web ↗",
   }
 };
 
@@ -1423,6 +1436,16 @@ function showInfoCard(pair) {
   document.getElementById("info-location").textContent = d.location;
   document.getElementById("info-desc").textContent = d.desc;
   document.getElementById("info-history").textContent = d.history;
+  const linksDiv = document.getElementById("info-links");
+  linksDiv.innerHTML = "";
+  if (pair.coords) {
+    const [lat, lng] = pair.coords.split(",").map(Number);
+    const mapUrl = `https://www.google.com/maps?layer=c&cbll=${lat},${lng}`;
+    linksDiv.innerHTML += `<a class="info-card__link info-card__link--map" href="${mapUrl}" target="_blank" rel="noopener noreferrer">${t("link_map")}</a>`;
+  }
+  if (pair.web) {
+    linksDiv.innerHTML += `<a class="info-card__link info-card__link--web" href="${pair.web}" target="_blank" rel="noopener noreferrer">${t("link_web")}</a>`;
+  }
   const media = document.getElementById("info-media");
   if (pair.photo) {
     media.innerHTML = `<img class="info-card__img" src="${pair.photo}" alt="${d.name}" />`;
