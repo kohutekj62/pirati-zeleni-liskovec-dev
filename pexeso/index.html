@@ -364,37 +364,56 @@ const PAIRS_PER_ROUND = 9;
 //           name_cs, location_cs, desc_cs, history_cs,
 //           name_en, location_en, desc_en, history_en
 // ══════════════════════════════════════════════════════════
+// parseCSV — reads the raw CSV text and returns a 2-D array: rows[rowIndex][colIndex].
+// It handles the standard CSV quoting rules (RFC 4180):
+//   - A field wrapped in "double quotes" can contain commas without being split.
+//   - Two consecutive double-quotes ("") inside a quoted field mean a literal ".
+// We append a synthetic '\n' at position text.length so the last row is always
+// flushed without needing a separate check after the loop.
 function parseCSV(text) {
   const rows = [];
   let row = [], cell = '', inQ = false;
   for (let i = 0; i <= text.length; i++) {
-    const ch = i < text.length ? text[i] : '\n';
+    const ch = i < text.length ? text[i] : '\n'; // synthetic newline flushes the last row
     if (inQ) {
-      if (ch === '"' && text[i + 1] === '"') { cell += '"'; i++; }
-      else if (ch === '"') { inQ = false; }
+      if (ch === '"' && text[i + 1] === '"') { cell += '"'; i++; } // escaped quote: "" → "
+      else if (ch === '"') { inQ = false; }  // closing quote
       else { cell += ch; }
     } else {
-      if (ch === '"') { inQ = true; }
-      else if (ch === ',') { row.push(cell); cell = ''; }
+      if (ch === '"') { inQ = true; }         // opening quote
+      else if (ch === ',') { row.push(cell); cell = ''; }  // end of field
       else if (ch === '\n') {
         row.push(cell);
-        if (row.some(c => c)) rows.push(row);
+        if (row.some(c => c)) rows.push(row); // skip blank lines
         row = []; cell = '';
-      } else if (ch !== '\r') { cell += ch; }
+      } else if (ch !== '\r') { cell += ch; } // ignore \r in Windows line endings
     }
   }
   return rows;
 }
 
+// buildRoundsFromCSV — turns the 2-D array from parseCSV into the ROUNDS structure
+// that the rest of the game expects.
+//
+// We use a Map (keyed by round_id) so we can collect all places for the same round
+// across multiple rows without knowing in advance how many rows each round has.
+// At the end we convert the Map to a sorted array so rounds always come out 1, 2, 3…
+//
+// Column lookup: the first row (header) is turned into a name→index dictionary so
+// the code reads r[col.lat] instead of r[9] — column reordering in the CSV won't break it.
 function buildRoundsFromCSV(rows) {
   const hdr = rows[0];
   const col = {};
-  hdr.forEach((h, i) => { col[h.trim()] = i; });
-  const map = new Map();
-  for (const r of rows.slice(1)) {
-    if (!r[col.id]) continue;
+  hdr.forEach((h, i) => { col[h.trim()] = i; }); // build name→index map from the header row
+
+  const map = new Map(); // round_id → { id, emoji, cs, en, places[] }
+
+  for (const r of rows.slice(1)) { // rows.slice(1) skips the header
+    if (!r[col.id]) continue;      // skip any blank / malformed rows
+
     const rid = Number(r[col.round_id]);
     if (!map.has(rid)) {
+      // First time we see this round_id — create the round object
       map.set(rid, {
         id: rid, emoji: r[col.round_emoji],
         cs: { title: r[col.round_cs] },
@@ -402,20 +421,23 @@ function buildRoundsFromCSV(rows) {
         places: []
       });
     }
+
     const lat = r[col.lat], lng = r[col.lng];
     map.get(rid).places.push({
       id:      r[col.id],
       emoji:   r[col.emoji],
-      photo:   r[col.photo]   || null,
-      web:     r[col.web]     || null,
-      coords:  (lat && lng)   ? `${lat},${lng}` : null,
-      azimuth: r[col.azimuth] ? Number(r[col.azimuth]) : null,
+      photo:   r[col.photo]   || null,  // empty string → null (no photo)
+      web:     r[col.web]     || null,  // empty string → null (no link)
+      coords:  (lat && lng)   ? `${lat},${lng}` : null,        // only set when both present
+      azimuth: r[col.azimuth] ? Number(r[col.azimuth]) : null, // compass heading for Street View
       cs: { name: r[col.name_cs], location: r[col.location_cs],
             desc: r[col.desc_cs], history: r[col.history_cs] },
       en: { name: r[col.name_en], location: r[col.location_en],
             desc: r[col.desc_en], history: r[col.history_en] },
     });
   }
+
+  // Map.values() has insertion order — sort by id anyway so CSV row order doesn't matter
   return Array.from(map.values()).sort((a, b) => a.id - b.id);
 }
 
@@ -476,13 +498,22 @@ const UI = {
   }
 };
 
-let lang = "cs";
+let lang = "cs"; // active language; toggled by the CZ/EN button
+
+// t("key") — translation helper. Returns the string for the current language,
+// falling back to Czech if the key doesn't exist in the active language.
+// Returning the key itself as a last resort makes typos visible during dev.
 function t(key) { return UI[lang][key] || UI.cs[key] || key; }
+
+// applyI18n — scans the DOM for elements with a data-i18n="key" attribute
+// and replaces their content with the translation for the current language.
+// HTML elements in the static markup use this; dynamically built elements
+// (cards, info card, etc.) call t() directly at render time instead.
 function applyI18n() {
   document.querySelectorAll("[data-i18n]").forEach(el => {
     el.innerHTML = t(el.dataset.i18n).replace(/\n/g, "<br>");
   });
-  document.documentElement.lang = lang;
+  document.documentElement.lang = lang; // update <html lang="cs|en"> for screen readers
   updateLangToggle();
 }
 
@@ -520,8 +551,10 @@ function renderSelect() {
 
 function renderRoundsGrid() {
   const grid = document.getElementById("rounds-grid");
+  // Only rounds 1–6 appear on the selection screen (the rest are "bonus" rounds
+  // accessible via the CSV — raise the limit here if you add more active rounds).
   grid.innerHTML = ROUNDS.slice(0, 6).map(r => {
-    const done = completedRounds.includes(r.id);
+    const done = completedRounds.includes(r.id); // show ✓ badge if already finished
     return `<button class="round-card${done ? " done" : ""}" data-round="${r.id}">
       <div class="round-card__emoji">${r.emoji}</div>
       <div class="round-card__title">${r[lang].title}</div>
@@ -529,6 +562,8 @@ function renderRoundsGrid() {
       ${done ? `<span class="round-card__badge">${t("done_badge")}</span>` : ""}
     </button>`;
   }).join("");
+  // Wire up click handlers after the HTML is written (can't do it before — the
+  // elements don't exist in the DOM until innerHTML is set).
   grid.querySelectorAll(".round-card").forEach(btn => {
     btn.addEventListener("click", () => startRound(parseInt(btn.dataset.round)));
   });
@@ -555,32 +590,47 @@ function renderSeoList() {
 // ══════════════════════════════════════════════════════════
 //  GAME
 // ══════════════════════════════════════════════════════════
+// shuffle — returns a new array with the same items in a random order.
+// Uses the Fisher-Yates algorithm: walk backwards through the array,
+// and for each position swap it with a random earlier position (including itself).
+// This guarantees every permutation is equally likely.
+// We copy with [...arr] first so the original array is never mutated.
 function shuffle(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
+    const j = Math.floor(Math.random() * (i + 1)); // random index from 0..i (inclusive)
+    [a[i], a[j]] = [a[j], a[i]];                   // swap
   }
   return a;
 }
 
+// updateGridSize — calculates how large each card should be so the 3×6 (or 6×3)
+// grid fits exactly in the visible screen without scrolling.
+// On mobile: 3 columns × 6 rows.  On desktop: 6 columns × 3 rows.
+//
+// The available height is: viewport − browser chrome (address bar etc.) − game header.
+// --chrome-h is a CSS custom property set on :root; it accounts for the site header
+// and dev banner heights.
+//
+// We calculate the max card size that fits both horizontally (cardByW) and vertically
+// (cardByH), take the smaller of the two, and clamp it to at least 60 px.
 function updateGridSize() {
   const grid = document.getElementById("grid");
   if (!grid) return;
   const mobile = window.innerWidth <= 600;
   const cols = mobile ? 3 : 6;
   const rows = mobile ? 6 : 3;
-  const header = document.getElementById("game-header");
+  const header  = document.getElementById("game-header");
   const headerH = header ? header.offsetHeight : 64;
   const chromeH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--chrome-h")) || 59;
-  const availH = window.innerHeight - chromeH - headerH - 24;
+  const availH = window.innerHeight - chromeH - headerH - 24; // 24 = breathing room
   const availW = (grid.parentElement || document.body).clientWidth - 16;
-  const gap = 8;
+  const gap = 8; // gap between cards in px (matches CSS)
   const cardByW = (availW - (cols - 1) * gap) / cols;
   const cardByH = (availH - (rows - 1) * gap) / rows;
-  const cardSize = Math.max(60, Math.min(cardByW, cardByH));
+  const cardSize = Math.max(60, Math.min(cardByW, cardByH)); // use the tighter constraint
   grid.style.gridTemplateColumns = `repeat(${cols}, ${cardSize}px)`;
-  grid.style.gridTemplateRows = `repeat(${rows}, ${cardSize}px)`;
+  grid.style.gridTemplateRows    = `repeat(${rows}, ${cardSize}px)`;
 }
 
 // startRound is called both when the player picks a round on
@@ -614,8 +664,10 @@ function renderGame() {
   document.getElementById("btn-home").addEventListener("click", renderSelect);
   document.getElementById("btn-in-game-restart").addEventListener("click", () => startRound(currentRound.id));
 
-  // Build the card list: each place needs exactly 2 cards (a pair).
-  // flatMap duplicates every place, then shuffle randomises the layout.
+  // Build the card list: memory game needs exactly 2 identical cards per place.
+  // flatMap([A,B,C]) → [A,A,B,B,C,C], then shuffle scrambles the order.
+  // We spread (...p) so each card object is a separate copy — mutating one card's
+  // DOM class later won't accidentally affect its twin.
   const cards = shuffle(currentActivePairs.flatMap(p => [
     { pairId: p.id, ...p },
     { pairId: p.id, ...p },
@@ -645,8 +697,11 @@ function renderGame() {
   });
 }
 
-let flipBackTimer = null;
+let flipBackTimer = null; // holds the setTimeout id so we can cancel it early
 
+// flipBackNow — immediately hides both face-up unmatched cards and unlocks the board.
+// Called either by the auto-timer (2.5 s after a mismatch) or instantly when the
+// player clicks a new card before the timer fires.
 function flipBackNow() {
   if (flipBackTimer) { clearTimeout(flipBackTimer); flipBackTimer = null; }
   const [a, b] = flipped;
@@ -656,12 +711,15 @@ function flipBackNow() {
   locked = false;
 }
 
+// onCardClick — the three-state click handler:
+//   State 1 (locked=true): two unmatched cards are showing → flip them back immediately,
+//                           but DON'T start a new flip on this same click.
+//   State 2 (first card):  flip the card face-up, add to flipped[], wait for second click.
+//   State 3 (second card): flip it, increment moves, lock the board, call checkMatch().
 function onCardClick(card) {
-  // While two unmatched cards are showing, any click on a valid card
-  // immediately flips them back and starts the new flip.
   if (locked) {
     flipBackNow();
-    return; // dismiss only — next click starts the new pair
+    return; // dismiss only — the player must click again to start a new pair
   }
   if (card.classList.contains("flipped") || card.classList.contains("matched")) return;
   card.classList.add("flipped");
@@ -669,11 +727,16 @@ function onCardClick(card) {
   if (flipped.length === 2) {
     moves++;
     document.getElementById("moves-count").textContent = moves;
-    locked = true;
+    locked = true; // prevent any more clicks until we resolve this pair
     checkMatch();
   }
 }
 
+// checkMatch — called when exactly 2 cards are face-up.
+// Compares their data-pair attribute (the place id) — equal means a match.
+// On match: mark both cards permanently, then show the info card after a short delay
+//   so the player can see both cards face-up before the overlay appears.
+// On mismatch: schedule a flip-back after 2.5 s; clicking any card cancels the timer.
 function checkMatch() {
   const [a, b] = flipped;
   if (a.dataset.pair === b.dataset.pair) {
@@ -682,11 +745,11 @@ function checkMatch() {
     matched.push(a.dataset.pair);
     flipped = [];
     locked = false;
+    // Look up the full place object so showInfoCard can display the story
     const pair = currentActivePairs.find(p => p.id === a.dataset.pair);
-    setTimeout(() => showInfoCard(pair), 400);
+    setTimeout(() => showInfoCard(pair), 400); // short delay so the match "lands"
   } else {
-    // Keep face-up for 3 s so the player can memorise, or until next click.
-    flipBackTimer = setTimeout(flipBackNow, 2500);
+    flipBackTimer = setTimeout(flipBackNow, 2500); // auto-flip after 2.5 s
   }
 }
 
@@ -709,11 +772,14 @@ function showInfoCard(pair) {
   linksDiv.innerHTML = "";
   if (pair.coords) {
     const [lat, lng] = pair.coords.split(",").map(Number);
+    // cbp=12,heading,pitch,zoom,tilt — the heading (azimuth) rotates the Street View camera.
+    // We only add it when an azimuth is set in the CSV; otherwise Google picks a default view.
     const heading = pair.azimuth != null ? `&cbp=12,${pair.azimuth},0,0,0` : '';
     const mapUrl = `https://www.google.com/maps?layer=c&cbll=${lat},${lng}${heading}`;
     linksDiv.innerHTML += `<a class="info-card__link info-card__link--map" href="${mapUrl}" target="_blank" rel="noopener noreferrer">${t("link_map")}</a>`;
   }
   if (pair.web) {
+    // rel="noopener noreferrer" prevents the opened tab from accessing this page via window.opener
     linksDiv.innerHTML += `<a class="info-card__link info-card__link--web" href="${pair.web}" target="_blank" rel="noopener noreferrer">${t("link_web")}</a>`;
   }
   const media = document.getElementById("info-media");
@@ -736,6 +802,10 @@ function showInfoCard(pair) {
 // ══════════════════════════════════════════════════════════
 //  SHARE
 // ══════════════════════════════════════════════════════════
+// shareGame — triggers the native OS share sheet (Android/iOS/newer desktops).
+// If the Web Share API is not available (older browsers, most desktops), it falls
+// back to copying the URL to the clipboard and briefly showing "Zkopírováno!".
+// The .catch(() => {}) silences the error if the user cancels the share dialog.
 function shareGame(btn, textKey) {
   const url  = "https://www.staryliskovec-on.cz/pexeso/";
   const text = t(textKey);
@@ -744,9 +814,9 @@ function shareGame(btn, textKey) {
   } else {
     navigator.clipboard.writeText(url).then(() => {
       const orig = btn.textContent;
-      btn.textContent = t("share_copied");
-      setTimeout(() => { btn.textContent = orig; }, 1800);
-    }).catch(() => {});
+      btn.textContent = t("share_copied"); // momentarily swap label to "Zkopírováno!"
+      setTimeout(() => { btn.textContent = orig; }, 1800); // restore original label
+    }).catch(() => {}); // clipboard write can fail if the page isn't focused
   }
 }
 
@@ -754,6 +824,8 @@ function shareGame(btn, textKey) {
 //  ROUND END
 // ══════════════════════════════════════════════════════════
 function showRoundEnd() {
+  // Guard: only add to completedRounds once — "Play again" calls startRound → showRoundEnd
+  // again, and we don't want duplicates in the array.
   if (!completedRounds.includes(currentRound.id)) {
     completedRounds.push(currentRound.id);
   }
@@ -761,10 +833,12 @@ function showRoundEnd() {
   document.getElementById("end-stats").innerHTML =
     `<b>${moves}</b> ${t("moves_label")} · <b>${elapsed}s</b>`;
 
+  // Only rounds 1–6 count toward "all done"; bonus rounds don't trigger the finale.
   const nextRound = ROUNDS.slice(0, 6).find(r => r.id === currentRound.id + 1);
   const btns = document.getElementById("end-btns");
 
   if (completedRounds.length >= 6) {
+    // Player has finished all 6 main rounds — show the finale screen
     setTimeout(() => showScreen("screen-all-done"), 200);
     return;
   }
@@ -796,6 +870,9 @@ function updateLangToggle() {
   });
 }
 
+// Language toggle — flip between "cs" and "en", then re-render the current screen.
+// The game screen needs both renderGame() (rebuilds card labels) AND applyI18n()
+// (updates the header buttons and other static elements).
 document.getElementById("lang-toggle").addEventListener("click", () => {
   lang = lang === "cs" ? "en" : "cs";
   const active = document.querySelector(".screen.active").id;
@@ -804,24 +881,33 @@ document.getElementById("lang-toggle").addEventListener("click", () => {
   else applyI18n();
 });
 
+// "Play again" on the all-done screen resets completed rounds and returns to the selector
 document.getElementById("btn-restart").addEventListener("click", () => {
   completedRounds = [];
   renderSelect();
 });
 
+// IIFE (Immediately Invoked Function Expression) — a function that runs once right now.
+// Used to keep local variables (btn, banner) out of the global scope, since they're
+// only needed during setup, not for the rest of the game.
 (function () {
   const btn = document.getElementById("btn-share-all");
   btn.addEventListener("click", () => shareGame(btn, "share_all_text"));
 })();
 
-// Close info card on overlay background tap
+// Tapping the dark overlay background behind the info card closes it,
+// the same as tapping the "Continue" button inside it.
+// e.target === e.currentTarget checks that the click was on the overlay itself,
+// not on the card inside it (clicks on the card bubble up to the overlay too).
 document.getElementById("info-overlay").addEventListener("click", e => {
   if (e.target === e.currentTarget) document.getElementById("info-close").click();
 });
 
 window.addEventListener("resize", updateGridSize);
 
-// Dev banner setup
+// Dev banner — hidden once per browser session (sessionStorage clears when the tab closes).
+// The try/catch around sessionStorage.setItem handles private-browsing mode where
+// storage writes can throw a security error.
 (function () {
   const banner = document.getElementById("dev-banner");
   if (!banner) return;
@@ -836,23 +922,38 @@ window.addEventListener("resize", updateGridSize);
 // ══════════════════════════════════════════════════════════
 //  BOOT — fetch CSV, build ROUNDS, then launch the game
 // ══════════════════════════════════════════════════════════
+// init — the async entry point for the whole game.
+//
+// Why async? The place data lives in data/places.csv which must be fetched over the
+// network. fetch() is asynchronous (it doesn't block the page while waiting for the
+// file). Using async/await lets us write this as straight-line code instead of
+// nesting callbacks.
+//
+// Flow:
+//   1. Show the select screen immediately with a "loading" message so the user sees
+//      something right away (not a blank page).
+//   2. Fetch data/places.csv.
+//   3. Parse it and build the ROUNDS array.
+//   4. Hand off to renderSelect() which replaces the loading message with the real grid.
+//
+// The try/catch handles both network errors (no internet) and server errors (404).
 async function init() {
   showScreen("screen-select");
   document.getElementById("rounds-grid").innerHTML =
     `<p style="color:var(--muted);grid-column:1/-1;padding:2rem 0;text-align:center">Načítám místa…</p>`;
   try {
     const resp = await fetch("data/places.csv");
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`); // e.g. 404 if the file is missing
     ROUNDS = buildRoundsFromCSV(parseCSV(await resp.text()));
   } catch (e) {
     document.getElementById("rounds-grid").innerHTML =
       `<p style="color:#e55;grid-column:1/-1;padding:2rem 0;text-align:center">Chyba načítání dat — obnovte stránku.</p>`;
     console.error("places.csv load failed:", e);
-    return;
+    return; // stop here — nothing else will work without data
   }
-  renderSelect();
+  renderSelect(); // replace loading message with the real round selection grid
 }
-init();
+init(); // start immediately when the script runs
 </script>
 </body>
 </html>

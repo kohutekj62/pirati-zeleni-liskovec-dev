@@ -50,6 +50,8 @@ Press `Ctrl + C` in the terminal to stop it.
 | `js/i18n.js` | The Czech/English switching machinery | No |
 | `js/render.js` | Builds the lists from `content.js` | No |
 | `js/main.js` | Clicks: menu, language, the elephant flip, forms | No |
+| `pexeso/data/places.csv` | ⭐ **All pexeso content** — every place, description, coordinate, photo and link in one spreadsheet | **Yes — open in Excel** |
+| `pexeso/index.html` | The game engine (screens, card flip, scoring, CSV loader) | No |
 | `tests/` | Automated tests | No (just run them) |
 | `README.md`, `QA-CHECKLIST.md` | These guides | — |
 
@@ -233,6 +235,82 @@ That's it — `https://www.staryliskovec-on.cz` now shows your site.
 - **Hosting:** GitHub Pages, branch `master`, root. `CNAME` + `.nojekyll` included.
   Asset paths are **relative** so it works both at the `github.io/SL-ON/` URL and the
   custom domain.
+
+---
+
+## 11. The pexeso minigame — how to maintain the content
+
+> **All the places, descriptions, coordinates and links live in one file:
+> [`pexeso/data/places.csv`](pexeso/data/places.csv)**
+>
+> You edit it in Excel (or LibreOffice Calc, or Google Sheets).
+> The game downloads it automatically when someone opens the page — no code change needed.
+
+### How to edit the spreadsheet
+
+1. Open `pexeso/data/places.csv` in Excel. It will ask about encoding — choose **UTF-8**.
+   (Or drag the file into Google Sheets and it opens perfectly.)
+2. Edit any cell you need. The column names are in the first row — don't rename them.
+3. Save the file as **CSV UTF-8** (in Excel: *File → Save As → CSV UTF-8 (comma delimited)*).
+4. Commit and push (or paste into GitHub's web editor). The live game updates in ~1 minute.
+
+> **Do not** change the first row (the column names). The game reads them by name, not by position.
+> You CAN reorder rows, add rows at the bottom, or sort — it doesn't matter.
+
+### What each column does
+
+| Column | What to put | Example |
+|---|---|---|
+| `round_id` | Which round this place belongs to (1–9) | `3` |
+| `round_emoji` | The emoji for that round | `🏘️` |
+| `round_cs` | Czech round title | `Ulice a historie` |
+| `round_en` | English round title | `Streets & history` |
+| `id` | A unique short name — letters, digits, hyphens only, no spaces or Czech letters | `kostel-sv-jana` |
+| `emoji` | The emoji shown when no photo is loaded yet | `⛪` |
+| `photo` | Path to the photo file, relative to the `pexeso/` folder — leave empty if no photo yet | `assets/culture/kostel.jpg` |
+| `web` | The full URL of the place's website — leave empty if there is none | `https://www.fnbrno.cz` |
+| `lat` | Latitude — decimal degrees, e.g. `49.1730` | `49.1755` |
+| `lng` | Longitude — decimal degrees, e.g. `16.5900` | `16.5900` |
+| `azimuth` | Compass direction the Street View camera faces (0 = north, 90 = east, 180 = south, 270 = west) — leave empty if you haven't checked | `135` |
+| `name_cs` | Czech display name | `Kostel sv. Jana Nepomuckého` |
+| `location_cs` | Czech location line (shown in small text) | `Starý Lískovec, Brno` |
+| `desc_cs` | Czech description (1–3 sentences) | `Farní kostel jako ...` |
+| `history_cs` | Czech historical note (1–2 sentences, shown in italic) | `Pochází z 18. století ...` |
+| `name_en` | English name | `St John of Nepomuk Church` |
+| `location_en` | English location | `Starý Lískovec, Brno` |
+| `desc_en` | English description | `The parish church ...` |
+| `history_en` | English historical note | `The church dates from ...` |
+
+### How to add a photo for a place
+
+1. Take (or find) a photo of the place.
+2. Save it as a `.jpg` or `.webp` — keep the file name short and simple, e.g. `kostel.jpg`.
+3. Put it in the `pexeso/assets/` folder inside a subfolder that matches the round, e.g. `pexeso/assets/culture/kostel.jpg`.
+4. In the CSV, set the `photo` column for that place to `assets/culture/kostel.jpg`.
+5. Commit and push.
+
+> Ideal photo size: **800 × 600 px** or similar landscape format. The card shows it at 180 px tall, so anything larger is fine — the game scales it down automatically.
+
+### How to add a new place to an existing round
+
+1. Open the CSV in Excel.
+2. Add a new row at the bottom (or anywhere — order doesn't matter within a round).
+3. Fill in all columns. Use the same `round_id` as the other places in that round.
+4. Make sure the `id` column is unique across the whole file — no two rows can share the same ID.
+5. Save and push.
+
+### How to add a completely new round
+
+1. Pick a new `round_id` number (e.g. `10`).
+2. Add one row per place, all with `round_id = 10`, and fill in `round_emoji`, `round_cs`, `round_en`.
+3. The game shows the first **6 rounds** on the main selection screen. To make a new round visible there, you can either keep the total at ≤ 6, or edit `renderRoundsGrid()` in `pexeso/index.html` to raise the limit (`ROUNDS.slice(0, 6)` → `ROUNDS.slice(0, 9)`).
+
+### Finding the right Street View coordinates and azimuth
+
+1. Go to **Google Maps** and find the place.
+2. Drag the yellow Street View person (bottom-right corner) onto the street in front of the place.
+3. When Street View opens, look at the URL — it contains something like `@49.1755,16.5900,3a,75y,**135**h`. The number before `h` is the azimuth (heading).
+4. Copy the latitude and longitude into `lat` / `lng`, and the heading into `azimuth`.
 
 ---
 
