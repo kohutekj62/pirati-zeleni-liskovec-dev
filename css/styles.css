@@ -622,6 +622,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 
   .hero__inner { flex-direction: column-reverse; text-align: center; }
   .hero__tagline { margin-inline: auto; }
+  .hero__toggle { margin-inline: auto; }
   .hero__cta { justify-content: center; }
 
   .about__grid,
