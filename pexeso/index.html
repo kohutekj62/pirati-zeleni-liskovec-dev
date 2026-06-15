@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="../css/fonts.css?v=e0b8a13a" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    [hidden] { display: none !important; } /* ░ ensures hidden attr beats element/class display rules ░ */
 
     :root {
       --bg:        #0a0a0a;
@@ -241,28 +242,6 @@
     .seo-place h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
     .seo-place p  { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
 
-    /* ░░ TEMPORARY REVIEW TOOLBAR — remove after place review ░░ */
-    .review-toolbar {
-      position: sticky; top: 0; z-index: 50;
-      display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
-      background: #101014; border-bottom: 1px solid #2a2a2a;
-      padding: 0.5rem 1.25rem;
-      text-align: left;
-    }
-    .review-toolbar__label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green); margin-right: 0.25rem; }
-    .review-toolbar__btn {
-      font-size: 0.78rem; font-weight: 600; text-decoration: none;
-      color: var(--text); border: 1px solid #333; border-radius: 999px;
-      padding: 0.28rem 0.8rem; transition: border-color 0.15s, color 0.15s;
-    }
-    .review-toolbar__btn:hover { border-color: var(--yellow); color: var(--yellow); }
-    .review-toolbar__select {
-      font-size: 0.78rem; font-family: var(--font-b); color: var(--text);
-      background: #1d1b22; border: 1px solid #333; border-radius: 999px;
-      padding: 0.28rem 0.7rem; cursor: pointer;
-    }
-    /* ░░ END TEMPORARY REVIEW TOOLBAR ░░ */
-
     /* ── LINK REVIEW PANEL ── */
     .review-toggle {
       background: none; border: 1px solid #333; border-radius: 999px;
@@ -271,7 +250,7 @@
     }
     .review-toggle:hover { border-color: var(--green); color: var(--green); }
     #review-panel { max-width: 760px; margin: 0 auto 2rem; text-align: left; }
-    .review-round { margin-bottom: 1.25rem; scroll-margin-top: 56px; /* ░ clears sticky review toolbar ░ */ }
+    .review-round { margin-bottom: 1.25rem; }
     .review-round__head {
       font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
       letter-spacing: 0.08em; color: var(--muted); padding: 0.3rem 0;
@@ -347,22 +326,12 @@
      SCREEN 1: Round selector
 ════════════════════════════════════════════════════ -->
 <div class="screen active" id="screen-select">
-  <!-- ░░ TEMPORARY REVIEW TOOLBAR — remove after place review ░░ -->
-  <div class="review-toolbar" id="review-toolbar">
-    <span class="review-toolbar__label">Review</span>
-    <a href="#rounds-grid" class="review-toolbar__btn">Kola</a>
-    <a href="#review-panel" class="review-toolbar__btn">Kontrola odkazů</a>
-    <select id="cat-jump" class="review-toolbar__select" aria-label="Skok na kategorii">
-      <option value="">— skok na kategorii —</option>
-    </select>
-  </div>
-  <!-- ░░ END TEMPORARY REVIEW TOOLBAR ░░ -->
   <div style="padding: 2rem 1.25rem; text-align: center;">
     <p class="select-title" data-i18n="title">PEXESO STARÝ LÍSKOVEC</p>
     <p class="select-sub" data-i18n="subtitle">Poznej místa naší čtvrti — otočení dvou stejných karet odkryje příběh místa.</p>
     <div class="rounds-grid" id="rounds-grid"></div>
-    <button class="review-toggle" id="review-toggle" onclick="toggleReview()">Kontrola odkazů ▴</button>
-    <div id="review-panel"></div>
+    <button class="review-toggle" id="review-toggle" onclick="toggleReview()" hidden>Kontrola odkazů ▴</button>
+    <div id="review-panel" hidden></div>
   </div>
   <section class="seo-content" aria-label="Místa ve hře">
     <h2 data-i18n="seo_heading">Místa Starého Lískovce ve hře</h2>
@@ -645,8 +614,7 @@ function renderSelect() {
   applyI18n();
   renderRoundsGrid();
   renderSeoList();
-  renderReviewPanel();      // ░░ TEMPORARY — build link-check panel (open by default) ░░
-  populateReviewToolbar();  // ░░ TEMPORARY — fill category dropdown ░░
+  renderReviewPanel();      // ░░ TEMPORARY — build link-check panel ░░
   showScreen("screen-select");
 }
 
@@ -670,29 +638,12 @@ function renderReviewPanel() {
         ${tLink}${mLink}${wLink}
       </div>`;
     }).join("");
-    return `<div class="review-round" id="rev-round-${r.id}">
+    return `<div class="review-round">
       <div class="review-round__head">${r.emoji} ${r.cs.title}</div>
       ${rows}
     </div>`;
   }).join("");
   panel.dataset.built = "1";
-}
-
-// ░░ TEMPORARY — fills the review-toolbar category dropdown; jump scrolls to
-// the matching round group in the link-check panel. Remove with the toolbar. ░░
-function populateReviewToolbar() {
-  const sel = document.getElementById("cat-jump");
-  if (!sel) return;
-  sel.innerHTML = `<option value="">— skok na kategorii —</option>` +
-    ROUNDS.map(r => `<option value="rev-round-${r.id}">${r.emoji} ${r.cs.title}</option>`).join("");
-  sel.onchange = () => {
-    const el = document.getElementById(sel.value);
-    if (!el) return;
-    // scroll-margin-top on .review-round keeps the chapter header clear of the
-    // sticky toolbar; reset the <select> so picking the same category again re-fires.
-    el.scrollIntoView({ behavior: "smooth", block: "start" });
-    sel.selectedIndex = 0;
-  };
 }
 
 // ░░ TEMPORARY — text popup for review; shows full CS + EN text for a place. ░░
@@ -1094,6 +1045,55 @@ window.addEventListener("resize", updateGridSize);
     try { sessionStorage.setItem("slon-dev-banner-closed", "1"); } catch (e) {}
   });
 }());
+
+// ░░ TEMPORARY — secret reveal for the review tooling ░░
+// The "Kontrola odkazů" button and its link-check panel ship hidden
+// (hidden attribute in the markup). Reveal them by either:
+//   • typing the word "review" anywhere on the page, or
+//   • tapping the PEXESO title 5× within 2 seconds (works on touch).
+// State persists in localStorage, so once on it stays on across reloads.
+// Trigger the same way again to hide. To wipe from a console:
+//   localStorage.removeItem('slon-review')
+const REVIEW_KEY = "slon-review";
+const REVIEW_WORD = "review";
+function setDevReview(on) {
+  ["review-toggle", "review-panel"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.hidden = !on;
+  });
+  try { on ? localStorage.setItem(REVIEW_KEY, "1") : localStorage.removeItem(REVIEW_KEY); } catch (e) {}
+}
+function toggleDevReview() {
+  const panel = document.getElementById("review-panel");
+  setDevReview(panel ? panel.hidden : true); // if currently hidden → turn on
+}
+(function initDevReview() {
+  let stored = false;
+  try { stored = localStorage.getItem(REVIEW_KEY) === "1"; } catch (e) {}
+  if (stored) setDevReview(true);
+
+  // ── key sequence: type "review" ──
+  let buf = "";
+  document.addEventListener("keydown", e => {
+    const tag = (e.target.tagName || "").toLowerCase();
+    if (tag === "input" || tag === "textarea" || tag === "select") return; // don't capture form typing
+    if (e.key.length !== 1) return;                 // ignore Shift, Arrow, etc.
+    buf = (buf + e.key.toLowerCase()).slice(-REVIEW_WORD.length);
+    if (buf === REVIEW_WORD) { toggleDevReview(); buf = ""; }
+  });
+
+  // ── tap the PEXESO title 5× within 2 s ──
+  const title = document.querySelector(".select-title");
+  if (title) {
+    let taps = 0, timer = null;
+    title.addEventListener("click", () => {
+      taps++;
+      clearTimeout(timer);
+      timer = setTimeout(() => { taps = 0; }, 2000);
+      if (taps >= 5) { taps = 0; toggleDevReview(); }
+    });
+  }
+})();
 
 // ══════════════════════════════════════════════════════════
 //  BOOT — fetch CSV, build ROUNDS, then launch the game
