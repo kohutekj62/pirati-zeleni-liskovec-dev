@@ -246,7 +246,7 @@
       position: sticky; top: 0; z-index: 50;
       display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
       background: #101014; border-bottom: 1px solid #2a2a2a;
-      padding: 0.5rem 0.75rem; margin: -2rem -1.25rem 1.75rem;
+      padding: 0.5rem 1.25rem;
       text-align: left;
     }
     .review-toolbar__label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green); margin-right: 0.25rem; }
@@ -259,7 +259,7 @@
     .review-toolbar__select {
       font-size: 0.78rem; font-family: var(--font-b); color: var(--text);
       background: #1d1b22; border: 1px solid #333; border-radius: 999px;
-      padding: 0.28rem 0.7rem; cursor: pointer; margin-left: auto;
+      padding: 0.28rem 0.7rem; cursor: pointer;
     }
     /* ░░ END TEMPORARY REVIEW TOOLBAR ░░ */
 
@@ -293,6 +293,28 @@
     .review-link--w { border-color: #555; color: var(--muted); }
     .review-link--w:hover { border-color: var(--yellow); color: var(--yellow); }
     .review-link--none { border-color: #2a2a2a; color: #333; cursor: default; pointer-events: none; }
+    /* ░░ TEMPORARY — text-popup button ░░ */
+    .review-link--t { border-color: var(--violet-s); color: var(--violet-s); background: transparent; font-family: var(--font-b); cursor: pointer; }
+    .review-link--t:hover { background: var(--violet-s); color: #000; }
+
+    /* ░░ TEMPORARY — review text popup ░░ */
+    .revtext-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.72);
+      display: none; align-items: center; justify-content: center; z-index: 200; padding: 1rem;
+    }
+    .revtext-overlay.visible { display: flex; }
+    .revtext-card {
+      background: var(--surface); border: 1px solid #333; border-top: 3px solid var(--violet-s);
+      border-radius: var(--radius); max-width: 640px; width: 100%; max-height: 85vh;
+      overflow-y: auto; padding: 1.5rem; text-align: left;
+    }
+    .revtext-card h3 { font-family: var(--font-d); color: var(--yellow); font-size: 1.7rem; line-height: 1; margin-bottom: 0.2rem; }
+    .revtext-card .revtext-loc { color: var(--green); font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .revtext-card .revtext-lang { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 0.9rem 0 0.25rem; border-top: 1px solid #222; padding-top: 0.7rem; }
+    .revtext-card p { font-size: 0.9rem; line-height: 1.55; color: var(--text); }
+    .revtext-card .revtext-hist { color: var(--muted); font-style: italic; font-size: 0.84rem; }
+    .revtext-close { margin-top: 1.25rem; width: 100%; padding: 0.6rem; background: var(--violet-s); color: #000; border: none; border-radius: 999px; font-weight: 700; cursor: pointer; font-family: var(--font-b); }
+    /* ░░ END TEMPORARY ░░ */
 
     /* ── FOOTER ── */
     .site-footer { text-align: center; background: #060606; padding: 2.5rem 1rem 2rem; border-top: 1px solid #1e1e1e; margin-top: 2rem; }
@@ -325,17 +347,17 @@
      SCREEN 1: Round selector
 ════════════════════════════════════════════════════ -->
 <div class="screen active" id="screen-select">
+  <!-- ░░ TEMPORARY REVIEW TOOLBAR — remove after place review ░░ -->
+  <div class="review-toolbar" id="review-toolbar">
+    <span class="review-toolbar__label">Review</span>
+    <a href="#rounds-grid" class="review-toolbar__btn">Kola</a>
+    <a href="#review-panel" class="review-toolbar__btn">Kontrola odkazů</a>
+    <select id="cat-jump" class="review-toolbar__select" aria-label="Skok na kategorii">
+      <option value="">— skok na kategorii —</option>
+    </select>
+  </div>
+  <!-- ░░ END TEMPORARY REVIEW TOOLBAR ░░ -->
   <div style="padding: 2rem 1.25rem; text-align: center;">
-    <!-- ░░ TEMPORARY REVIEW TOOLBAR — remove after place review ░░ -->
-    <div class="review-toolbar" id="review-toolbar">
-      <span class="review-toolbar__label">Review</span>
-      <a href="#rounds-grid" class="review-toolbar__btn">Kola</a>
-      <a href="#review-panel" class="review-toolbar__btn">Kontrola odkazů</a>
-      <select id="cat-jump" class="review-toolbar__select" aria-label="Skok na kategorii">
-        <option value="">— skok na kategorii —</option>
-      </select>
-    </div>
-    <!-- ░░ END TEMPORARY REVIEW TOOLBAR ░░ -->
     <p class="select-title" data-i18n="title">PEXESO STARÝ LÍSKOVEC</p>
     <p class="select-sub" data-i18n="subtitle">Poznej místa naší čtvrti — otočení dvou stejných karet odkryje příběh místa.</p>
     <div class="rounds-grid" id="rounds-grid"></div>
@@ -394,6 +416,12 @@
     <button class="info-card__close" id="info-close" data-i18n="info_close">Pokračovat ve hře</button>
   </div>
 </div>
+
+<!-- ░░ TEMPORARY review text popup — remove after place review ░░ -->
+<div class="revtext-overlay" id="revtext-overlay">
+  <div class="revtext-card" id="revtext-card"></div>
+</div>
+<!-- ░░ END TEMPORARY ░░ -->
 
 <footer class="site-footer">
   <p data-i18n="footer_text">Hra o místech a příbězích Brna–Starého Lískovce. Tvoří ji <a href="../">Starý Lískovec ON</a>.</p>
@@ -636,9 +664,10 @@ function renderReviewPanel() {
       const wLink = p.web
         ? `<a class="review-link review-link--w" href="${p.web}" target="_blank" rel="noopener noreferrer" title="${p.web}">w</a>`
         : `<span class="review-link review-link--none" title="chybí web">w</span>`;
+      const tLink = `<button class="review-link review-link--t" onclick="showReviewText('${p.id}')" title="Zobrazit text">t</button>`;
       return `<div class="review-row">
         <span class="review-row__name" title="${p.cs.location}">${p.cs.name}</span>
-        ${mLink}${wLink}
+        ${tLink}${mLink}${wLink}
       </div>`;
     }).join("");
     return `<div class="review-round" id="rev-round-${r.id}">
@@ -658,8 +687,29 @@ function populateReviewToolbar() {
     ROUNDS.map(r => `<option value="rev-round-${r.id}">${r.emoji} ${r.cs.title}</option>`).join("");
   sel.onchange = () => {
     const el = document.getElementById(sel.value);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (!el) return;
+    // scroll-margin-top on .review-round keeps the chapter header clear of the
+    // sticky toolbar; reset the <select> so picking the same category again re-fires.
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    sel.selectedIndex = 0;
   };
+}
+
+// ░░ TEMPORARY — text popup for review; shows full CS + EN text for a place. ░░
+function showReviewText(placeId) {
+  let place = null;
+  for (const r of ROUNDS) { const p = r.places.find(x => x.id === placeId); if (p) { place = p; break; } }
+  if (!place) return;
+  const esc = s => (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  document.getElementById("revtext-card").innerHTML = `
+    <h3>${esc(place.cs.name)}</h3>
+    <div class="revtext-loc">${esc(place.cs.location)}</div>
+    <div class="revtext-lang">CS — popis</div><p>${esc(place.cs.desc)}</p>
+    <div class="revtext-lang">CS — historie</div><p class="revtext-hist">${esc(place.cs.history)}</p>
+    <div class="revtext-lang">EN — desc</div><p>${esc(place.en.desc)}</p>
+    <div class="revtext-lang">EN — history</div><p class="revtext-hist">${esc(place.en.history)}</p>
+    <button class="revtext-close" onclick="document.getElementById('revtext-overlay').classList.remove('visible')">Zavřít</button>`;
+  document.getElementById("revtext-overlay").classList.add("visible");
 }
 
 function toggleReview() {
@@ -1019,6 +1069,14 @@ document.getElementById("btn-restart").addEventListener("click", () => {
 // not on the card inside it (clicks on the card bubble up to the overlay too).
 document.getElementById("info-overlay").addEventListener("click", e => {
   if (e.target === e.currentTarget) document.getElementById("info-close").click();
+});
+
+// ░░ TEMPORARY — review text popup: click backdrop or press Esc to close ░░
+document.getElementById("revtext-overlay").addEventListener("click", e => {
+  if (e.target === e.currentTarget) e.currentTarget.classList.remove("visible");
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") document.getElementById("revtext-overlay").classList.remove("visible");
 });
 
 window.addEventListener("resize", updateGridSize);
