@@ -618,11 +618,16 @@ function renderSelect() {
   showScreen("screen-select");
 }
 
-// mapUrl — single source of truth for a place's Google Maps link, so the
-// in-game info card and the review panel always point to the EXACT same URL.
-// Uses the raw coords string straight from the CSV (no Number() reformatting).
+// mapUrl — single source of truth for a place's map link, so the in-game info
+// card and the review panel always point to the EXACT same URL. We use Mapy.com
+// (the Czech-localized map most local residents use; mapy.cz 301-redirects here,
+// so we link the final host directly). The CSV stores coords as "lat,lng";
+// Mapy wants x=lng, y=lat and a "coor" marker id of "lng,lat". Split is by comma
+// only (no Number()), so the raw CSV precision is preserved.
 function mapUrl(coords) {
-  return coords ? `https://www.google.com/maps?q=${coords}&z=18` : null;
+  if (!coords) return null;
+  const [lat, lng] = coords.split(",");
+  return `https://mapy.com/zakladni?source=coor&id=${lng},${lat}&x=${lng}&y=${lat}&z=18`;
 }
 
 function renderReviewPanel() {
@@ -632,7 +637,7 @@ function renderReviewPanel() {
     const rows = r.places.map(p => {
       const mUrl = mapUrl(p.coords);
       const mLink = mUrl
-        ? `<a class="review-link review-link--m" href="${mUrl}" target="_blank" rel="noopener noreferrer" title="Street View">m</a>`
+        ? `<a class="review-link review-link--m" href="${mUrl}" target="_blank" rel="noopener noreferrer" title="Mapy.com">m</a>`
         : `<span class="review-link review-link--none" title="chybí souřadnice">m</span>`;
       const wLink = p.web
         ? `<a class="review-link review-link--w" href="${p.web}" target="_blank" rel="noopener noreferrer" title="${p.web}">w</a>`
