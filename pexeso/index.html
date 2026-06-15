@@ -241,6 +241,28 @@
     .seo-place h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
     .seo-place p  { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
 
+    /* ░░ TEMPORARY REVIEW TOOLBAR — remove after place review ░░ */
+    .review-toolbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+      background: #101014; border-bottom: 1px solid #2a2a2a;
+      padding: 0.5rem 0.75rem; margin: -2rem -1.25rem 1.75rem;
+      text-align: left;
+    }
+    .review-toolbar__label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green); margin-right: 0.25rem; }
+    .review-toolbar__btn {
+      font-size: 0.78rem; font-weight: 600; text-decoration: none;
+      color: var(--text); border: 1px solid #333; border-radius: 999px;
+      padding: 0.28rem 0.8rem; transition: border-color 0.15s, color 0.15s;
+    }
+    .review-toolbar__btn:hover { border-color: var(--yellow); color: var(--yellow); }
+    .review-toolbar__select {
+      font-size: 0.78rem; font-family: var(--font-b); color: var(--text);
+      background: #1d1b22; border: 1px solid #333; border-radius: 999px;
+      padding: 0.28rem 0.7rem; cursor: pointer; margin-left: auto;
+    }
+    /* ░░ END TEMPORARY REVIEW TOOLBAR ░░ */
+
     /* ── LINK REVIEW PANEL ── */
     .review-toggle {
       background: none; border: 1px solid #333; border-radius: 999px;
@@ -249,7 +271,7 @@
     }
     .review-toggle:hover { border-color: var(--green); color: var(--green); }
     #review-panel { max-width: 760px; margin: 0 auto 2rem; text-align: left; }
-    .review-round { margin-bottom: 1.25rem; }
+    .review-round { margin-bottom: 1.25rem; scroll-margin-top: 56px; /* ░ clears sticky review toolbar ░ */ }
     .review-round__head {
       font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
       letter-spacing: 0.08em; color: var(--muted); padding: 0.3rem 0;
@@ -304,11 +326,21 @@
 ════════════════════════════════════════════════════ -->
 <div class="screen active" id="screen-select">
   <div style="padding: 2rem 1.25rem; text-align: center;">
+    <!-- ░░ TEMPORARY REVIEW TOOLBAR — remove after place review ░░ -->
+    <div class="review-toolbar" id="review-toolbar">
+      <span class="review-toolbar__label">Review</span>
+      <a href="#rounds-grid" class="review-toolbar__btn">Kola</a>
+      <a href="#review-panel" class="review-toolbar__btn">Kontrola odkazů</a>
+      <select id="cat-jump" class="review-toolbar__select" aria-label="Skok na kategorii">
+        <option value="">— skok na kategorii —</option>
+      </select>
+    </div>
+    <!-- ░░ END TEMPORARY REVIEW TOOLBAR ░░ -->
     <p class="select-title" data-i18n="title">PEXESO STARÝ LÍSKOVEC</p>
     <p class="select-sub" data-i18n="subtitle">Poznej místa naší čtvrti — otočení dvou stejných karet odkryje příběh místa.</p>
     <div class="rounds-grid" id="rounds-grid"></div>
-    <button class="review-toggle" id="review-toggle" onclick="toggleReview()">Kontrola odkazů ▾</button>
-    <div id="review-panel" hidden></div>
+    <button class="review-toggle" id="review-toggle" onclick="toggleReview()">Kontrola odkazů ▴</button>
+    <div id="review-panel"></div>
   </div>
   <section class="seo-content" aria-label="Místa ve hře">
     <h2 data-i18n="seo_heading">Místa Starého Lískovce ve hře</h2>
@@ -585,6 +617,8 @@ function renderSelect() {
   applyI18n();
   renderRoundsGrid();
   renderSeoList();
+  renderReviewPanel();      // ░░ TEMPORARY — build link-check panel (open by default) ░░
+  populateReviewToolbar();  // ░░ TEMPORARY — fill category dropdown ░░
   showScreen("screen-select");
 }
 
@@ -607,12 +641,25 @@ function renderReviewPanel() {
         ${mLink}${wLink}
       </div>`;
     }).join("");
-    return `<div class="review-round">
+    return `<div class="review-round" id="rev-round-${r.id}">
       <div class="review-round__head">${r.emoji} ${r.cs.title}</div>
       ${rows}
     </div>`;
   }).join("");
   panel.dataset.built = "1";
+}
+
+// ░░ TEMPORARY — fills the review-toolbar category dropdown; jump scrolls to
+// the matching round group in the link-check panel. Remove with the toolbar. ░░
+function populateReviewToolbar() {
+  const sel = document.getElementById("cat-jump");
+  if (!sel) return;
+  sel.innerHTML = `<option value="">— skok na kategorii —</option>` +
+    ROUNDS.map(r => `<option value="rev-round-${r.id}">${r.emoji} ${r.cs.title}</option>`).join("");
+  sel.onchange = () => {
+    const el = document.getElementById(sel.value);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 }
 
 function toggleReview() {
