@@ -618,14 +618,19 @@ function renderSelect() {
   showScreen("screen-select");
 }
 
+// mapUrl — single source of truth for a place's Google Maps link, so the
+// in-game info card and the review panel always point to the EXACT same URL.
+// Uses the raw coords string straight from the CSV (no Number() reformatting).
+function mapUrl(coords) {
+  return coords ? `https://www.google.com/maps?q=${coords}&z=18` : null;
+}
+
 function renderReviewPanel() {
   const panel = document.getElementById("review-panel");
   if (!panel || panel.dataset.built) return;  // build once
   panel.innerHTML = ROUNDS.map(r => {
     const rows = r.places.map(p => {
-      const mUrl = p.coords
-        ? `https://www.google.com/maps?q=${p.coords}&z=18`
-        : null;
+      const mUrl = mapUrl(p.coords);
       const mLink = mUrl
         ? `<a class="review-link review-link--m" href="${mUrl}" target="_blank" rel="noopener noreferrer" title="Street View">m</a>`
         : `<span class="review-link review-link--none" title="chybí souřadnice">m</span>`;
@@ -892,11 +897,10 @@ function showInfoCard(pair) {
   const linksDiv = document.getElementById("info-links");
   linksDiv.innerHTML = "";
   if (pair.coords) {
-    const [lat, lng] = pair.coords.split(",").map(Number);
     // q=lat,lng opens a pin at the exact coordinates; Google Maps shows the place card if
-    // the location is known in its database, otherwise just the pin.
-    const mapUrl = `https://www.google.com/maps?q=${lat},${lng}&z=18`;
-    linksDiv.innerHTML += `<a class="info-card__link info-card__link--map" href="${mapUrl}" target="_blank" rel="noopener noreferrer">${t("link_map")}</a>`;
+    // the location is known in its database, otherwise just the pin. Same helper as the
+    // review panel, so the two links are guaranteed identical.
+    linksDiv.innerHTML += `<a class="info-card__link info-card__link--map" href="${mapUrl(pair.coords)}" target="_blank" rel="noopener noreferrer">${t("link_map")}</a>`;
   }
   if (pair.web) {
     // rel="noopener noreferrer" prevents the opened tab from accessing this page via window.opener
