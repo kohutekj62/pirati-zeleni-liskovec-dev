@@ -29,6 +29,7 @@
   --color-violet-soft: #b786c8; /* lighter violet — fills / glows only, too light for text on white */
   --color-yellow:      #f2c500; /* logo/Piráti yellow — FILLS ONLY (use yellow-ink for text on white) */
   --color-yellow-ink:  #8f7400; /* darkened yellow that passes AA as text on white */
+  --color-yellow-dark: #d4ac00; /* yellow hover state (fills only) */
   --color-green:       #8fba47; /* logo/Zelení green — FILLS ONLY (use green-ink for text on white) */
   --color-green-ink:   #628030; /* darkened green that passes AA as text on white */
   --color-green-dark:  #739638; /* green hover state */
@@ -36,6 +37,8 @@
   /* Semantic accents — what to use for links and text accents on the white page */
   --color-link:        var(--color-violet);
   --color-link-hover:  var(--color-green-ink);
+  --color-error:        #c62828; /* form validation text */
+  --color-error-border: #e0556b; /* form validation border */
 
   /* Party tag colours */
   --pirati:  var(--color-yellow);
@@ -152,7 +155,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .btn:active { transform: translateY(0); }
 
 .btn--primary { background: var(--color-yellow); color: #000; }
-.btn--primary:hover { background: #ffd633; color: #000; }
+.btn--primary:hover { background: var(--color-yellow-dark); color: #000; }
 
 .btn--green { background: var(--color-green); color: #000; }
 .btn--green:hover { background: var(--color-green-dark); color: #000; }
@@ -420,7 +423,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .event__place { color: var(--color-muted); font-size: 0.95rem; }
 .event__desc  { color: var(--color-muted); margin: 0.2rem 0 0; }
 .event--past { opacity: 0.55; }
-.event--past .event__dot { background: #555; box-shadow: 0 0 0 2px #555; }
+.event--past .event__dot { background: var(--color-muted); box-shadow: 0 0 0 2px var(--color-muted); }
 /* nearest upcoming event — larger glowing dot + bigger title */
 .event--nearest .event__dot {
   width: 26px; height: 26px; left: 16px; top: 2px;
@@ -428,7 +431,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 }
 .event--nearest .event__title { font-size: 1.4rem; }
 .event__badge { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
-  background: #444; color: #fff; padding: 0.1rem 0.5rem; border-radius: var(--radius-pill); margin-left: 0.5rem; }
+  background: var(--color-text); color: #fff; padding: 0.1rem 0.5rem; border-radius: var(--radius-pill); margin-left: 0.5rem; }
 
 /* navigation — ▲ above, ▼ below the timeline, centered on the dot column */
 .events-nav {
@@ -501,11 +504,11 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .contact-form input:focus, .contact-form textarea:focus, .newsletter input:focus {
   border-color: var(--color-green); outline: none;
 }
-.contact-form input:user-invalid, .contact-form textarea:user-invalid { border-color: #e0556b; }
+.contact-form input:user-invalid, .contact-form textarea:user-invalid { border-color: var(--color-error-border); }
 
 .form-status { margin: 0.8rem 0 0; font-weight: 500; min-height: 1.2em; }
 .form-status.is-ok    { color: var(--color-green-ink); }
-.form-status.is-error { color: #c62828; }
+.form-status.is-error { color: var(--color-error); }
 
 .contact__intro { color: var(--color-muted); }
 .contact__details { list-style: none; padding: 0; margin: 0 0 2rem; display: flex; flex-direction: column; gap: 0.6rem; }
@@ -669,7 +672,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .honeypot { display: none; }
 
 /* Noscript fallback message (avoids inline style which would need CSP unsafe-inline) */
-.noscript-msg { padding: 1rem; text-align: center; background: #FEC900; color: #000; }
+.noscript-msg { padding: 1rem; text-align: center; background: var(--color-yellow); color: #000; }
 
 /* ----------------------------------------------------------------------------
    PEXESO TEASER  —  compact callout between Program and Lidé.
@@ -761,7 +764,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
   p { orphans: 3; widows: 3; }
 
   /* Show URLs after external links */
-  a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #555 !important; }
+  a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: var(--color-muted) !important; }
   a[href^="#"]::after { content: ""; }
 
   /* Footer: just the copyright line, no dividers */
