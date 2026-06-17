@@ -24,4 +24,6 @@ Thumbs.db
 .idea/
 
 # --- Local tool config (not part of the website) ---
-.claude/
+# Keep shared skills (e.g. /rebrand) in the repo; ignore everything else.
+.claude/*
+!.claude/skills/
