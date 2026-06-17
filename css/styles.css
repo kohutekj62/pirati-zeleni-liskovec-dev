@@ -23,11 +23,11 @@
   --color-text:      #f4f4f5;   /* main text */
   --color-muted:     #b5b5bd;   /* secondary / quieter text */
 
-  --color-violet:      #7a2e8e; /* Piráti-ish purple, from our logo */
-  --color-violet-soft: #c79bd8; /* lighter violet — used for small text on dark */
+  --color-violet:      #7f3399; /* Piráti-ish purple, matched to the "Lískovec jsi ty!" logo */
+  --color-violet-soft: #b786c8; /* lighter violet — used for small text on dark, matches logo exactly */
   --color-yellow:      #f2c500; /* Piráti yellow — our main accent */
-  --color-green:       #8dc540; /* Zelení lime green — call-to-action / "ON" */
-  --color-green-dark:  #6fa72f; /* green hover state */
+  --color-green:       #8fba47; /* Zelení lime green — call-to-action / "ON", matched to the logo */
+  --color-green-dark:  #739638; /* green hover state */
 
   /* Party tag colours */
   --pirati:  var(--color-yellow);
@@ -565,6 +565,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 }
 .site-footer__social a:hover { background: var(--color-green); color: #000; }
 .site-footer__bottom { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e1e1e; color: var(--color-muted); font-size: 0.9rem; text-align: center; }
+.site-footer__badge { display: block; height: 46px; width: auto; margin: 0 auto 1.25rem; }
 .site-footer__credit { margin-top: 0.5rem; font-size: 0.82rem; color: var(--color-muted); max-width: 60ch; margin-inline: auto; }
 .site-footer__credit a { color: var(--color-green); text-decoration: none; }
 .site-footer__credit a:hover { text-decoration: underline; }

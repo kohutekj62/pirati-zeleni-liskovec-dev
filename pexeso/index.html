@@ -25,9 +25,9 @@
       --text:      #f4f4f5;
       --muted:     #b5b5bd;
       --yellow:    #f2c500;
-      --green:     #8dc540;
-      --violet:    #7a2e8e;
-      --violet-s:  #c79bd8;
+      --green:     #8fba47;
+      --violet:    #7f3399;
+      --violet-s:  #b786c8;
       --radius:    14px;
       --tr:        0.2s ease;
       --font-d:    "Bebas Neue", "Arial Narrow", sans-serif;
@@ -212,7 +212,7 @@
       font-family: var(--font-b); font-size: 0.95rem; font-weight: 700;
       border: none; border-radius: 999px; cursor: pointer;
     }
-    .info-card__close:hover { background: #6fa72f; }
+    .info-card__close:hover { background: #739638; }
 
     /* ── ROUND COMPLETE ── */
     #screen-round-end { padding: 3rem 1.5rem; text-align: center; }
@@ -223,7 +223,7 @@
     .btn-row    { display: flex; flex-direction: column; gap: 0.75rem; max-width: 300px; margin: 0 auto; }
     .btn { display: inline-block; padding: 0.75rem 1.75rem; border-radius: 999px; font-weight: 700; font-size: 0.95rem; cursor: pointer; border: 2px solid transparent; text-decoration: none; text-align: center; transition: 0.2s; }
     .btn--green  { background: var(--green);  color: #000; }
-    .btn--green:hover  { background: #6fa72f; }
+    .btn--green:hover  { background: #739638; }
     .btn--yellow { background: var(--yellow); color: #000; }
     .btn--yellow:hover { background: #d4ac00; }
     .btn--ghost  { background: transparent; border-color: #444; color: var(--text); }
@@ -301,6 +301,7 @@
     .site-footer a { color: var(--green); text-decoration: none; }
     .site-footer a:hover { text-decoration: underline; }
     .site-footer__credit { margin-top: 0.6rem; max-width: 60ch; margin-inline: auto; }
+    .site-footer__badge { display: block; height: 46px; width: auto; margin: 0 auto 1.25rem; }
   </style>
 </head>
 <body>
@@ -393,6 +394,7 @@
 <!-- ░░ END TEMPORARY ░░ -->
 
 <footer class="site-footer">
+  <img src="../assets/logo-liskovec-jsi-ty.png" alt="Lískovec jsi ty!" class="site-footer__badge" width="184" height="104" loading="lazy" />
   <p data-i18n="footer_text">Hra o místech a příbězích Brna–Starého Lískovce. Tvoří ji <a href="../">Starý Lískovec ON</a>.</p>
   <p class="site-footer__credit" data-i18n="footer_credit">Web vytváříme vlastními silami s pomocí umělé inteligence. Našli jste chybu nebo nepřesnost? Dejte nám prosím vědět na <a href="mailto:slon@staryliskovec-on.cz">slon@staryliskovec-on.cz</a>.</p>
 </footer>
