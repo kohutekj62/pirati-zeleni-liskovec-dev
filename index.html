@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   ============================================================================
-  STARÝ LÍSKOVEC ON (SLON)  —  coalition campaign website
+  LÍSKOVEC JSI TY!  —  coalition campaign website
   ============================================================================
   HOW THIS FILE IS ORGANISED (for whoever edits it next):
 
@@ -10,7 +10,7 @@
     • This file is the STRUCTURE / skeleton. Each visible block of the page is
       a <section> with a big comment banner so you can find it fast.
     • Colours & fonts are in  css/styles.css  (top of the file).
-    • Clicks & interactions (menu, language switch, the elephant flip) are in
+    • Clicks & interactions (menu, language switch, the logo flip) are in
       js/main.js.  Lists (program, people, events, news) are built by js/render.js.
 
   Text marked  data-i18n="some_key"  is filled in automatically from content.js
@@ -23,8 +23,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Browser tab + search engines (Czech is the default language) -->
-  <title>Starý Lískovec ON – koalice Pirátů a Zelených | Komunální volby Brno 2026</title>
-  <meta name="description" content="Starý Lískovec ON (SLON) — koalice Pirátů a Zelených pro komunální volby 2026 v Brně. Otevřeně a nápaditě pro náš Starý Lískovec." />
+  <title>Lískovec jsi Ty! – koalice Pirátů a Zelených | Komunální volby Brno 2026</title>
+  <meta name="description" content="Lískovec jsi Ty! — koalice Pirátů a Zelených pro komunální volby 2026 v Brně. Otevřeně a nápaditě pro náš Starý Lískovec." />
   <meta name="theme-color" content="#0a0a0a" />
 
   <!-- Content Security Policy — only our own assets + Formspree for the contact form -->
@@ -36,19 +36,19 @@
 
   <!-- Open Graph — controls how the page looks when shared on Facebook / WhatsApp / messengers -->
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Starý Lískovec ON" />
+  <meta property="og:site_name" content="Lískovec jsi Ty!" />
   <meta property="og:locale" content="cs_CZ" />
-  <meta property="og:title" content="Starý Lískovec ON – koalice Pirátů a Zelených | Komunální volby Brno 2026" />
+  <meta property="og:title" content="Lískovec jsi Ty! – koalice Pirátů a Zelených | Komunální volby Brno 2026" />
   <meta property="og:description" content="Otevřeně a nápaditě pro náš Starý Lískovec. Koalice Pirátů a Zelených pro komunální volby 2026 v Brně." />
   <meta property="og:image" content="https://www.staryliskovec-on.cz/assets/og-pic.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Starý Lískovec ON — koalice Pirátů a Zelených, komunální volby Brno 2026" />
+  <meta property="og:image:alt" content="Lískovec jsi Ty! — koalice Pirátů a Zelených, komunální volby Brno 2026" />
   <meta property="og:url" content="https://www.staryliskovec-on.cz/" />
 
   <!-- Twitter / X card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Starý Lískovec ON – koalice Pirátů a Zelených | Komunální volby Brno 2026" />
+  <meta name="twitter:title" content="Lískovec jsi Ty! – koalice Pirátů a Zelených | Komunální volby Brno 2026" />
   <meta name="twitter:description" content="Otevřeně a nápaditě pro náš Starý Lískovec. Komunální volby 2026 v Brně." />
   <meta name="twitter:image" content="https://www.staryliskovec-on.cz/assets/og-pic.png" />
 
@@ -60,10 +60,9 @@
       {
         "@type": "Organization",
         "@id": "https://www.staryliskovec-on.cz/#organization",
-        "name": "Starý Lískovec ON",
-        "alternateName": "SLON",
+        "name": "Lískovec jsi Ty!",
         "url": "https://www.staryliskovec-on.cz/",
-        "logo": "https://www.staryliskovec-on.cz/assets/logo-slon.png",
+        "logo": "https://www.staryliskovec-on.cz/assets/logo-liskovec-jsi-ty-square.png",
         "description": "Koalice Pirátů a Zelených pro komunální volby 2026 v Brně-Starém Lískovci.",
         "email": "slon@staryliskovec-on.cz",
         "sameAs": [
@@ -85,7 +84,7 @@
         "@type": "WebSite",
         "@id": "https://www.staryliskovec-on.cz/#website",
         "url": "https://www.staryliskovec-on.cz/",
-        "name": "Starý Lískovec ON",
+        "name": "Lískovec jsi Ty!",
         "publisher": { "@id": "https://www.staryliskovec-on.cz/#organization" },
         "inLanguage": ["cs", "en"]
       }
@@ -95,7 +94,7 @@
 
   <!-- Little icon in the browser tab -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-  <link rel="apple-touch-icon" href="assets/logo-slon.png" />
+  <link rel="apple-touch-icon" href="assets/logo-liskovec-jsi-ty-square.png" />
 
   <!-- Fonts: self-hosted (no Google CDN — faster, GDPR-clean) -->
   <link rel="stylesheet" href="css/fonts.css?v=e0b8a13a" />
@@ -126,7 +125,7 @@
     <div class="container site-header__inner">
 
       <!-- Brand (links back to the top). -->
-      <a class="brand" href="#top" aria-label="Starý Lískovec ON">
+      <a class="brand" href="#top" aria-label="Lískovec jsi Ty!">
         <img src="assets/logo-liskovec-jsi-ty.png" class="brand__svg" alt="Lískovec jsi ty!" width="84" height="44" />
       </a>
 
@@ -175,10 +174,9 @@
         <div class="hero__text">
           <p class="hero__kicker" data-i18n="hero_kicker">Komunální volby — podzim 2026</p>
           <h1 class="hero__title" id="hero-title">
-            <span data-i18n="hero_title_1">STARÝ LÍSKOVEC</span>
-            <span class="hero__on"><span data-i18n="hero_title_2">ON</span></span>
+            <span data-i18n="hero_title_1">LÍSKOVEC</span>
+            <span data-i18n="hero_title_2">JSI TY!</span>
           </h1>
-          <span class="toggle-switch hero__toggle" aria-hidden="true"><span class="toggle-switch__knob"></span></span>
           <p class="hero__tagline" data-i18n="hero_tagline">Otevřeně, nápaditě.</p>
           <div class="hero__cta">
             <a class="btn btn--primary" href="#program" data-i18n="hero_cta_1">Náš program</a>
@@ -203,7 +201,7 @@
           <div class="about__text" id="about-text"></div>
           <!-- One photo placeholder for this section -->
           <figure class="about__photo">
-            <img src="assets/team.jpg" alt="Tým Starý Lískovec ON" />
+            <img src="assets/team.jpg" alt="Tým Lískovec jsi Ty!" />
           </figure>
         </div>
       </div>
@@ -369,7 +367,7 @@
   <footer class="site-footer">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <img src="assets/logo-slon.svg" alt="Starý Lískovec ON" width="48" height="48" />
+        <img src="assets/logo-liskovec-jsi-ty.png" alt="Lískovec jsi Ty!" width="84" height="48" />
         <p data-i18n="footer_about"></p>
       </div>
 
@@ -389,7 +387,7 @@
     </div>
     <div class="container site-footer__bottom">
       <img src="assets/logo-liskovec-jsi-ty.png" alt="Lískovec jsi ty!" class="site-footer__badge" width="184" height="104" loading="lazy" />
-      <p>&copy; <span id="year"></span> Starý Lískovec ON · <span data-i18n="footer_rights"></span></p>
+      <p>&copy; <span id="year"></span> Lískovec jsi Ty! · <span data-i18n="footer_rights"></span></p>
       <p class="site-footer__credit"><span data-i18n="footer_credit"></span><a href="mailto:slon@staryliskovec-on.cz">slon@staryliskovec-on.cz</a></p>
     </div>
   </footer>
@@ -405,7 +403,7 @@
       1) content.js  — all the text & data
       2) i18n.js     — the Czech/English switching
       3) render.js   — builds the lists from the content
-      4) main.js     — menu, language button, the elephant flip, forms
+      4) main.js     — menu, language button, the logo flip, forms
     (These are plain <script> tags so the site also works by just double-clicking
      index.html — no build step, no server required.)
   -->

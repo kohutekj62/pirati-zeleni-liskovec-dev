@@ -79,7 +79,7 @@ const RENDER = (function () {
   }
 
   /* ====================================================================== */
-  /* 3) LIDÉ  —  the flip-cards (elephant on the front, photo on the back)   */
+  /* 3) LIDÉ  —  the flip-cards (logo on the front, photo on the back)       */
   /* ====================================================================== */
   function renderPeople() {
     var grid = document.getElementById("people-grid");
@@ -88,9 +88,9 @@ const RENDER = (function () {
       var data = p[L()] || p.cs;
       var isZeleni = (p.party || "").toLowerCase().indexOf("zelen") === 0;
 
-      // FRONT face: our neon elephant + a little hint
+      // FRONT face: our logo + a little hint
       var front = el("span", { class: "flip-card__face flip-card__face--front", children: [
-        el("img", { attrs: { src: "assets/who-is-who.png", alt: "", "aria-hidden": "true" } }),
+        el("img", { attrs: { src: "assets/logo-liskovec-jsi-ty.png", alt: "", "aria-hidden": "true" } }),
         el("span", { class: "flip-card__hint", text: t("card_hint") }),
       ]});
       // BACK face: the real photo

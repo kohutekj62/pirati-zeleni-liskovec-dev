@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pexeso – Starý Lískovec ON</title>
+  <title>Pexeso – Lískovec jsi Ty!</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -24,10 +24,13 @@
       width: 240px;
     }
 
-    .card__elephant {
+    .card__logo {
       width: 240px;
       height: auto;
       display: block;
+      background: #fff;
+      border-radius: 12px 12px 0 0;
+      padding: 26px 20px 18px;
       filter: drop-shadow(0 0 18px rgba(183,134,200,0.5))
               drop-shadow(0 0 40px rgba(242,197,0,0.2));
     }
@@ -65,7 +68,7 @@
     @media print {
       body { background: #fff; padding: 0; }
       .card { width: 100%; }
-      .card__elephant { width: 100%; filter: none; }
+      .card__logo { width: 100%; filter: none; }
       .card__qr-link { width: 100%; animation: none; }
       .card__qr-link::before { display: none; }
       #qr-box, #qr-box img, #qr-box canvas { width: 100% !important; height: auto !important; }
@@ -74,9 +77,9 @@
 </head>
 <body>
   <div class="card">
-    <img class="card__elephant"
-         src="https://kohutekj62.github.io/SL-ON/assets/who-is-who.png"
-         alt="Starý Lískovec ON" />
+    <img class="card__logo"
+         src="https://kohutekj62.github.io/SL-ON/assets/logo-liskovec-jsi-ty.png"
+         alt="Lískovec jsi Ty!" />
     <a class="card__qr-link"
        href="https://kohutekj62.github.io/SL-ON/pexeso/"
        target="_blank"

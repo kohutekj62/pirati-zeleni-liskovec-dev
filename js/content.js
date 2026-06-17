@@ -79,14 +79,14 @@ const CONTENT = {
 
       // -- Hero (top banner) --
       hero_kicker:   "Komunální volby Brno — podzim 2026",
-      hero_title_1:  "STARÝ LÍSKOVEC",
-      hero_title_2:  "ON",
-      hero_tagline:  "Otevřeně, nápaditě. Zapněte s námi Starý Lískovec!",
+      hero_title_1:  "LÍSKOVEC",
+      hero_title_2:  "JSI TY!",
+      hero_tagline:  "Otevřeně, nápaditě. Zapojte se s námi!",
       hero_cta_1:    "Náš program",
       hero_cta_2:    "Setkejme se",
       hero_cta_share: "Sdílet",
       where_to_vote: "Kde volit?",
-      hero_logo_alt: "Logo Starý Lískovec ON",
+      hero_logo_alt: "Logo Lískovec jsi Ty!",
 
       // -- Section titles + lead sentences --
       about_title:    "O nás",
@@ -94,7 +94,7 @@ const CONTENT = {
       program_title:  "Program",
       program_lead:   "Šest priorit pro lepší Starý Lískovec. Klikněte na bod a rozbalte detail.",
       people_title:   "Lidé",
-      people_lead:    "Klikněte na slona a odhalte, kdo se skrývá za naším týmem.",
+      people_lead:    "Klikněte na logo a odhalte, kdo se skrývá za naším týmem.",
       meet_title:     "Setkejme se",
       meet_lead:      "Přijďte za námi do ulic. Těšíme se na vás.",
       event_past:     "Proběhlo",
@@ -109,7 +109,7 @@ const CONTENT = {
 
       // -- People (flip-card) --
       card_flip_to_photo:    "Zobrazit fotografii",
-      card_flip_to_elephant: "Zpět na slona",
+      card_flip_to_elephant: "Zpět na logo",
       card_hint:             "Klikněte pro odhalení",
       other_candidates_label: "Další kandidáti",
 
@@ -164,21 +164,21 @@ const CONTENT = {
       pexeso_cta:    "Play the memory game →",
 
       hero_kicker:   "Municipal elections Brno — autumn 2026",
-      hero_title_1:  "STARÝ LÍSKOVEC",
-      hero_title_2:  "ON",
-      hero_tagline:  "Openly, creatively. Turn Starý Lískovec ON with us!",
+      hero_title_1:  "LÍSKOVEC",
+      hero_title_2:  "IS YOU!",
+      hero_tagline:  "Openly, creatively. Get involved with us!",
       hero_cta_1:    "Our programme",
       hero_cta_2:    "Meet us",
       hero_cta_share: "Share",
       where_to_vote: "Where to vote?",
-      hero_logo_alt: "Starý Lískovec ON logo",
+      hero_logo_alt: "Lískovec jsi Ty! logo",
 
       about_title:    "About us",
       about_lead:     "A coalition of the Pirates and the Greens for Brno-Starý Lískovec.",
       program_title:  "Programme",
       program_lead:   "Six priorities for a better Starý Lískovec. Click a point to expand it.",
       people_title:   "People",
-      people_lead:    "Click the elephant to reveal who is behind our team.",
+      people_lead:    "Click the logo to reveal who is behind our team.",
       meet_title:     "Meet us",
       meet_lead:      "Come and find us out in the streets. We look forward to seeing you.",
       event_past:     "Done",
@@ -192,7 +192,7 @@ const CONTENT = {
       partners_lead:  "We are part of something bigger. We proudly stand with our parent parties.",
 
       card_flip_to_photo:    "Show photo",
-      card_flip_to_elephant: "Back to elephant",
+      card_flip_to_elephant: "Back to logo",
       card_hint:             "Click to reveal",
       other_candidates_label: "More candidates",
 
@@ -461,8 +461,8 @@ const CONTENT = {
      ====================================================================== */
   news: [
     { date: "2026-03-01", image: "",
-      cs: { title: "Koalice Piráti + Zelení vzniká", excerpt: "Oznamujeme vznik koalice pro komunální volby 2026 ve Starém Lískovci pod názvem SLON — Starý Lískovec ON. Jsme rádi, že stojíme společně." },
-      en: { title: "Pirates + Greens coalition formed", excerpt: "We announce the formation of our coalition for the 2026 municipal elections in Starý Lískovec under the name SLON — Starý Lískovec ON." } },
+      cs: { title: "Koalice Piráti + Zelení vzniká", excerpt: "Oznamujeme vznik koalice pro komunální volby 2026 ve Starém Lískovci pod názvem Lískovec jsi Ty! Jsme rádi, že stojíme společně." },
+      en: { title: "Pirates + Greens coalition formed", excerpt: "We announce the formation of our coalition for the 2026 municipal elections in Starý Lískovec under the name Lískovec jsi Ty!" } },
     { date: "2026-04-20", image: "",
       cs: { title: "Zahájili jsme přípravy kampaně", excerpt: "Scházíme se pravidelně a připravujeme program, vizuální identitu a plán setkání s občany. Děkujeme všem dobrovolníkům za pomoc!" },
       en: { title: "Campaign preparations under way", excerpt: "We are meeting regularly and preparing our programme, visual identity and plan for citizen meetings. Thank you to all our volunteers!" } },

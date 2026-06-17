@@ -231,7 +231,7 @@
 
     /* ── ALL COMPLETE ── */
     #screen-all-done { padding: 3rem 1.5rem; text-align: center; }
-    .done-logo  { width: 100px; margin: 0 auto 1.5rem; display: block; }
+    .done-logo  { width: 160px; margin: 0 auto 1.5rem; display: block; background: #fff; border-radius: 12px; padding: 10px 16px; }
     .done-title { font-family: var(--font-d); font-size: clamp(2rem,10vw,3.5rem); color: var(--yellow); line-height: 1; margin-bottom: 0.5rem; }
     .done-sub   { font-size: 0.95rem; color: var(--muted); max-width: 34ch; margin: 0 auto 2rem; line-height: 1.6; }
 
@@ -312,7 +312,7 @@
 </div>
 
 <header class="site-header">
-  <a href="../" aria-label="Starý Lískovec ON">
+  <a href="../" aria-label="Lískovec jsi Ty!">
     <img src="../assets/logo-liskovec-jsi-ty.png" alt="Lískovec jsi ty!" />
   </a>
   <div class="lang-toggle" id="lang-toggle" role="button" tabindex="0"
@@ -362,11 +362,11 @@
      SCREEN 4: All done
 ════════════════════════════════════════════════════ -->
 <div class="screen" id="screen-all-done">
-  <img class="done-logo" src="../assets/logo-slon.svg" alt="Starý Lískovec ON" />
+  <img class="done-logo" src="../assets/logo-liskovec-jsi-ty.png" alt="Lískovec jsi Ty!" />
   <p class="done-title" data-i18n="all_done_title">Znáš Lískovec!</p>
   <p class="done-sub" data-i18n="all_done_sub">Prošel/a jsi všechna tři kola a poznal/a 18 míst naší čtvrti. Skvělá práce!</p>
   <div class="btn-row" style="max-width:300px; margin: 0 auto;">
-    <a class="btn btn--yellow" href="../" data-i18n="all_done_cta">Víc o Starém Lískovci ON →</a>
+    <a class="btn btn--yellow" href="../" data-i18n="all_done_cta">Víc o Lískovci jsi Ty! →</a>
     <button class="btn btn--ghost" id="btn-share-all" data-i18n="share_all">Sdílet</button>
     <button class="btn btn--ghost" id="btn-restart" data-i18n="restart">Hrát znovu</button>
   </div>
@@ -395,7 +395,7 @@
 
 <footer class="site-footer">
   <img src="../assets/logo-liskovec-jsi-ty.png" alt="Lískovec jsi ty!" class="site-footer__badge" width="184" height="104" loading="lazy" />
-  <p data-i18n="footer_text">Hra o místech a příbězích Brna–Starého Lískovce. Tvoří ji <a href="../">Starý Lískovec ON</a>.</p>
+  <p data-i18n="footer_text">Hra o místech a příbězích Brna–Starého Lískovce. Tvoří ji <a href="../">Lískovec jsi Ty!</a>.</p>
   <p class="site-footer__credit" data-i18n="footer_credit">Web vytváříme vlastními silami s pomocí umělé inteligence. Našli jste chybu nebo nepřesnost? Dejte nám prosím vědět na <a href="mailto:slon@staryliskovec-on.cz">slon@staryliskovec-on.cz</a>.</p>
 </footer>
 
@@ -531,9 +531,9 @@ const UI = {
     next_round: "Další kolo →", replay_round: "Hrát znovu",
     back_to_rounds: "Výběr kol", all_done_title: "Znáš Lískovec!",
     all_done_sub: "Prošel/a jsi všechna kola a poznal/a místa naší čtvrti. Skvělá práce!",
-    all_done_cta: "Víc o Starém Lískovci ON →", restart: "Hrát znovu",
+    all_done_cta: "Víc o Lískovci jsi Ty! →", restart: "Hrát znovu",
     info_close: "Pokračovat ve hře",
-    footer_text: "Hra o místech a příbězích Brna–Starého Lískovce. Tvoří ji <a href=\"../\">Starý Lískovec ON</a>.",
+    footer_text: "Hra o místech a příbězích Brna–Starého Lískovce. Tvoří ji <a href=\"../\">Lískovec jsi Ty!</a>.",
     footer_credit: "Web vytváříme vlastními silami s pomocí umělé inteligence. Našli jste chybu nebo nepřesnost? Dejte nám prosím vědět na <a href=\"mailto:slon@staryliskovec-on.cz\">slon@staryliskovec-on.cz</a>.",
     done_badge: "✓ Splněno",
     moves: "Tahů",
@@ -553,9 +553,9 @@ const UI = {
     next_round: "Next round →", replay_round: "Play again",
     back_to_rounds: "Round select", all_done_title: "You know Lískovec!",
     all_done_sub: "You completed all rounds and discovered the places of our neighbourhood. Well done!",
-    all_done_cta: "More about Starý Lískovec ON →", restart: "Play again",
+    all_done_cta: "More about Lískovec jsi Ty! →", restart: "Play again",
     info_close: "Continue playing",
-    footer_text: "A game about the places and stories of Brno–Starý Lískovec. Made by <a href=\"../\">Starý Lískovec ON</a>.",
+    footer_text: "A game about the places and stories of Brno–Starý Lískovec. Made by <a href=\"../\">Lískovec jsi Ty!</a>.",
     footer_credit: "We build this site ourselves with the help of artificial intelligence. Found an error or an inaccuracy? Please let us know at <a href=\"mailto:slon@staryliskovec-on.cz\">slon@staryliskovec-on.cz</a>.",
     done_badge: "✓ Done",
     moves: "Moves",
@@ -815,7 +815,7 @@ function renderGame() {
     return `<div class="card" data-pair="${c.pairId}" data-idx="${i}">
       <div class="card__inner">
         <div class="card__face card__back">
-          <img src="../assets/logo-liskovec-jsi-ty.png" alt="Starý Lískovec ON" />
+          <img src="../assets/logo-liskovec-jsi-ty.png" alt="Lískovec jsi Ty!" />
         </div>
         <div class="card__face card__front">
           ${photoHtml}

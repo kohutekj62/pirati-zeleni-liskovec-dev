@@ -5,7 +5,7 @@
      • starts the page (sets the language, draws the lists, fills the year)
      • opens / closes the mobile menu (hamburger)
      • switches Czech ⇄ English when the language toggle is clicked
-     • flips the elephant cards to the real photos
+     • flips the logo cards to the real photos
      • handles the contact form and the newsletter sign-up
      • shows the "back to top" button and highlights the current menu item
 
@@ -285,7 +285,7 @@
     btn.addEventListener("click", function () {
       navigator.share({
         title: document.title,
-        text:  "Starý Lískovec ON — koalice Pirátů a Zelených, komunální volby Brno 2026",
+        text:  "Lískovec jsi Ty! — koalice Pirátů a Zelených, komunální volby Brno 2026",
         url:   window.location.href,
       }).catch(function () { /* user cancelled or error — do nothing */ });
     });
