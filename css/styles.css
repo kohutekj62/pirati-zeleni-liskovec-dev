@@ -234,7 +234,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
   background:
     radial-gradient(60% 60% at 80% 10%, rgba(127, 51, 153, 0.45), transparent 60%),
     radial-gradient(50% 50% at 10% 90%, rgba(143, 186, 71, 0.22), transparent 60%),
-    linear-gradient(to right, rgba(10,10,10,0.84) 0%, rgba(10,10,10,0.55) 100%),
+    linear-gradient(to right, rgba(10,10,10,0.68) 0%, rgba(10,10,10,0.38) 100%),
     url('../header-photo.jpg') center / cover no-repeat;
 }
 .hero__inner {
