@@ -9,7 +9,7 @@
        PROGRAM, PEOPLE, …). Use your editor's "find" to jump to the one you want.
 
    Brand colours come straight from the "Piráti a Zelení pro Lískovec" logo:
-     violet (Piráti) · green (Zelení) — two colours, used with intent.
+     magenta (Piráti) · green (Zelení) — two colours, used with intent.
    ========================================================================== */
 
 /* ----------------------------------------------------------------------------
@@ -18,28 +18,30 @@
 :root {
   /* Brand colours — LIGHT theme (white page, dark text) */
   --color-bg:        #ffffff;   /* page background (white) */
-  --color-surface:   #f6f5f8;   /* slightly tinted panels / alternating sections */
-  --color-surface-2: #f3eef8;   /* cards (a hint of violet) */
+  --color-surface:   #f8f6f7;   /* slightly tinted panels / alternating sections */
+  --color-surface-2: #fbeef4;   /* cards (a hint of pink) */
   --color-text:      #1a1a1a;   /* main text (near-black) */
   --color-muted:     #5a5560;   /* secondary / quieter text (passes AA on white) */
-  --color-border:    #e4e0ea;   /* hairline borders / dividers on the light theme */
+  --color-border:    #ecdfe6;   /* hairline borders / dividers on the light theme */
 
-  /* Logo colours, kept exact for fills, dots and glows */
-  --color-violet:      #5834a6; /* logo violet (Piráti) — also our strongest text accent (8.6:1 on white) */
-  --color-violet-soft: #8867cf; /* lighter violet — fills / glows / light-on-dark text only */
-  --color-violet-dark: #43287f; /* violet hover state (fills only) */
-  --color-green:       #48c078; /* logo green (Zelení) — FILLS ONLY (use green-ink for text on white) */
-  --color-green-ink:   #2b7c4b; /* darkened green that passes AA as text on white and on tinted panels */
-  --color-green-dark:  #34975c; /* green hover state */
+  /* Logo colours. Bright = fills/dots/glows; -ink = text on white; -soft = light text on dark */
+  --color-magenta:      #e00c63; /* logo magenta (Piráti) — fills/dots/tags (with white text) */
+  --color-magenta-ink:  #d40b5e; /* darkened magenta that passes AA as text on white + tinted panels */
+  --color-magenta-soft: #f178a3; /* light magenta — glows / light-on-dark text only */
+  --color-magenta-dark: #b90a52; /* magenta hover state (fills only) */
+  --color-green:        #109a3c; /* logo green (Zelení) — FILLS ONLY (use green-ink for text on white) */
+  --color-green-ink:    #0d7e31; /* darkened green that passes AA as text on white and on tinted panels */
+  --color-green-soft:   #46c97a; /* light green — glows / light-on-dark text only */
+  --color-green-dark:   #0e8a35; /* green hover state (keeps black text AA) */
 
   /* Semantic accents — what to use for links and text accents on the white page */
-  --color-link:        var(--color-violet);
+  --color-link:        var(--color-magenta-ink);
   --color-link-hover:  var(--color-green-ink);
   --color-error:        #c62828; /* form validation text */
   --color-error-border: #e0556b; /* form validation border */
 
   /* Party tag colours */
-  --pirati:  var(--color-violet);
+  --pirati:  var(--color-magenta);
   --zeleni:  var(--color-green);
 
   /* Fonts */
@@ -54,8 +56,8 @@
   --section-pad: clamp(3rem, 7vw, 6rem);
 
   /* Effects */
-  --shadow:     0 10px 30px rgba(31, 20, 40, 0.12);
-  --shadow-sm:  0 4px 14px rgba(31, 20, 40, 0.08);
+  --shadow:     0 10px 30px rgba(45, 10, 28, 0.12);
+  --shadow-sm:  0 4px 14px rgba(45, 10, 28, 0.08);
   --transition: 0.25s ease;
   --header-h:   72px;           /* header height (used to offset anchor scrolling) */
 }
@@ -137,7 +139,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .skip-link:focus { top: 0.5rem; }
 
 /* Visible keyboard focus outline everywhere */
-:focus-visible { outline: 3px solid var(--color-violet); outline-offset: 2px; border-radius: 4px; }
+:focus-visible { outline: 3px solid var(--color-magenta); outline-offset: 2px; border-radius: 4px; }
 
 /* ----------------------------------------------------------------------------
    BUTTONS  (pill-shaped, rounded — the Zelení flavour)
@@ -153,13 +155,13 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .btn:active { transform: translateY(0); }
 
 .btn--primary { background: var(--color-green); color: #000; }
-.btn--primary:hover { background: var(--color-violet-dark); color: #fff; }
+.btn--primary:hover { background: var(--color-magenta-dark); color: #fff; }
 
 .btn--green { background: var(--color-green); color: #000; }
 .btn--green:hover { background: var(--color-green-dark); color: #000; }
 
-.btn--ghost { background: transparent; color: var(--color-text); border-color: var(--color-violet); }
-.btn--ghost:hover { background: var(--color-violet); color: #fff; border-color: var(--color-violet); }
+.btn--ghost { background: transparent; color: var(--color-text); border-color: var(--color-magenta-ink); }
+.btn--ghost:hover { background: var(--color-magenta); color: #fff; border-color: var(--color-magenta-ink); }
 
 /* ----------------------------------------------------------------------------
    HEADER + NAVIGATION
@@ -178,7 +180,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .brand { display: inline-flex; align-items: center; gap: 0.6rem; color: var(--color-text); }
 .brand:hover { color: var(--color-text); }
 .brand__logo { width: 44px; height: 44px; border-radius: 8px; }
-.brand__svg  { height: 44px; width: auto; display: block; }
+.brand__svg  { height: 52px; width: auto; display: block; }
 .brand__name { font-size: 1.5rem; line-height: 1; }
 
 /* Desktop navigation */
@@ -189,10 +191,10 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 }
 .main-nav a::after { /* animated underline on hover / current section */
   content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px;
-  background: var(--color-violet); transform: scaleX(0); transform-origin: left;
+  background: var(--color-magenta); transform: scaleX(0); transform-origin: left;
   transition: transform var(--transition);
 }
-.main-nav a:hover, .main-nav a.is-current { color: var(--color-violet); }
+.main-nav a:hover, .main-nav a.is-current { color: var(--color-magenta-ink); }
 .main-nav a:hover::after, .main-nav a.is-current::after { transform: scaleX(1); }
 
 .header-tools { display: flex; align-items: center; gap: 0.75rem; margin-left: 1rem; }
@@ -230,8 +232,8 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
   border-top: 3px solid var(--color-green);
   border-bottom: 3px solid var(--color-green);
   background:
-    radial-gradient(60% 60% at 80% 10%, rgba(88, 52, 166, 0.45), transparent 60%),
-    radial-gradient(50% 50% at 10% 90%, rgba(72, 192, 120, 0.22), transparent 60%),
+    radial-gradient(60% 60% at 80% 10%, rgba(224, 12, 99, 0.45), transparent 60%),
+    radial-gradient(50% 50% at 10% 90%, rgba(16, 154, 60, 0.22), transparent 60%),
     linear-gradient(to right, rgba(10,10,10,0.68) 0%, rgba(10,10,10,0.38) 100%),
     url('../header-photo.jpg') center / cover no-repeat;
 }
@@ -242,13 +244,13 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .hero__text { flex: 1 1 60%; }
 .hero__kicker {
   display: inline-block; margin: 0 0 1rem;
-  color: var(--color-green); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-  font-size: 0.9rem; border: 1px solid rgba(72, 192, 120, 0.4); border-radius: var(--radius-pill);
+  color: var(--color-green-soft); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  font-size: 0.9rem; border: 1px solid rgba(70, 201, 122, 0.45); border-radius: var(--radius-pill);
   padding: 0.35rem 0.9rem;
 }
 .hero__title { font-size: clamp(3rem, 11vw, 7rem); margin: 0; }
 .hero__title span {
-  background: linear-gradient(90deg, var(--color-violet-soft), var(--color-green));
+  background: linear-gradient(90deg, var(--color-magenta-soft), var(--color-green-soft));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -257,10 +259,10 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .hero__cta { display: flex; flex-wrap: wrap; gap: 1rem; }
 /* Ghost button sits on the dark hero, so it needs light text + a light outline */
 .hero .btn--ghost { color: #fff; border-color: rgba(255, 255, 255, 0.55); }
-.hero .btn--ghost:hover { background: var(--color-violet); border-color: var(--color-violet); color: #fff; }
+.hero .btn--ghost:hover { background: var(--color-magenta); border-color: var(--color-magenta-ink); color: #fff; }
 
 .hero__art { flex: 0 1 320px; display: flex; justify-content: center; }
-.hero__logo { width: clamp(180px, 30vw, 340px); height: auto; border-radius: var(--radius); filter: drop-shadow(0 0 24px rgba(88, 52, 166, 0.5)); }
+.hero__logo { width: clamp(180px, 30vw, 340px); height: auto; border-radius: var(--radius); filter: drop-shadow(0 0 24px rgba(224, 12, 99, 0.5)); }
 
 /* ----------------------------------------------------------------------------
    SECTIONS  (shared frame for every block)
@@ -273,7 +275,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 /* A little green accent line under each section title */
 .section__title::after {
   content: ""; display: block; width: 64px; height: 4px; margin: 0.5rem auto 0;
-  background: linear-gradient(90deg, var(--color-violet), var(--color-green)); border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--color-magenta), var(--color-green)); border-radius: var(--radius-pill);
 }
 .section__lead { color: var(--color-muted); font-size: 1.1rem; margin: 0.5rem 0 0; }
 
@@ -284,7 +286,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .about__grid { display: grid; grid-template-columns: 1fr; gap: var(--gap); justify-items: center; }
 .about__text { max-width: 72ch; }
 .about__text p { margin: 0 0 1rem; font-size: 1.08rem; }
-.about__text p:first-child { font-size: 1.3rem; color: var(--color-violet); font-weight: 500; } /* lead-in sentence stands out */
+.about__text p:first-child { font-size: 1.3rem; color: var(--color-magenta-ink); font-weight: 500; } /* lead-in sentence stands out */
 .about__photo { order: -1; width: 100%; max-width: 760px; border-radius: var(--radius); overflow: hidden; }
 .about__photo img { width: 100%; height: auto; display: block; } /* full photo, never cropped */
 
@@ -310,7 +312,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 }
 .program-card__title { flex: 1; font-size: 1.55rem; margin: 0; }
 .program-card__icon { font-size: 1.6rem; }
-.program-card__chevron { transition: transform var(--transition); color: var(--color-violet); font-size: 1.4rem; }
+.program-card__chevron { transition: transform var(--transition); color: var(--color-magenta-ink); font-size: 1.4rem; }
 .program-card[open] .program-card__chevron { transform: rotate(180deg); }
 .program-card__body { padding: 0 1.4rem 1.4rem 5rem; color: var(--color-muted); }
 
@@ -353,11 +355,11 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 
 /* Party accent: front face + hover ring + hint follow the person's party,
    so the 8 logo fronts read as two coalition parties, not one repeated card.
-   The hint sits on a near-black scrim, so Piráti gets the lighter violet-soft
-   (the brand violet itself is too dark to read there) while Zelení's green
-   already reads fine on dark and on light, so it's reused as-is. */
-.flip-card--pirati { --flip-accent: var(--pirati); --flip-accent-on-dark: var(--color-violet-soft); }
-.flip-card--zeleni { --flip-accent: var(--zeleni); --flip-accent-on-dark: var(--zeleni); }
+   The hint sits on a near-black scrim, so each party uses its lighter -soft
+   variant there: the brand magenta and green are both too dark to read on the
+   scrim, but the bright fills are still used for the borders/rings on light. */
+.flip-card--pirati { --flip-accent: var(--pirati); --flip-accent-on-dark: var(--color-magenta-soft); }
+.flip-card--zeleni { --flip-accent: var(--zeleni); --flip-accent-on-dark: var(--color-green-soft); }
 
 /* little "click to reveal" hint on the logo face */
 .flip-card__hint {
@@ -382,7 +384,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 /* party tag */
 .party-tag { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
   letter-spacing: 0.05em; padding: 0.2rem 0.7rem; border-radius: var(--radius-pill); color: #000; }
-.party-tag--pirati { background: var(--pirati); color: #fff; } /* violet fill is dark — needs light text */
+.party-tag--pirati { background: var(--pirati); color: #fff; } /* magenta fill is dark — needs light text */
 .party-tag--zeleni { background: var(--zeleni); }
 
 /* expandable secondary candidates list (positions 9–20) */
@@ -415,7 +417,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .events { list-style: none; padding: 0; margin: 0; position: relative; max-width: 760px; margin-inline: auto; }
 .events::before { /* the vertical gradient line */
   content: ""; position: absolute; left: 28px; top: 8px; bottom: 8px; width: 2px;
-  background: linear-gradient(var(--color-violet), var(--color-green));
+  background: linear-gradient(var(--color-magenta), var(--color-green));
 }
 .event { position: relative; padding: 0 0 1.6rem 72px; }
 .event__dot {
@@ -424,7 +426,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
   transition: box-shadow var(--transition);
 }
 .section--alt .event__dot { border-color: var(--color-surface); }
-.event__date { color: var(--color-violet); font-weight: 700; font-size: 0.95rem; }
+.event__date { color: var(--color-magenta-ink); font-weight: 700; font-size: 0.95rem; }
 .event__title { font-size: 1.2rem; margin: 0.15rem 0; }
 .event__place { color: var(--color-muted); font-size: 0.95rem; }
 .event__desc  { color: var(--color-muted); margin: 0.2rem 0 0; }
@@ -433,7 +435,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 /* nearest upcoming event — larger glowing dot + bigger title */
 .event--nearest .event__dot {
   width: 26px; height: 26px; left: 16px; top: 2px;
-  box-shadow: 0 0 0 3px var(--color-green), 0 0 14px rgba(72, 192, 120, 0.45);
+  box-shadow: 0 0 0 3px var(--color-green), 0 0 14px rgba(16, 154, 60, 0.45);
 }
 .event--nearest .event__title { font-size: 1.4rem; }
 .event__badge { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
@@ -491,7 +493,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .news-card:hover { transform: translateY(-4px); }
 .news-card__media { aspect-ratio: 16 / 9; }
 .news-card__body { padding: 1.2rem 1.4rem; display: flex; flex-direction: column; gap: 0.4rem; }
-.news-card__date { color: var(--color-violet); font-weight: 700; font-size: 0.85rem; }
+.news-card__date { color: var(--color-magenta-ink); font-weight: 700; font-size: 0.85rem; }
 .news-card__title { font-size: 1.25rem; margin: 0; }
 .news-card__excerpt { color: var(--color-muted); margin: 0; }
 
@@ -519,7 +521,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .contact__intro { color: var(--color-muted); }
 .contact__details { list-style: none; padding: 0; margin: 0 0 2rem; display: flex; flex-direction: column; gap: 0.6rem; }
 .contact__details li { display: flex; gap: 0.6rem; align-items: baseline; }
-.contact__details .label { color: var(--color-violet); min-width: 7.5rem; font-weight: 500; }
+.contact__details .label { color: var(--color-magenta-ink); min-width: 7.5rem; font-weight: 500; }
 .contact__social { display: flex; gap: 0.8rem; flex-wrap: wrap; }
 .contact__social a {
   display: inline-grid; place-items: center; width: 42px; height: 42px; border-radius: 50%;
@@ -546,7 +548,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
   background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: var(--radius);
   padding: 1.6rem; text-align: center; border-top: 4px solid var(--accent, var(--color-green));
 }
-.partner-card--pirati { --accent: var(--color-violet); }
+.partner-card--pirati { --accent: var(--color-magenta); }
 .partner-card--zeleni { --accent: var(--color-green); }
 .partner-card__name { font-size: 1.6rem; font-family: var(--font-display); }
 .partner-card__links { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
@@ -560,7 +562,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .site-footer__brand img { border-radius: 8px; }
 .site-footer__nav { display: flex; flex-direction: column; gap: 0.5rem; }
 .site-footer__nav a { color: var(--color-text); }
-.site-footer__nav a:hover { color: var(--color-violet); }
+.site-footer__nav a:hover { color: var(--color-magenta-ink); }
 .site-footer__social { list-style: none; padding: 0; margin: 0; display: flex; gap: 0.7rem; }
 .site-footer__social a {
   display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
@@ -589,7 +591,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .media-placeholder {
   position: relative; margin: 0; border-radius: var(--radius);
   border: 2px dashed var(--color-border); background:
-    repeating-linear-gradient(45deg, transparent, transparent 14px, rgba(88, 52, 166,0.06) 14px, rgba(88, 52, 166,0.06) 28px),
+    repeating-linear-gradient(45deg, transparent, transparent 14px, rgba(224, 12, 99,0.06) 14px, rgba(224, 12, 99,0.06) 28px),
     var(--color-surface-2);
   display: grid; place-items: center; color: var(--color-muted); text-align: center; padding: 1rem;
   aspect-ratio: 4 / 3;
@@ -701,11 +703,11 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .btn--pexeso {
   display: inline-block; padding: 0.6rem 1.6rem;
   border-radius: var(--radius-pill); font-weight: 700; font-size: 0.9rem;
-  background: transparent; color: var(--color-violet);
-  border: 2px solid var(--color-violet);
+  background: transparent; color: var(--color-magenta-ink);
+  border: 2px solid var(--color-magenta);
   text-decoration: none; transition: background var(--transition), color var(--transition);
 }
-.btn--pexeso:hover { background: var(--color-violet); color: #fff; }
+.btn--pexeso:hover { background: var(--color-magenta); color: #fff; }
 
 @media print { .pexeso-teaser { display: none !important; } }
 

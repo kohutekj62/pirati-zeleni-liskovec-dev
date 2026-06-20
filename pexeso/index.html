@@ -20,17 +20,19 @@
 
     :root {
       --bg:        #ffffff;
-      --surface:   #f6f5f8;
-      --surface2:  #f3eef8;
+      --surface:   #f8f6f7;
+      --surface2:  #fbeef4;
       --text:      #1a1a1a;
       --muted:     #5a5560;
-      --border:    #e4e0ea;
-      --green:     #48c078;
-      --green-ink: #2b7c4b;
-      --green-dark:#34975c;
-      --violet:    #5834a6;
-      --violet-s:  #8867cf;
-      --violet-dark:#43287f;
+      --border:    #ecdfe6;
+      --green:     #109a3c;
+      --green-ink: #0d7e31;
+      --green-dark:#0e8a35;
+      --green-soft:#46c97a;
+      --magenta:    #e00c63;
+      --magenta-ink:#d40b5e;
+      --magenta-s:  #f178a3;
+      --magenta-dark:#b90a52;
       --error:     #c62828;
       --radius:    14px;
       --tr:        0.2s ease;
@@ -62,7 +64,7 @@
       background: var(--surface); border-bottom: 3px solid var(--green);
     }
     .site-header a { display: flex; align-items: center; text-decoration: none; }
-    .site-header img { height: 38px; width: auto; }
+    .site-header img { height: 46px; width: auto; }
 
     /* ── LANG TOGGLE ── */
     .lang-toggle {
@@ -95,7 +97,7 @@
       font-family: var(--font-d);
       font-size: clamp(2.2rem, 7vw, 4.5rem);
       line-height: 1; margin-bottom: 0.5rem;
-      background: linear-gradient(90deg, var(--violet), var(--green-ink));
+      background: linear-gradient(90deg, var(--magenta), var(--green-ink));
       -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
       display: inline-block;
     }
@@ -113,10 +115,10 @@
       border-radius: var(--radius); padding: 1.25rem 1rem;
       cursor: pointer; transition: border-color 0.2s, transform 0.15s; text-align: left;
     }
-    .round-card:hover { border-color: var(--violet); transform: translateY(-3px); }
+    .round-card:hover { border-color: var(--magenta-ink); transform: translateY(-3px); }
     .round-card.done  { border-color: var(--green); opacity: 0.75; }
     .round-card__emoji { font-size: 2rem; margin-bottom: 0.4rem; }
-    .round-card__title { font-family: var(--font-d); font-size: 1.4rem; color: var(--violet); }
+    .round-card__title { font-family: var(--font-d); font-size: 1.4rem; color: var(--magenta-ink); }
     .round-card__badge { display: inline-block; margin-top: 0.5rem; font-size: 0.75rem; font-weight: 700; color: var(--green-ink); }
 
     /* ── GAME HEADER ── */
@@ -131,11 +133,11 @@
       cursor: pointer; display: flex; align-items: center; justify-content: center;
       flex: 0 0 auto; transition: border-color var(--tr), color var(--tr); line-height: 1;
     }
-    .ghdr-home:hover    { border-color: var(--violet); color: var(--violet); }
+    .ghdr-home:hover    { border-color: var(--magenta-ink); color: var(--magenta-ink); }
     .ghdr-restart:hover { border-color: var(--green);  color: var(--green-ink); }
     .ghdr-category { display: flex; align-items: center; gap: 0.4rem; flex: 1; min-width: 0; }
     .ghdr-emoji { font-size: 1rem; flex: 0 0 auto; }
-    .ghdr-name  { font-family: var(--font-d); font-size: 1.25rem; color: var(--violet); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ghdr-name  { font-family: var(--font-d); font-size: 1.25rem; color: var(--magenta-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .ghdr-moves { font-size: 0.78rem; color: var(--muted); white-space: nowrap; flex: 0 0 auto; }
     .ghdr-moves b { color: var(--text); }
 
@@ -198,7 +200,7 @@
       width: 100%; aspect-ratio: 4/3; border-radius: 8px; margin-bottom: 1rem;
       background: var(--surface2); display: flex; align-items: center; justify-content: center; font-size: 3rem;
     }
-    .info-card__name     { font-family: var(--font-d); font-size: 1.8rem; color: var(--violet); line-height: 1; margin-bottom: 0.25rem; }
+    .info-card__name     { font-family: var(--font-d); font-size: 1.8rem; color: var(--magenta-ink); line-height: 1; margin-bottom: 0.25rem; }
     .info-card__location { font-size: 0.82rem; color: var(--green-ink); margin-bottom: 0.75rem; }
     .info-card__desc     { font-size: 0.92rem; line-height: 1.6; color: var(--text); margin-bottom: 0.5rem; }
     .info-card__history  { font-size: 0.82rem; line-height: 1.5; color: var(--muted); font-style: italic; margin-bottom: 0.9rem; }
@@ -211,7 +213,7 @@
     .info-card__link--map { border-color: var(--green); color: var(--green-ink); }
     .info-card__link--map:hover { background: var(--green); color: #000; }
     .info-card__link--web { border-color: var(--border); color: var(--muted); }
-    .info-card__link--web:hover { border-color: var(--violet); color: var(--violet); }
+    .info-card__link--web:hover { border-color: var(--magenta-ink); color: var(--magenta-ink); }
     .info-card__close {
       width: 100%; padding: 0.7rem; background: var(--green); color: #000;
       font-family: var(--font-b); font-size: 0.95rem; font-weight: 700;
@@ -222,27 +224,27 @@
     /* ── ROUND COMPLETE ── */
     #screen-round-end { padding: 3rem 1.5rem; text-align: center; }
     .end-emoji  { font-size: 4rem; margin-bottom: 1rem; }
-    .end-title  { font-family: var(--font-d); font-size: 3rem; color: var(--violet); margin-bottom: 0.5rem; }
+    .end-title  { font-family: var(--font-d); font-size: 3rem; color: var(--magenta-ink); margin-bottom: 0.5rem; }
     .end-stats  { font-size: 1rem; color: var(--muted); margin-bottom: 2rem; }
     .end-stats b { color: var(--text); }
     .btn-row    { display: flex; flex-direction: column; gap: 0.75rem; max-width: 300px; margin: 0 auto; }
     .btn { display: inline-block; padding: 0.75rem 1.75rem; border-radius: 999px; font-weight: 700; font-size: 0.95rem; cursor: pointer; border: 2px solid transparent; text-decoration: none; text-align: center; transition: 0.2s; }
     .btn--green  { background: var(--green);  color: #000; }
     .btn--green:hover  { background: var(--green-dark); }
-    .btn--violet { background: var(--violet); color: #fff; }
-    .btn--violet:hover { background: var(--violet-dark); }
+    .btn--magenta { background: var(--magenta); color: #fff; }
+    .btn--magenta:hover { background: var(--magenta-dark); }
     .btn--ghost  { background: transparent; border-color: var(--border); color: var(--text); }
-    .btn--ghost:hover  { border-color: var(--violet); color: var(--violet); }
+    .btn--ghost:hover  { border-color: var(--magenta-ink); color: var(--magenta-ink); }
 
     /* ── ALL COMPLETE ── */
     #screen-all-done { padding: 3rem 1.5rem; text-align: center; }
     .done-logo  { width: 200px; margin: 0 auto 1.5rem; display: block; }
-    .done-title { font-family: var(--font-d); font-size: clamp(2rem,10vw,3.5rem); color: var(--violet); line-height: 1; margin-bottom: 0.5rem; }
+    .done-title { font-family: var(--font-d); font-size: clamp(2rem,10vw,3.5rem); color: var(--magenta-ink); line-height: 1; margin-bottom: 0.5rem; }
     .done-sub   { font-size: 0.95rem; color: var(--muted); max-width: 34ch; margin: 0 auto 2rem; line-height: 1.6; }
 
     /* ── SEO CONTENT ── */
     .seo-content { max-width: 700px; margin: 3rem auto 2rem; padding: 0 1.25rem; }
-    .seo-content h2 { font-family: var(--font-d); font-size: 1.8rem; color: var(--violet); margin-bottom: 1.5rem; }
+    .seo-content h2 { font-family: var(--font-d); font-size: 1.8rem; color: var(--magenta-ink); margin-bottom: 1.5rem; }
     .seo-place { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
     .seo-place h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
     .seo-place p  { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
@@ -275,11 +277,11 @@
     .review-link--m { border-color: var(--green); color: var(--green-ink); }
     .review-link--m:hover { background: var(--green); color: #000; }
     .review-link--w { border-color: var(--border); color: var(--muted); }
-    .review-link--w:hover { border-color: var(--violet); color: var(--violet); }
+    .review-link--w:hover { border-color: var(--magenta-ink); color: var(--magenta-ink); }
     .review-link--none { border-color: var(--border); color: var(--muted); cursor: default; pointer-events: none; }
     /* ░░ TEMPORARY — text-popup button ░░ */
-    .review-link--t { border-color: var(--violet-s); color: var(--violet); background: transparent; font-family: var(--font-b); cursor: pointer; }
-    .review-link--t:hover { background: var(--violet-s); color: #000; }
+    .review-link--t { border-color: var(--magenta-s); color: var(--magenta-ink); background: transparent; font-family: var(--font-b); cursor: pointer; }
+    .review-link--t:hover { background: var(--magenta-s); color: #000; }
 
     /* ░░ TEMPORARY — review text popup ░░ */
     .revtext-overlay {
@@ -288,16 +290,16 @@
     }
     .revtext-overlay.visible { display: flex; }
     .revtext-card {
-      background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--violet-s);
+      background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--magenta-s);
       border-radius: var(--radius); max-width: 640px; width: 100%; max-height: 85vh;
       overflow-y: auto; padding: 1.5rem; text-align: left;
     }
-    .revtext-card h3 { font-family: var(--font-d); color: var(--violet); font-size: 1.7rem; line-height: 1; margin-bottom: 0.2rem; }
+    .revtext-card h3 { font-family: var(--font-d); color: var(--magenta-ink); font-size: 1.7rem; line-height: 1; margin-bottom: 0.2rem; }
     .revtext-card .revtext-loc { color: var(--green-ink); font-size: 0.85rem; margin-bottom: 0.5rem; }
     .revtext-card .revtext-lang { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 0.9rem 0 0.25rem; border-top: 1px solid var(--border); padding-top: 0.7rem; }
     .revtext-card p { font-size: 0.9rem; line-height: 1.55; color: var(--text); }
     .revtext-card .revtext-hist { color: var(--muted); font-style: italic; font-size: 0.84rem; }
-    .revtext-close { margin-top: 1.25rem; width: 100%; padding: 0.6rem; background: var(--violet-s); color: #000; border: none; border-radius: 999px; font-weight: 700; cursor: pointer; font-family: var(--font-b); }
+    .revtext-close { margin-top: 1.25rem; width: 100%; padding: 0.6rem; background: var(--magenta-s); color: #000; border: none; border-radius: 999px; font-weight: 700; cursor: pointer; font-family: var(--font-b); }
     /* ░░ END TEMPORARY ░░ */
 
     /* ── FOOTER ── */
@@ -367,11 +369,11 @@
      SCREEN 4: All done
 ════════════════════════════════════════════════════ -->
 <div class="screen" id="screen-all-done">
-  <img class="done-logo" src="../assets/logo-pirati-zeleni.png" alt="Piráti a Zelení pro Lískovec" />
+  <img class="done-logo" src="../assets/logo-pirati-zeleni-icon.png" alt="Piráti a Zelení pro Lískovec" />
   <p class="done-title" data-i18n="all_done_title">Znáš Lískovec!</p>
   <p class="done-sub" data-i18n="all_done_sub">Prošel/a jsi všechna tři kola a poznal/a 18 míst naší čtvrti. Skvělá práce!</p>
   <div class="btn-row" style="max-width:300px; margin: 0 auto;">
-    <a class="btn btn--violet" href="../" data-i18n="all_done_cta">Zpět na hlavní stránku →</a>
+    <a class="btn btn--magenta" href="../" data-i18n="all_done_cta">Zpět na hlavní stránku →</a>
     <button class="btn btn--ghost" id="btn-share-all" data-i18n="share_all">Sdílet</button>
     <button class="btn btn--ghost" id="btn-restart" data-i18n="restart">Hrát znovu</button>
   </div>
@@ -399,7 +401,7 @@
 <!-- ░░ END TEMPORARY ░░ -->
 
 <footer class="site-footer">
-  <img src="../assets/logo-pirati-zeleni.png" alt="Piráti a Zelení pro Lískovec" class="site-footer__badge" width="184" height="84" loading="lazy" />
+  <img src="../assets/logo-pirati-zeleni.png" alt="Piráti a Zelení pro Lískovec" class="site-footer__badge" width="184" height="95" loading="lazy" />
   <p data-i18n="footer_text">Hra o místech a příbězích Brna–Starého Lískovce. Tvoří ji <a href="../">Piráti a Zelení pro Lískovec</a>.</p>
   <p class="site-footer__credit" data-i18n="footer_credit">Web vytváříme vlastními silami s pomocí umělé inteligence. Našli jste chybu nebo nepřesnost? Dejte nám prosím vědět na <a href="mailto:slon@staryliskovec-on.cz">slon@staryliskovec-on.cz</a>.</p>
 </footer>
@@ -717,7 +719,7 @@ function renderRoundsGrid() {
 function renderSeoList() {
   const list = document.getElementById("seo-list");
   list.innerHTML = ROUNDS.map(r =>
-    `<h3 style="font-family:var(--font-d);font-size:1.2rem;color:var(--green);margin:1.5rem 0 0.75rem">${r[lang].title}</h3>` +
+    `<h3 style="font-family:var(--font-d);font-size:1.2rem;color:var(--green-ink);margin:1.5rem 0 0.75rem">${r[lang].title}</h3>` +
     r.places.map(p => {
       const d = p[lang];
       return `<div class="seo-place"><h3>${d.name}</h3><p>${d.location} — ${d.desc} ${d.history}</p></div>`;
