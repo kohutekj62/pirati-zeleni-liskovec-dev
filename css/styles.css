@@ -31,7 +31,7 @@
   --color-yellow-ink:  #8f7400; /* darkened yellow that passes AA as text on white */
   --color-yellow-dark: #d4ac00; /* yellow hover state (fills only) */
   --color-green:       #8fba47; /* logo/Zelení green — FILLS ONLY (use green-ink for text on white) */
-  --color-green-ink:   #628030; /* darkened green that passes AA as text on white */
+  --color-green-ink:   #5b762c; /* darkened green that passes AA as text on white and on tinted panels */
   --color-green-dark:  #739638; /* green hover state */
 
   /* Semantic accents — what to use for links and text accents on the white page */
