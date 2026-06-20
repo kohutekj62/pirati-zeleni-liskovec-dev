@@ -2,7 +2,7 @@
    render.js  —  builds the page lists from the content
    ==========================================================================
    It reads the data in content.js and creates the HTML for:
-     • O nás (paragraphs)        • Lidé (the candidate flip-cards)
+     • O nás (paragraphs)        • Lidé (the candidate photo cards)
      • Program (the 6 cards)     • Setkejme se (event timeline)
      • Aktuality (news cards)    • Spojme se (contact details)
      • Přátelé (partner cards)   • placeholders & footer links
@@ -79,7 +79,7 @@ const RENDER = (function () {
   }
 
   /* ====================================================================== */
-  /* 3) LIDÉ  —  the flip-cards (logo on the front, photo on the back)       */
+  /* 3) LIDÉ  —  the candidate photo cards                                   */
   /* ====================================================================== */
   function renderPeople() {
     var grid = document.getElementById("people-grid");
@@ -88,24 +88,20 @@ const RENDER = (function () {
       var data = p[L()] || p.cs;
       var isZeleni = (p.party || "").toLowerCase().indexOf("zelen") === 0;
 
-      // FRONT face: our logo + a little hint. The top accent and hint colour
-      // follow the person's party, so 8 otherwise-identical logo fronts read
-      // as "a coalition of two parties" instead of one repeated stamp.
-      var partyClass = isZeleni ? "flip-card--zeleni" : "flip-card--pirati";
-      var front = el("span", { class: "flip-card__face flip-card__face--front", children: [
-        el("img", { attrs: { src: "assets/logo-pirati-zeleni-icon.png", alt: "", "aria-hidden": "true" } }),
-        el("span", { class: "flip-card__hint", text: t("card_hint") }),
-      ]});
-      // BACK face: the real photo
-      var back = el("span", { class: "flip-card__face flip-card__face--back", children: [
-        el("img", { attrs: { src: "assets/people/" + p.photo, alt: p.name, loading: "lazy", width: "300", height: "400" } }),
-      ]});
+      // The top accent follows the person's party, so the 8 cards read as
+      // "a coalition of two parties" instead of one repeated stamp.
+      var partyClass = isZeleni ? "person__photo--zeleni" : "person__photo--pirati";
 
-      // The whole image area is a real button so it works with the keyboard too.
-      var btn = el("button", { class: "flip-card " + partyClass, attrs: {
-        type: "button", "aria-pressed": "false",
-        "aria-label": t("card_flip_to_photo") + ": " + p.name,
-      }, children: [ el("span", { class: "flip-card__inner", children: [front, back] }) ] });
+      // Real photo. If the file isn't there yet, fall back to the logo so
+      // the grid never shows a broken-image icon.
+      var img = el("img", { attrs: { src: "assets/people/" + p.photo, alt: p.name, loading: "lazy", width: "300", height: "400" } });
+      img.addEventListener("error", function () {
+        img.src = "assets/logo-pirati-zeleni-icon.png";
+        img.alt = "";
+        img.classList.add("is-placeholder");
+      }, { once: true });
+
+      var photo = el("div", { class: "person__photo " + partyClass, children: [img] });
 
       var subtitleParts = [];
       if (p.age) subtitleParts.push(p.age + " let");
@@ -121,7 +117,7 @@ const RENDER = (function () {
         el("p",    { class: "person__bio", text: data.bio }),
       ]});
 
-      grid.appendChild(el("article", { class: "person", children: [btn, info] }));
+      grid.appendChild(el("article", { class: "person", children: [photo, info] }));
     });
   }
 

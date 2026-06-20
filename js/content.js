@@ -70,12 +70,6 @@ const CONTENT = {
       nav_news:      "Kronika",
       nav_contact:   "Spojme se",
       nav_partners:  "Přátelé",
-      nav_pexeso:    "Pexeso",
-
-      // -- Pexeso teaser band (between Program and Lidé) --
-      pexeso_title:  "Lískovec dobře známe.",
-      pexeso_sub:    "Zkuste, jak dobře jej znáte vy.",
-      pexeso_cta:    "Zahrát pexeso →",
 
       // -- Hero (top banner) --
       hero_kicker:   "Komunální volby Brno — podzim 2026",
@@ -94,7 +88,7 @@ const CONTENT = {
       program_title:  "Program",
       program_lead:   "Šest priorit pro lepší Starý Lískovec. Klikněte na bod a rozbalte detail.",
       people_title:   "Lidé",
-      people_lead:    "Klikněte na logo a odhalte, kdo se skrývá za naším týmem.",
+      people_lead:    "Lidé, kteří za tímto programem stojí.",
       meet_title:     "Setkejme se",
       meet_lead:      "Přijďte za námi do ulic. Těšíme se na vás.",
       event_past:     "Proběhlo",
@@ -107,10 +101,6 @@ const CONTENT = {
       partners_title: "Přátelé",
       partners_lead:  "Jsme součástí celku. Hrdě se hlásíme k našim mateřským stranám.",
 
-      // -- People (flip-card) --
-      card_flip_to_photo:    "Zobrazit fotografii",
-      card_flip_to_elephant: "Zpět na logo",
-      card_hint:             "Klikněte pro odhalení",
       other_candidates_label: "Další kandidáti",
 
       // -- Contact form --
@@ -156,12 +146,6 @@ const CONTENT = {
       nav_news:      "Story Book",
       nav_contact:   "Get in touch",
       nav_partners:  "Friends",
-      nav_pexeso:    "Memory game",
-
-      // -- Pexeso teaser band --
-      pexeso_title:  "We know Lískovec well.",
-      pexeso_sub:    "See how well you know it.",
-      pexeso_cta:    "Play the memory game →",
 
       hero_kicker:   "Municipal elections Brno — autumn 2026",
       hero_title_1:  "PIRATES",
@@ -178,7 +162,7 @@ const CONTENT = {
       program_title:  "Programme",
       program_lead:   "Six priorities for a better Starý Lískovec. Click a point to expand it.",
       people_title:   "People",
-      people_lead:    "Click the logo to reveal who is behind our team.",
+      people_lead:    "The people behind this programme.",
       meet_title:     "Meet us",
       meet_lead:      "Come and find us out in the streets. We look forward to seeing you.",
       event_past:     "Done",
@@ -191,9 +175,6 @@ const CONTENT = {
       partners_title: "Friends",
       partners_lead:  "We are part of something bigger. We proudly stand with our parent parties.",
 
-      card_flip_to_photo:    "Show photo",
-      card_flip_to_elephant: "Back to logo",
-      card_hint:             "Click to reveal",
       other_candidates_label: "More candidates",
 
       form_name:        "Name",

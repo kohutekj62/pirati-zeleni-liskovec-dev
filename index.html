@@ -10,7 +10,7 @@
     • This file is the STRUCTURE / skeleton. Each visible block of the page is
       a <section> with a big comment banner so you can find it fast.
     • Colours & fonts are in  css/styles.css  (top of the file).
-    • Clicks & interactions (menu, language switch, the logo flip) are in
+    • Clicks & interactions (menu, language switch) are in
       js/main.js.  Lists (program, people, events, news) are built by js/render.js.
 
   Text marked  data-i18n="some_key"  is filled in automatically from content.js
@@ -138,7 +138,6 @@
         <a href="#news"     data-i18n="nav_news">Aktuality</a>
         <a href="#contact"  data-i18n="nav_contact">Spojme se</a>
         <a href="#partners" data-i18n="nav_partners">Přátelé</a>
-        <a href="pexeso/"   data-i18n="nav_pexeso">Pexeso</a>
       </nav>
 
       <div class="header-tools">
@@ -223,20 +222,7 @@
     </section>
 
     <!-- ======================================================================
-         PEXESO TEASER  —  brand-gradient interlude between Program and People.
-         Copy lives in content.js → ui.pexeso_title / pexeso_sub / pexeso_cta.
-         ===================================================================== -->
-    <section class="pexeso-teaser" id="pexeso-teaser" aria-labelledby="pexeso-teaser-title">
-      <div class="container pexeso-teaser__inner">
-        <h2 class="pexeso-teaser__title" id="pexeso-teaser-title" data-i18n="pexeso_title">Lískovec dobře známe.</h2>
-        <p class="pexeso-teaser__sub" data-i18n="pexeso_sub">Zkuste, jak dobře jej znáte vy.</p>
-        <a class="btn btn--pexeso" href="pexeso/" data-i18n="pexeso_cta">Zahrát pexeso →</a>
-      </div>
-    </section>
-
-    <!-- ======================================================================
-         3) LIDÉ   — the candidates. Each card shows the ELEPHANT first; click
-                     it to flip to the real photo. Built by render.js from
+         3) LIDÉ   — the candidates. Built by render.js from
                      content.js  →  people:
          ===================================================================== -->
     <section class="section" id="people" aria-labelledby="people-title">
@@ -245,7 +231,7 @@
           <h2 class="section__title" id="people-title" data-i18n="people_title">Lidé</h2>
           <p class="section__lead" data-i18n="people_lead"></p>
         </header>
-        <!-- Candidate flip-cards appear here -->
+        <!-- Candidate photo cards appear here -->
         <div class="people-grid" id="people-grid"></div>
         <!-- Expandable secondary candidate list (positions 9–20) -->
         <div id="people-other"></div>
@@ -378,7 +364,6 @@
         <a href="#people"   data-i18n="nav_people">Lidé</a>
         <a href="#meet"     data-i18n="nav_meet">Setkejme se</a>
         <a href="#contact"  data-i18n="nav_contact">Spojme se</a>
-        <a href="pexeso/"   data-i18n="nav_pexeso">Pexeso</a>
       </nav>
 
       <ul class="site-footer__social" id="footer-social" aria-label="Sociální sítě">
@@ -402,7 +387,7 @@
       1) content.js  — all the text & data
       2) i18n.js     — the Czech/English switching
       3) render.js   — builds the lists from the content
-      4) main.js     — menu, language button, the logo flip, forms
+      4) main.js     — menu, language button, forms
     (These are plain <script> tags so the site also works by just double-clicking
      index.html — no build step, no server required.)
   -->

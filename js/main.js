@@ -5,7 +5,6 @@
      • starts the page (sets the language, draws the lists, fills the year)
      • opens / closes the mobile menu (hamburger)
      • switches Czech ⇄ English when the language toggle is clicked
-     • flips the logo cards to the real photos
      • handles the contact form and the newsletter sign-up
      • shows the "back to top" button and highlights the current menu item
 
@@ -30,7 +29,6 @@
     setupDevBanner();
     setupMenu();
     setupLanguageToggle();
-    setupElephantFlip();
     setupContactForm();
     setupNewsletter();
     setupBackToTop();
@@ -123,26 +121,6 @@
     toggle.classList.toggle("is-en", isEn);
     toggle.querySelectorAll(".lang-toggle__opt").forEach(function (opt) {
       opt.classList.toggle("is-active", opt.getAttribute("data-lang-value") === I18N.lang);
-    });
-  }
-
-  /* =======================================================================
-     THE ELEPHANT FLIP  (click a card → show the real photo, click → back)
-     Each card flips on its own. Works with mouse, touch and keyboard.
-     ===================================================================== */
-  function setupElephantFlip() {
-    document.addEventListener("click", function (e) {
-      var card = e.target.closest(".flip-card");
-      if (!card) return;
-
-      var flipped = card.classList.toggle("is-flipped");
-      card.setAttribute("aria-pressed", flipped ? "true" : "false");
-
-      // Update the spoken label so screen-reader users know what the click does next
-      var person = card.closest(".person");
-      var name = person ? person.querySelector(".person__name").textContent : "";
-      card.setAttribute("aria-label",
-        I18N.t(flipped ? "card_flip_to_elephant" : "card_flip_to_photo") + ": " + name);
     });
   }
 
