@@ -70,6 +70,18 @@ python3 .claude/skills/rebrand/scripts/ink.py ink '#8fba47' --ratio 4.5      # d
   pick the strongest-contrast brand colour as the primary text accent
   (links, nav, dates, labels), the ink variants for secondary accents,
   and reserve the bright fills for buttons/dots/tags with black text.
+- **Derive each ink against its worst-case background, not just white.** An
+  ink token gets reused on every tinted panel/surface in the palette (cards,
+  footers, hover pills), and those are *slightly* darker than pure white —
+  enough to drop a ratio that cleared 4.5:1 on white down to ~4.0 on a
+  panel. Check `ink.py contrast` against every surface token the colour will
+  sit on (`--color-surface`, `--color-surface-2`, …), and derive with
+  `--bg` set to the **lightest-contrast** (i.e. worst) one of those, e.g.
+  `ink.py ink '#8fba47' --bg '#f3eef8' --ratio 4.5`. An ink that only passes
+  on white is exactly the kind of gap a static screenshot won't show but
+  an automated accessibility test (axe / `@axe-core/playwright`) will catch
+  — if the repo has such a test suite, run it as part of Phase 5/6, not just
+  the screenshot review.
 
 ## 3. Propagate through CSS (drive everything from tokens)
 
@@ -90,6 +102,15 @@ python3 .claude/skills/rebrand/scripts/ink.py ink '#8fba47' --ratio 4.5      # d
   photo), scope light text locally: `.hero { color: #f4f4f5 } .hero .btn--ghost
   { color:#fff; border-color: rgba(255,255,255,.55) }` — overriding tokens on an
   ancestor won't retro-fix already-resolved descendant colours.
+- **The same rule applies to small repeated components, not just hero-sized
+  sections** — a photo-card caption sitting on its own
+  `linear-gradient(transparent, rgba(0,0,0,.85))` scrim at the bottom of a
+  thumbnail is just as "dark backdrop" as the hero, but it's easy to miss
+  because it's inside a generic-looking card component, not a page-level
+  section. If a rule pairs its own dark gradient/overlay background with a
+  text colour, that text colour must be a fixed light value (`#fff`), never
+  `var(--color-text)` — grep for `rgba(0,0,0,` / `rgba(10,10,10,` alongside a
+  sibling `color:` declaration in the same rule and check each one.
 - Each standalone page with its own embedded `<style>` (`pexeso/`, `404.html`,
   `pamphlet.html`) has its **own** `:root`; convert each in parallel. Give each
   the **same set of semantic tokens** as the main stylesheet (hover-darken
@@ -141,6 +162,20 @@ looks professional — then say so plainly.
 > Note: in a sandbox, external fonts/CDNs and absolute production URLs may not
 > resolve locally (broken QR / logo via full `https://…` paths). That's a
 > localhost artifact, not a regression — verify the relative-path assets.
+
+- **A static screenshot only shows the resting state.** Anything that only
+  renders after an interaction — a flipped memory-card face, an open
+  hamburger menu, a hover/focus style, a validation error — is invisible to
+  `shoot.py` and needs an actual click. Use Playwright (it's already a
+  devDependency on most of these projects) to drive the interaction and
+  screenshot the result, the same way you'd verify a flip-card's photo
+  caption or a form's error state.
+- **If the repo ships a Playwright/axe accessibility test suite
+  (`@axe-core/playwright`, `tests/a11y.spec.js`), run it** — `npx playwright
+  test` — and treat any `color-contrast` violation as a real bug, not noise.
+  It will catch exactly the "ink only checked against white" gap from Phase
+  2 and the "dark backdrop using the theme text token" gap from Phase 3,
+  both of which slip past a visual screenshot review.
 
 ## 6. Verify & commit
 
