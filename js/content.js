@@ -79,14 +79,15 @@ const CONTENT = {
 
       // -- Hero (top banner) --
       hero_kicker:   "Komunální volby Brno — podzim 2026",
-      hero_title_1:  "LÍSKOVEC",
-      hero_title_2:  "JSI TY!",
+      hero_title_1:  "PIRÁTI",
+      hero_title_2:  "A ZELENÍ",
       hero_tagline:  "Otevřeně, nápaditě. Zapojte se s námi!",
       hero_cta_1:    "Náš program",
       hero_cta_2:    "Setkejme se",
       hero_cta_share: "Sdílet",
       where_to_vote: "Kde volit?",
-      hero_logo_alt: "Logo Lískovec jsi Ty!",
+      hero_logo_alt: "Logo Piráti a Zelení pro Lískovec",
+      brand_name:    "Piráti a Zelení",
 
       // -- Section titles + lead sentences --
       about_title:    "O nás",
@@ -164,14 +165,15 @@ const CONTENT = {
       pexeso_cta:    "Play the memory game →",
 
       hero_kicker:   "Municipal elections Brno — autumn 2026",
-      hero_title_1:  "LÍSKOVEC",
-      hero_title_2:  "IS YOU!",
+      hero_title_1:  "PIRATES",
+      hero_title_2:  "AND GREENS",
       hero_tagline:  "Openly, creatively. Get involved with us!",
       hero_cta_1:    "Our programme",
       hero_cta_2:    "Meet us",
       hero_cta_share: "Share",
       where_to_vote: "Where to vote?",
-      hero_logo_alt: "Lískovec jsi Ty! logo",
+      hero_logo_alt: "Piráti a Zelení pro Lískovec logo",
+      brand_name:    "Pirates & Greens",
 
       about_title:    "About us",
       about_lead:     "A coalition of the Pirates and the Greens for Brno-Starý Lískovec.",

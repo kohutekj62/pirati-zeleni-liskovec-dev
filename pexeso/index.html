@@ -25,14 +25,12 @@
       --text:      #1a1a1a;
       --muted:     #5a5560;
       --border:    #e4e0ea;
-      --yellow:    #f2c500;
-      --yellow-ink:#8f7400;
-      --yellow-dark:#d4ac00;
-      --green:     #8fba47;
-      --green-ink: #5b762c;
-      --green-dark:#739638;
-      --violet:    #7f3399;
-      --violet-s:  #b786c8;
+      --green:     #48c078;
+      --green-ink: #2b7c4b;
+      --green-dark:#34975c;
+      --violet:    #5834a6;
+      --violet-s:  #8867cf;
+      --violet-dark:#43287f;
       --error:     #c62828;
       --radius:    14px;
       --tr:        0.2s ease;
@@ -46,7 +44,7 @@
     /* ── DEV BANNER ── */
     .dev-banner {
       display: flex; align-items: center; justify-content: center; gap: 0.75rem;
-      background: var(--yellow); color: #000;
+      background: var(--green); color: #000;
       font-size: 0.85rem; font-weight: 600; padding: 0.5rem 1rem;
     }
     .dev-banner__text { flex: 1; }
@@ -78,7 +76,7 @@
     .lang-toggle__knob {
       position: absolute; top: 3px; left: 3px; z-index: 0;
       width: calc(50% - 3px); height: calc(100% - 6px);
-      background: var(--yellow); border-radius: 999px; transition: transform var(--tr);
+      background: var(--green); border-radius: 999px; transition: transform var(--tr);
     }
     .lang-toggle.is-en .lang-toggle__knob { transform: translateX(100%); }
 
@@ -115,7 +113,7 @@
       border-radius: var(--radius); padding: 1.25rem 1rem;
       cursor: pointer; transition: border-color 0.2s, transform 0.15s; text-align: left;
     }
-    .round-card:hover { border-color: var(--yellow); transform: translateY(-3px); }
+    .round-card:hover { border-color: var(--violet); transform: translateY(-3px); }
     .round-card.done  { border-color: var(--green); opacity: 0.75; }
     .round-card__emoji { font-size: 2rem; margin-bottom: 0.4rem; }
     .round-card__title { font-family: var(--font-d); font-size: 1.4rem; color: var(--violet); }
@@ -133,7 +131,7 @@
       cursor: pointer; display: flex; align-items: center; justify-content: center;
       flex: 0 0 auto; transition: border-color var(--tr), color var(--tr); line-height: 1;
     }
-    .ghdr-home:hover    { border-color: var(--yellow); color: var(--violet); }
+    .ghdr-home:hover    { border-color: var(--violet); color: var(--violet); }
     .ghdr-restart:hover { border-color: var(--green);  color: var(--green-ink); }
     .ghdr-category { display: flex; align-items: center; gap: 0.4rem; flex: 1; min-width: 0; }
     .ghdr-emoji { font-size: 1rem; flex: 0 0 auto; }
@@ -213,7 +211,7 @@
     .info-card__link--map { border-color: var(--green); color: var(--green-ink); }
     .info-card__link--map:hover { background: var(--green); color: #000; }
     .info-card__link--web { border-color: var(--border); color: var(--muted); }
-    .info-card__link--web:hover { border-color: var(--yellow); color: var(--violet); }
+    .info-card__link--web:hover { border-color: var(--violet); color: var(--violet); }
     .info-card__close {
       width: 100%; padding: 0.7rem; background: var(--green); color: #000;
       font-family: var(--font-b); font-size: 0.95rem; font-weight: 700;
@@ -231,10 +229,10 @@
     .btn { display: inline-block; padding: 0.75rem 1.75rem; border-radius: 999px; font-weight: 700; font-size: 0.95rem; cursor: pointer; border: 2px solid transparent; text-decoration: none; text-align: center; transition: 0.2s; }
     .btn--green  { background: var(--green);  color: #000; }
     .btn--green:hover  { background: var(--green-dark); }
-    .btn--yellow { background: var(--yellow); color: #000; }
-    .btn--yellow:hover { background: var(--yellow-dark); }
+    .btn--violet { background: var(--violet); color: #fff; }
+    .btn--violet:hover { background: var(--violet-dark); }
     .btn--ghost  { background: transparent; border-color: var(--border); color: var(--text); }
-    .btn--ghost:hover  { border-color: var(--yellow); color: var(--violet); }
+    .btn--ghost:hover  { border-color: var(--violet); color: var(--violet); }
 
     /* ── ALL COMPLETE ── */
     #screen-all-done { padding: 3rem 1.5rem; text-align: center; }
@@ -277,7 +275,7 @@
     .review-link--m { border-color: var(--green); color: var(--green-ink); }
     .review-link--m:hover { background: var(--green); color: #000; }
     .review-link--w { border-color: var(--border); color: var(--muted); }
-    .review-link--w:hover { border-color: var(--yellow); color: var(--violet); }
+    .review-link--w:hover { border-color: var(--violet); color: var(--violet); }
     .review-link--none { border-color: var(--border); color: var(--muted); cursor: default; pointer-events: none; }
     /* ░░ TEMPORARY — text-popup button ░░ */
     .review-link--t { border-color: var(--violet-s); color: var(--violet); background: transparent; font-family: var(--font-b); cursor: pointer; }
@@ -319,8 +317,8 @@
 </div>
 
 <header class="site-header">
-  <a href="../" aria-label="Lískovec jsi Ty!">
-    <img src="../assets/logo-liskovec-jsi-ty.png" alt="Lískovec jsi ty!" />
+  <a href="../" aria-label="Piráti a Zelení pro Lískovec">
+    <img src="../assets/logo-pirati-zeleni.png" alt="Piráti a Zelení pro Lískovec" />
   </a>
   <div class="lang-toggle" id="lang-toggle" role="button" tabindex="0"
        aria-label="Přepnout jazyk / Switch language">
@@ -369,11 +367,11 @@
      SCREEN 4: All done
 ════════════════════════════════════════════════════ -->
 <div class="screen" id="screen-all-done">
-  <img class="done-logo" src="../assets/logo-liskovec-jsi-ty.png" alt="Lískovec jsi Ty!" />
+  <img class="done-logo" src="../assets/logo-pirati-zeleni.png" alt="Piráti a Zelení pro Lískovec" />
   <p class="done-title" data-i18n="all_done_title">Znáš Lískovec!</p>
   <p class="done-sub" data-i18n="all_done_sub">Prošel/a jsi všechna tři kola a poznal/a 18 míst naší čtvrti. Skvělá práce!</p>
   <div class="btn-row" style="max-width:300px; margin: 0 auto;">
-    <a class="btn btn--yellow" href="../" data-i18n="all_done_cta">Víc o Lískovci jsi Ty! →</a>
+    <a class="btn btn--violet" href="../" data-i18n="all_done_cta">Zpět na hlavní stránku →</a>
     <button class="btn btn--ghost" id="btn-share-all" data-i18n="share_all">Sdílet</button>
     <button class="btn btn--ghost" id="btn-restart" data-i18n="restart">Hrát znovu</button>
   </div>
@@ -401,8 +399,8 @@
 <!-- ░░ END TEMPORARY ░░ -->
 
 <footer class="site-footer">
-  <img src="../assets/logo-liskovec-jsi-ty.png" alt="Lískovec jsi ty!" class="site-footer__badge" width="184" height="104" loading="lazy" />
-  <p data-i18n="footer_text">Hra o místech a příbězích Brna–Starého Lískovce. Tvoří ji <a href="../">Lískovec jsi Ty!</a>.</p>
+  <img src="../assets/logo-pirati-zeleni.png" alt="Piráti a Zelení pro Lískovec" class="site-footer__badge" width="184" height="84" loading="lazy" />
+  <p data-i18n="footer_text">Hra o místech a příbězích Brna–Starého Lískovce. Tvoří ji <a href="../">Piráti a Zelení pro Lískovec</a>.</p>
   <p class="site-footer__credit" data-i18n="footer_credit">Web vytváříme vlastními silami s pomocí umělé inteligence. Našli jste chybu nebo nepřesnost? Dejte nám prosím vědět na <a href="mailto:slon@staryliskovec-on.cz">slon@staryliskovec-on.cz</a>.</p>
 </footer>
 
@@ -538,9 +536,9 @@ const UI = {
     next_round: "Další kolo →", replay_round: "Hrát znovu",
     back_to_rounds: "Výběr kol", all_done_title: "Znáš Lískovec!",
     all_done_sub: "Prošel/a jsi všechna kola a poznal/a místa naší čtvrti. Skvělá práce!",
-    all_done_cta: "Víc o Lískovci jsi Ty! →", restart: "Hrát znovu",
+    all_done_cta: "Zpět na hlavní stránku →", restart: "Hrát znovu",
     info_close: "Pokračovat ve hře",
-    footer_text: "Hra o místech a příbězích Brna–Starého Lískovce. Tvoří ji <a href=\"../\">Lískovec jsi Ty!</a>.",
+    footer_text: "Hra o místech a příbězích Brna–Starého Lískovce. Tvoří ji <a href=\"../\">Piráti a Zelení pro Lískovec</a>.",
     footer_credit: "Web vytváříme vlastními silami s pomocí umělé inteligence. Našli jste chybu nebo nepřesnost? Dejte nám prosím vědět na <a href=\"mailto:slon@staryliskovec-on.cz\">slon@staryliskovec-on.cz</a>.",
     done_badge: "✓ Splněno",
     moves: "Tahů",
@@ -560,9 +558,9 @@ const UI = {
     next_round: "Next round →", replay_round: "Play again",
     back_to_rounds: "Round select", all_done_title: "You know Lískovec!",
     all_done_sub: "You completed all rounds and discovered the places of our neighbourhood. Well done!",
-    all_done_cta: "More about Lískovec jsi Ty! →", restart: "Play again",
+    all_done_cta: "Back to the homepage →", restart: "Play again",
     info_close: "Continue playing",
-    footer_text: "A game about the places and stories of Brno–Starý Lískovec. Made by <a href=\"../\">Lískovec jsi Ty!</a>.",
+    footer_text: "A game about the places and stories of Brno–Starý Lískovec. Made by <a href=\"../\">Piráti a Zelení pro Lískovec</a>.",
     footer_credit: "We build this site ourselves with the help of artificial intelligence. Found an error or an inaccuracy? Please let us know at <a href=\"mailto:slon@staryliskovec-on.cz\">slon@staryliskovec-on.cz</a>.",
     done_badge: "✓ Done",
     moves: "Moves",
@@ -822,7 +820,7 @@ function renderGame() {
     return `<div class="card" data-pair="${c.pairId}" data-idx="${i}">
       <div class="card__inner">
         <div class="card__face card__back">
-          <img src="../assets/logo-liskovec-jsi-ty.png" alt="Lískovec jsi Ty!" />
+          <img src="../assets/logo-pirati-zeleni-icon.png" alt="Piráti a Zelení pro Lískovec" />
         </div>
         <div class="card__face card__front">
           ${photoHtml}

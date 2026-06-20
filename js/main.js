@@ -285,7 +285,7 @@
     btn.addEventListener("click", function () {
       navigator.share({
         title: document.title,
-        text:  "Lískovec jsi Ty! — koalice Pirátů a Zelených, komunální volby Brno 2026",
+        text:  "Piráti a Zelení pro Lískovec — komunální volby Brno 2026",
         url:   window.location.href,
       }).catch(function () { /* user cancelled or error — do nothing */ });
     });

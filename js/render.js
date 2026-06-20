@@ -93,7 +93,7 @@ const RENDER = (function () {
       // as "a coalition of two parties" instead of one repeated stamp.
       var partyClass = isZeleni ? "flip-card--zeleni" : "flip-card--pirati";
       var front = el("span", { class: "flip-card__face flip-card__face--front", children: [
-        el("img", { attrs: { src: "assets/logo-liskovec-jsi-ty.png", alt: "", "aria-hidden": "true" } }),
+        el("img", { attrs: { src: "assets/logo-pirati-zeleni-icon.png", alt: "", "aria-hidden": "true" } }),
         el("span", { class: "flip-card__hint", text: t("card_hint") }),
       ]});
       // BACK face: the real photo

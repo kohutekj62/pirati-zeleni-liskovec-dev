@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   ============================================================================
-  LÍSKOVEC JSI TY!  —  coalition campaign website
+  PIRÁTI A ZELENÍ  —  coalition campaign website
   ============================================================================
   HOW THIS FILE IS ORGANISED (for whoever edits it next):
 
@@ -23,8 +23,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Browser tab + search engines (Czech is the default language) -->
-  <title>Lískovec jsi Ty! – koalice Pirátů a Zelených | Komunální volby Brno 2026</title>
-  <meta name="description" content="Lískovec jsi Ty! — koalice Pirátů a Zelených pro komunální volby 2026 v Brně. Otevřeně a nápaditě pro náš Starý Lískovec." />
+  <title>Piráti a Zelení pro Lískovec | Komunální volby Brno 2026</title>
+  <meta name="description" content="Piráti a Zelení pro Lískovec — koalice Pirátů a Zelených pro komunální volby 2026 v Brně. Otevřeně a nápaditě pro náš Starý Lískovec." />
   <meta name="theme-color" content="#ffffff" />
 
   <!-- Content Security Policy — only our own assets + Formspree for the contact form -->
@@ -36,19 +36,19 @@
 
   <!-- Open Graph — controls how the page looks when shared on Facebook / WhatsApp / messengers -->
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Lískovec jsi Ty!" />
+  <meta property="og:site_name" content="Piráti a Zelení pro Lískovec" />
   <meta property="og:locale" content="cs_CZ" />
-  <meta property="og:title" content="Lískovec jsi Ty! – koalice Pirátů a Zelených | Komunální volby Brno 2026" />
+  <meta property="og:title" content="Piráti a Zelení pro Lískovec | Komunální volby Brno 2026" />
   <meta property="og:description" content="Otevřeně a nápaditě pro náš Starý Lískovec. Koalice Pirátů a Zelených pro komunální volby 2026 v Brně." />
   <meta property="og:image" content="https://www.staryliskovec-on.cz/assets/og-pic.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Lískovec jsi Ty! — koalice Pirátů a Zelených, komunální volby Brno 2026" />
+  <meta property="og:image:alt" content="Piráti a Zelení pro Lískovec — komunální volby Brno 2026" />
   <meta property="og:url" content="https://www.staryliskovec-on.cz/" />
 
   <!-- Twitter / X card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Lískovec jsi Ty! – koalice Pirátů a Zelených | Komunální volby Brno 2026" />
+  <meta name="twitter:title" content="Piráti a Zelení pro Lískovec | Komunální volby Brno 2026" />
   <meta name="twitter:description" content="Otevřeně a nápaditě pro náš Starý Lískovec. Komunální volby 2026 v Brně." />
   <meta name="twitter:image" content="https://www.staryliskovec-on.cz/assets/og-pic.png" />
 
@@ -60,9 +60,9 @@
       {
         "@type": "Organization",
         "@id": "https://www.staryliskovec-on.cz/#organization",
-        "name": "Lískovec jsi Ty!",
+        "name": "Piráti a Zelení pro Lískovec",
         "url": "https://www.staryliskovec-on.cz/",
-        "logo": "https://www.staryliskovec-on.cz/assets/logo-liskovec-jsi-ty-square.png",
+        "logo": "https://www.staryliskovec-on.cz/assets/logo-pirati-zeleni-square.png",
         "description": "Koalice Pirátů a Zelených pro komunální volby 2026 v Brně-Starém Lískovci.",
         "email": "slon@staryliskovec-on.cz",
         "sameAs": [
@@ -84,7 +84,7 @@
         "@type": "WebSite",
         "@id": "https://www.staryliskovec-on.cz/#website",
         "url": "https://www.staryliskovec-on.cz/",
-        "name": "Lískovec jsi Ty!",
+        "name": "Piráti a Zelení pro Lískovec",
         "publisher": { "@id": "https://www.staryliskovec-on.cz/#organization" },
         "inLanguage": ["cs", "en"]
       }
@@ -94,7 +94,7 @@
 
   <!-- Little icon in the browser tab -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-  <link rel="apple-touch-icon" href="assets/logo-liskovec-jsi-ty-square.png" />
+  <link rel="apple-touch-icon" href="assets/logo-pirati-zeleni-square.png" />
 
   <!-- Fonts: self-hosted (no Google CDN — faster, GDPR-clean) -->
   <link rel="stylesheet" href="css/fonts.css?v=e0b8a13a" />
@@ -125,8 +125,9 @@
     <div class="container site-header__inner">
 
       <!-- Brand (links back to the top). -->
-      <a class="brand" href="#top" aria-label="Lískovec jsi Ty!">
-        <img src="assets/logo-liskovec-jsi-ty.png" class="brand__svg" alt="Lískovec jsi ty!" width="84" height="44" />
+      <a class="brand" href="#top" aria-label="Piráti a Zelení pro Lískovec">
+        <img src="assets/logo-pirati-zeleni-icon.png" class="brand__logo" alt="" width="44" height="44" />
+        <span class="brand__name" data-i18n="brand_name">Piráti a Zelení</span>
       </a>
 
       <!-- Desktop navigation. Labels come from content.js (ui.nav_*) -->
@@ -142,7 +143,7 @@
       </nav>
 
       <div class="header-tools">
-        <!-- Language switch, styled like the ON/OFF toggle from our logo.
+        <!-- Language switch — a simple sliding CZ/EN toggle.
              Clicking it flips the whole site between Czech and English. -->
         <button class="lang-toggle" id="lang-toggle" type="button"
                 aria-label="Přepnout jazyk / Switch language">
@@ -174,8 +175,8 @@
         <div class="hero__text">
           <p class="hero__kicker" data-i18n="hero_kicker">Komunální volby — podzim 2026</p>
           <h1 class="hero__title" id="hero-title">
-            <span data-i18n="hero_title_1">LÍSKOVEC</span>
-            <span data-i18n="hero_title_2">JSI TY!</span>
+            <span data-i18n="hero_title_1">PIRÁTI</span>
+            <span data-i18n="hero_title_2">A ZELENÍ</span>
           </h1>
           <p class="hero__tagline" data-i18n="hero_tagline">Otevřeně, nápaditě.</p>
           <div class="hero__cta">
@@ -201,7 +202,7 @@
           <div class="about__text" id="about-text"></div>
           <!-- One photo placeholder for this section -->
           <figure class="about__photo">
-            <img src="assets/team.jpg" alt="Tým Lískovec jsi Ty!" />
+            <img src="assets/team.jpg" alt="Tým Piráti a Zelení pro Lískovec" />
           </figure>
         </div>
       </div>
@@ -367,7 +368,7 @@
   <footer class="site-footer">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <img src="assets/logo-liskovec-jsi-ty.png" alt="Lískovec jsi Ty!" width="84" height="48" />
+        <img src="assets/logo-pirati-zeleni.png" alt="Piráti a Zelení pro Lískovec" width="84" height="39" />
         <p data-i18n="footer_about"></p>
       </div>
 
@@ -386,7 +387,7 @@
       </ul>
     </div>
     <div class="container site-footer__bottom">
-      <p>&copy; <span id="year"></span> Lískovec jsi Ty! · <span data-i18n="footer_rights"></span></p>
+      <p>&copy; <span id="year"></span> Piráti a Zelení pro Lískovec · <span data-i18n="footer_rights"></span></p>
       <p class="site-footer__credit"><span data-i18n="footer_credit"></span><a href="mailto:slon@staryliskovec-on.cz">slon@staryliskovec-on.cz</a></p>
     </div>
   </footer>
