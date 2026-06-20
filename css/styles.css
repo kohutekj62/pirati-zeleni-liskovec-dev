@@ -567,7 +567,6 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 }
 .site-footer__social a:hover { background: var(--color-green); color: #000; }
 .site-footer__bottom { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--color-border); color: var(--color-muted); font-size: 0.9rem; text-align: center; }
-.site-footer__badge { display: block; height: 56px; width: auto; margin: 0 auto 1.25rem; }
 .site-footer__credit { margin-top: 0.5rem; font-size: 0.82rem; color: var(--color-muted); max-width: 60ch; margin-inline: auto; }
 .site-footer__credit a { color: var(--color-green-ink); text-decoration: underline; }
 .site-footer__credit a:hover { text-decoration: none; }
