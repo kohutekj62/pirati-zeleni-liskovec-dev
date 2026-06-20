@@ -8,8 +8,8 @@
      • The file is then split into clearly-labelled chunks (HEADER, HERO,
        PROGRAM, PEOPLE, …). Use your editor's "find" to jump to the one you want.
 
-   Brand colours are mixed from our logo + the two parent parties:
-     black background (Piráti) · violet · yellow (Piráti) · lime green (Zelení)
+   Brand colours come straight from the "Piráti a Zelení pro Lískovec" logo:
+     violet (Piráti) · green (Zelení) — two colours, used with intent.
    ========================================================================== */
 
 /* ----------------------------------------------------------------------------
@@ -25,14 +25,12 @@
   --color-border:    #e4e0ea;   /* hairline borders / dividers on the light theme */
 
   /* Logo colours, kept exact for fills, dots and glows */
-  --color-violet:      #7f3399; /* logo violet — also our strongest text accent (7.4:1 on white) */
-  --color-violet-soft: #b786c8; /* lighter violet — fills / glows only, too light for text on white */
-  --color-yellow:      #f2c500; /* logo/Piráti yellow — FILLS ONLY (use yellow-ink for text on white) */
-  --color-yellow-ink:  #8f7400; /* darkened yellow that passes AA as text on white */
-  --color-yellow-dark: #d4ac00; /* yellow hover state (fills only) */
-  --color-green:       #8fba47; /* logo/Zelení green — FILLS ONLY (use green-ink for text on white) */
-  --color-green-ink:   #5b762c; /* darkened green that passes AA as text on white and on tinted panels */
-  --color-green-dark:  #739638; /* green hover state */
+  --color-violet:      #5834a6; /* logo violet (Piráti) — also our strongest text accent (8.6:1 on white) */
+  --color-violet-soft: #8867cf; /* lighter violet — fills / glows / light-on-dark text only */
+  --color-violet-dark: #43287f; /* violet hover state (fills only) */
+  --color-green:       #48c078; /* logo green (Zelení) — FILLS ONLY (use green-ink for text on white) */
+  --color-green-ink:   #2b7c4b; /* darkened green that passes AA as text on white and on tinted panels */
+  --color-green-dark:  #34975c; /* green hover state */
 
   /* Semantic accents — what to use for links and text accents on the white page */
   --color-link:        var(--color-violet);
@@ -41,7 +39,7 @@
   --color-error-border: #e0556b; /* form validation border */
 
   /* Party tag colours */
-  --pirati:  var(--color-yellow);
+  --pirati:  var(--color-violet);
   --zeleni:  var(--color-green);
 
   /* Fonts */
@@ -69,7 +67,7 @@
    ---------------------------------------------------------------------------- */
 .dev-banner {
   display: flex; align-items: center; justify-content: center; gap: 0.75rem;
-  background: var(--color-yellow); color: #000;
+  background: var(--color-green); color: #000;
   font-size: 0.9rem; font-weight: 600; text-align: center;
   padding: 0.55rem 1rem; position: relative;
 }
@@ -133,7 +131,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 /* "Skip to content" link — appears when tabbing with the keyboard */
 .skip-link {
   position: absolute; left: 0.5rem; top: -3rem;
-  background: var(--color-yellow); color: #000; padding: 0.5rem 1rem;
+  background: var(--color-green); color: #000; padding: 0.5rem 1rem;
   border-radius: var(--radius); z-index: 1000; transition: top var(--transition);
 }
 .skip-link:focus { top: 0.5rem; }
@@ -154,8 +152,8 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .btn:hover { transform: translateY(-2px); }
 .btn:active { transform: translateY(0); }
 
-.btn--primary { background: var(--color-yellow); color: #000; }
-.btn--primary:hover { background: var(--color-yellow-dark); color: #000; }
+.btn--primary { background: var(--color-green); color: #000; }
+.btn--primary:hover { background: var(--color-violet-dark); color: #fff; }
 
 .btn--green { background: var(--color-green); color: #000; }
 .btn--green:hover { background: var(--color-green-dark); color: #000; }
@@ -210,7 +208,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .lang-toggle__knob {
   position: absolute; top: 3px; left: 3px; z-index: 0;
   width: calc(50% - 3px); height: calc(100% - 6px);
-  background: var(--color-yellow); border-radius: var(--radius-pill);
+  background: var(--color-green); border-radius: var(--radius-pill);
   transition: transform var(--transition);
 }
 .lang-toggle.is-en .lang-toggle__knob { transform: translateX(100%); }
@@ -232,8 +230,8 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
   border-top: 3px solid var(--color-green);
   border-bottom: 3px solid var(--color-green);
   background:
-    radial-gradient(60% 60% at 80% 10%, rgba(127, 51, 153, 0.45), transparent 60%),
-    radial-gradient(50% 50% at 10% 90%, rgba(143, 186, 71, 0.22), transparent 60%),
+    radial-gradient(60% 60% at 80% 10%, rgba(88, 52, 166, 0.45), transparent 60%),
+    radial-gradient(50% 50% at 10% 90%, rgba(72, 192, 120, 0.22), transparent 60%),
     linear-gradient(to right, rgba(10,10,10,0.68) 0%, rgba(10,10,10,0.38) 100%),
     url('../header-photo.jpg') center / cover no-repeat;
 }
@@ -245,7 +243,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .hero__kicker {
   display: inline-block; margin: 0 0 1rem;
   color: var(--color-green); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-  font-size: 0.9rem; border: 1px solid rgba(143, 186, 71, 0.4); border-radius: var(--radius-pill);
+  font-size: 0.9rem; border: 1px solid rgba(72, 192, 120, 0.4); border-radius: var(--radius-pill);
   padding: 0.35rem 0.9rem;
 }
 .hero__title { font-size: clamp(3rem, 11vw, 7rem); margin: 0; }
@@ -262,7 +260,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .hero .btn--ghost:hover { background: var(--color-violet); border-color: var(--color-violet); color: #fff; }
 
 .hero__art { flex: 0 1 320px; display: flex; justify-content: center; }
-.hero__logo { width: clamp(180px, 30vw, 340px); height: auto; border-radius: var(--radius); filter: drop-shadow(0 0 24px rgba(127, 51, 153, 0.5)); }
+.hero__logo { width: clamp(180px, 30vw, 340px); height: auto; border-radius: var(--radius); filter: drop-shadow(0 0 24px rgba(88, 52, 166, 0.5)); }
 
 /* ----------------------------------------------------------------------------
    SECTIONS  (shared frame for every block)
@@ -307,7 +305,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .program-card__summary::-webkit-details-marker { display: none; } /* hide default triangle */
 .program-card__num {
   flex: 0 0 auto; width: 2.4rem; height: 2.4rem; display: grid; place-items: center;
-  background: var(--color-yellow); color: #000; font-family: var(--font-display); font-size: 1.5rem;
+  background: var(--color-green); color: #000; font-family: var(--font-display); font-size: 1.5rem;
   border-radius: 50%;
 }
 .program-card__title { flex: 1; font-size: 1.55rem; margin: 0; }
@@ -354,14 +352,17 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .flip-card__face--back img { width: 100%; height: 100%; object-fit: cover; } /* fill with the photo */
 
 /* Party accent: front face + hover ring + hint follow the person's party,
-   so the 8 logo fronts read as two coalition parties, not one repeated card. */
-.flip-card--pirati { --flip-accent: var(--pirati); }
-.flip-card--zeleni { --flip-accent: var(--zeleni); }
+   so the 8 logo fronts read as two coalition parties, not one repeated card.
+   The hint sits on a near-black scrim, so Piráti gets the lighter violet-soft
+   (the brand violet itself is too dark to read there) while Zelení's green
+   already reads fine on dark and on light, so it's reused as-is. */
+.flip-card--pirati { --flip-accent: var(--pirati); --flip-accent-on-dark: var(--color-violet-soft); }
+.flip-card--zeleni { --flip-accent: var(--zeleni); --flip-accent-on-dark: var(--zeleni); }
 
 /* little "click to reveal" hint on the logo face */
 .flip-card__hint {
   position: absolute; bottom: 0.6rem; left: 50%; transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.7); color: var(--flip-accent); font-size: 0.8rem; font-weight: 700;
+  background: rgba(0, 0, 0, 0.7); color: var(--flip-accent-on-dark); font-size: 0.8rem; font-weight: 700;
   padding: 0.25rem 0.7rem; border-radius: var(--radius-pill); white-space: nowrap;
 }
 .flip-card.is-flipped .flip-card__hint { opacity: 0; }
@@ -381,7 +382,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 /* party tag */
 .party-tag { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
   letter-spacing: 0.05em; padding: 0.2rem 0.7rem; border-radius: var(--radius-pill); color: #000; }
-.party-tag--pirati { background: var(--pirati); }
+.party-tag--pirati { background: var(--pirati); color: #fff; } /* violet fill is dark — needs light text */
 .party-tag--zeleni { background: var(--zeleni); }
 
 /* expandable secondary candidates list (positions 9–20) */
@@ -432,7 +433,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 /* nearest upcoming event — larger glowing dot + bigger title */
 .event--nearest .event__dot {
   width: 26px; height: 26px; left: 16px; top: 2px;
-  box-shadow: 0 0 0 3px var(--color-green), 0 0 14px rgba(143, 186, 71, 0.45);
+  box-shadow: 0 0 0 3px var(--color-green), 0 0 14px rgba(72, 192, 120, 0.45);
 }
 .event--nearest .event__title { font-size: 1.4rem; }
 .event__badge { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
@@ -545,7 +546,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
   background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: var(--radius);
   padding: 1.6rem; text-align: center; border-top: 4px solid var(--accent, var(--color-green));
 }
-.partner-card--pirati { --accent: var(--color-yellow); }
+.partner-card--pirati { --accent: var(--color-violet); }
 .partner-card--zeleni { --accent: var(--color-green); }
 .partner-card__name { font-size: 1.6rem; font-family: var(--font-display); }
 .partner-card__links { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
@@ -577,7 +578,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .to-top {
   position: fixed; right: 1.2rem; bottom: 1.2rem; z-index: 90;
   width: 48px; height: 48px; border-radius: 50%; border: 0; cursor: pointer;
-  background: var(--color-yellow); color: #000; font-size: 1.4rem; font-weight: 700;
+  background: var(--color-green); color: #000; font-size: 1.4rem; font-weight: 700;
   box-shadow: var(--shadow); transition: transform var(--transition), opacity var(--transition);
 }
 .to-top:hover { transform: translateY(-3px); }
@@ -588,7 +589,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .media-placeholder {
   position: relative; margin: 0; border-radius: var(--radius);
   border: 2px dashed var(--color-border); background:
-    repeating-linear-gradient(45deg, transparent, transparent 14px, rgba(127, 51, 153,0.06) 14px, rgba(127, 51, 153,0.06) 28px),
+    repeating-linear-gradient(45deg, transparent, transparent 14px, rgba(88, 52, 166,0.06) 14px, rgba(88, 52, 166,0.06) 28px),
     var(--color-surface-2);
   display: grid; place-items: center; color: var(--color-muted); text-align: center; padding: 1rem;
   aspect-ratio: 4 / 3;
@@ -676,7 +677,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .honeypot { display: none; }
 
 /* Noscript fallback message (avoids inline style which would need CSP unsafe-inline) */
-.noscript-msg { padding: 1rem; text-align: center; background: var(--color-yellow); color: #000; }
+.noscript-msg { padding: 1rem; text-align: center; background: var(--color-green); color: #000; }
 
 /* ----------------------------------------------------------------------------
    PEXESO TEASER  —  compact callout between Program and Lidé.
