@@ -246,10 +246,16 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 }
 /* One continuous gradient across the whole two-line title, not a separate
    gradient per line — the clip/fill is set on the h1 itself so the
-   background spans its full box and both child spans share it. */
+   background spans its full box and both child spans share it.
+   Weighted stops (each colour holds to ~40%/60%) instead of a plain
+   two-colour gradient: a straight 0%-100% blend's literal RGB midpoint
+   between this violet and green lands on a muddy steel-blue (both colours
+   carry real blue channel), which reads as an unintended third colour.
+   Compressing the crossfade into the middle keeps violet/green dominant
+   and shrinks that blue band to a brief accent instead of a third hue. */
 .hero__title {
   font-size: clamp(3rem, 11vw, 7rem); margin: 0;
-  background: linear-gradient(90deg, var(--color-violet-soft), var(--color-green));
+  background: linear-gradient(90deg, var(--color-violet-soft) 0%, var(--color-violet-soft) 40%, var(--color-green) 60%, var(--color-green) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
