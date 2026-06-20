@@ -87,7 +87,6 @@ const CONTENT = {
       hero_cta_share: "Sdílet",
       where_to_vote: "Kde volit?",
       hero_logo_alt: "Logo Piráti a Zelení pro Lískovec",
-      brand_name:    "Piráti a Zelení",
 
       // -- Section titles + lead sentences --
       about_title:    "O nás",
@@ -173,7 +172,6 @@ const CONTENT = {
       hero_cta_share: "Share",
       where_to_vote: "Where to vote?",
       hero_logo_alt: "Piráti a Zelení pro Lískovec logo",
-      brand_name:    "Pirates & Greens",
 
       about_title:    "About us",
       about_lead:     "A coalition of the Pirates and the Greens for Brno-Starý Lískovec.",
