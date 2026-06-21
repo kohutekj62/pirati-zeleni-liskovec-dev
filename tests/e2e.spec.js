@@ -35,7 +35,7 @@ test.describe("Starý Lískovec ON website", () => {
   });
 
   test("the menu links point at the sections", async ({ page }) => {
-    const expected = ["#about", "#program", "#people", "#meet", "#news", "#contact", "#partners", "pexeso/"];
+    const expected = ["#about", "#program", "#people", "#meet", "#news", "#contact", "#partners"];
     const hrefs = await page.locator(".main-nav a").evaluateAll(
       (els) => els.map((a) => a.getAttribute("href"))
     );
@@ -66,37 +66,32 @@ test.describe("Starý Lískovec ON website", () => {
     expect(await first.evaluate((el) => el.open)).toBe(true);      // open after a click
   });
 
-  test("clicking the elephant flips to the real photo and back (each card on its own)", async ({ page }) => {
-    const cards = page.locator("#people-grid .flip-card");
+  test("people cards show a real photo, falling back to the logo when one is missing", async ({ page }) => {
+    const cards = page.locator("#people-grid .person");
+    await expect(cards).toHaveCount(8);
+
     const first = cards.first();
-    const second = cards.nth(1);
 
-    // Guard against the "invisible elephant" bug: the card AND its front face
-    // must have a real rendered height (not collapsed to zero), and the
-    // elephant image must be on screen.
-    const cardBox = await first.boundingBox();
-    expect(cardBox && cardBox.height, "flip-card should have real height").toBeGreaterThan(150);
-    const faceBox = await first.locator(".flip-card__face--front").boundingBox();
-    expect(faceBox && faceBox.height, "front face should fill the card").toBeGreaterThan(150);
-    await expect(first.locator(".flip-card__face--front img"), "elephant image should be visible").toBeVisible();
+    // Guard against the "invisible photo" bug: the photo frame must have a
+    // real rendered height (not collapsed to zero), and the <img> inside —
+    // whether it's the real photo or the onerror-triggered logo fallback —
+    // must actually have loaded.
+    const photoBox = await first.locator(".person__photo").boundingBox();
+    expect(photoBox && photoBox.height, "photo frame should have real height").toBeGreaterThan(150);
 
-    // The back of the card holds the real photo from assets/people/
-    await expect(first.locator(".flip-card__face--back img")).toHaveAttribute("src", /assets\/people\//);
+    const img = first.locator(".person__photo img");
+    await expect(img, "photo image should be visible").toBeVisible();
+    await expect.poll(() => img.evaluate((el) => el.naturalWidth), "photo image should have loaded")
+      .toBeGreaterThan(0);
 
-    // Starts un-flipped
-    await expect(first).toHaveAttribute("aria-pressed", "false");
-
-    // Click → flips to photo
-    await first.click();
-    await expect(first).toHaveAttribute("aria-pressed", "true");
-    await expect(first).toHaveClass(/is-flipped/);
-
-    // The other cards are unaffected (independent toggles)
-    await expect(second).toHaveAttribute("aria-pressed", "false");
-
-    // Click again → flips back to the elephant
-    await first.click();
-    await expect(first).toHaveAttribute("aria-pressed", "false");
+    // A candidate with no photo file on disk falls back to the logo
+    // placeholder instead of a broken-image icon. The <img> is loading="lazy",
+    // so scroll it into view first or the browser never even fetches it.
+    const missingPhoto = page.locator('#people-grid .person:has-text("Kateřina Křížová") .person__photo img');
+    await missingPhoto.scrollIntoViewIfNeeded();
+    await expect(missingPhoto).toHaveClass(/is-placeholder/);
+    await expect.poll(() => missingPhoto.evaluate((el) => el.naturalWidth), "placeholder logo should have loaded")
+      .toBeGreaterThan(0);
   });
 
   test("contact form rejects an empty submit with an error message", async ({ page }) => {
@@ -182,20 +177,16 @@ test.describe("Starý Lískovec ON website", () => {
     expect(overflow, "body should not be wider than the viewport (horizontal scroll)").toBe(false);
   });
 
-  test("mobile: flip-cards have real height and work on touch", async ({ page }) => {
+  test("mobile: people photo cards have real height and load correctly", async ({ page }) => {
     const btn = page.locator("#menu-btn");
     if (!(await btn.isVisible())) { test.skip(true, "desktop layout"); }
 
-    const first = page.locator("#people-grid .flip-card").first();
-    const box = await first.boundingBox();
-    expect(box && box.height, "flip-card must have real height on mobile").toBeGreaterThan(100);
+    const photo = page.locator("#people-grid .person .person__photo").first();
+    const box = await photo.boundingBox();
+    expect(box && box.height, "photo frame must have real height on mobile").toBeGreaterThan(100);
 
-    // Tap to flip
-    await first.click();
-    await expect(first).toHaveAttribute("aria-pressed", "true");
-
-    // Tap again to flip back
-    await first.click();
-    await expect(first).toHaveAttribute("aria-pressed", "false");
+    const img = photo.locator("img");
+    await expect.poll(() => img.evaluate((el) => el.naturalWidth), "photo image should have loaded")
+      .toBeGreaterThan(0);
   });
 });
