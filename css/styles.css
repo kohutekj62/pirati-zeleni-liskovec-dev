@@ -27,7 +27,7 @@
 
   /* Logo colours, kept exact for fills, dots and glows */
   --color-pirati:      #141414; /* official Piráti black — text accent + fills (18.4:1 on white) */
-  --color-pirati-soft: #fd6478; /* coral pink from the logo's flower motif — dark-backdrop accents only */
+  --color-pirati-soft: #fd6478; /* coral pink from the logo's flower motif — a slight touch only: the hero's soft background glow, never a dominant gradient stop */
   --color-pirati-dark: #000000; /* black hover state (fills only) */
   --color-green:       #01c36d; /* official Zelení green — FILLS ONLY (use green-ink for text on white) */
   --color-green-ink:   #018249; /* darkened green that passes AA as text on white and on tinted panels */
@@ -248,14 +248,15 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 /* One continuous gradient across the whole two-line title, not a separate
    gradient per line — the clip/fill is set on the h1 itself so the
    background spans its full box and both child spans share it.
-   Weighted stops (each colour holds to ~40%/60%) keep the coral pink and
-   green dominant and the crossfade brief, rather than a muddy blend
-   spread across the whole title. Pink (not black) is the title's first
-   colour because black would have almost no contrast against the hero's
-   dark photo backdrop — the same flower-motif coral used in the logo. */
+   Weighted stops (each colour holds to ~40%/60%) keep the crossfade brief,
+   rather than a muddy blend spread across the whole title. The logo's
+   wordmark is black+green; on the hero's dark photo backdrop black has
+   no contrast, so this swaps in the same near-white used for the rest of
+   the hero text — coral pink stays reserved for the small glow/flower
+   touches, not the title itself. */
 .hero__title {
   font-size: clamp(3rem, 11vw, 7rem); margin: 0;
-  background: linear-gradient(90deg, var(--color-pirati-soft) 0%, var(--color-pirati-soft) 40%, var(--color-green) 60%, var(--color-green) 100%);
+  background: linear-gradient(90deg, #f4f4f5 0%, #f4f4f5 40%, var(--color-green) 60%, var(--color-green) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -282,7 +283,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 /* A little green accent line under each section title */
 .section__title::after {
   content: ""; display: block; width: 64px; height: 4px; margin: 0.5rem auto 0;
-  background: linear-gradient(90deg, var(--color-pirati-soft), var(--color-green)); border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--color-pirati), var(--color-green)); border-radius: var(--radius-pill);
 }
 .section__lead { color: var(--color-muted); font-size: 1.1rem; margin: 0.5rem 0 0; }
 
@@ -389,7 +390,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .events { list-style: none; padding: 0; margin: 0; position: relative; max-width: 760px; margin-inline: auto; }
 .events::before { /* the vertical gradient line */
   content: ""; position: absolute; left: 28px; top: 8px; bottom: 8px; width: 2px;
-  background: linear-gradient(var(--color-pirati-soft), var(--color-green));
+  background: linear-gradient(var(--color-pirati), var(--color-green));
 }
 .event { position: relative; padding: 0 0 1.6rem 72px; }
 .event__dot {
