@@ -9,7 +9,8 @@
        PROGRAM, PEOPLE, …). Use your editor's "find" to jump to the one you want.
 
    Brand colours come straight from the "Piráti a Zelení pro Lískovec" logo:
-     violet (Piráti) · green (Zelení) — two colours, used with intent.
+     black (Piráti) · green (Zelení), with a coral pink lifted from the
+     logo's flower motif for dark-backdrop accents.
    ========================================================================== */
 
 /* ----------------------------------------------------------------------------
@@ -19,27 +20,27 @@
   /* Brand colours — LIGHT theme (white page, dark text) */
   --color-bg:        #ffffff;   /* page background (white) */
   --color-surface:   #f6f5f8;   /* slightly tinted panels / alternating sections */
-  --color-surface-2: #f3eef8;   /* cards (a hint of violet) */
+  --color-surface-2: #eef8f1;   /* cards (a hint of green) */
   --color-text:      #1a1a1a;   /* main text (near-black) */
-  --color-muted:     #5a5560;   /* secondary / quieter text (passes AA on white) */
-  --color-border:    #e4e0ea;   /* hairline borders / dividers on the light theme */
+  --color-muted:     #585c58;   /* secondary / quieter text (passes AA on white) */
+  --color-border:    #dde8e0;   /* hairline borders / dividers on the light theme */
 
   /* Logo colours, kept exact for fills, dots and glows */
-  --color-violet:      #ae3fa9; /* ink, derived from the official Piráti violet — text accent (5.1:1 on white) */
-  --color-violet-soft: #cf7bcb; /* official Piráti violet (sampled from volby.pirati.cz) — fills / glows / light-on-dark text only */
-  --color-violet-dark: #9e3999; /* violet hover state (fills only) */
-  --color-green:       #00ad43; /* official Zelení green — FILLS ONLY (use green-ink for text on white) */
-  --color-green-ink:   #007f31; /* darkened green that passes AA as text on white and on tinted panels */
-  --color-green-dark:  #00732d; /* green hover state */
+  --color-pirati:      #141414; /* official Piráti black — text accent + fills (18.4:1 on white) */
+  --color-pirati-soft: #fd6478; /* coral pink from the logo's flower motif — dark-backdrop accents only */
+  --color-pirati-dark: #000000; /* black hover state (fills only) */
+  --color-green:       #01c36d; /* official Zelení green — FILLS ONLY (use green-ink for text on white) */
+  --color-green-ink:   #018249; /* darkened green that passes AA as text on white and on tinted panels */
+  --color-green-dark:  #017240; /* green hover state */
 
   /* Semantic accents — what to use for links and text accents on the white page */
-  --color-link:        var(--color-violet);
-  --color-link-hover:  var(--color-green-ink);
+  --color-link:        var(--color-green-ink);
+  --color-link-hover:  var(--color-pirati);
   --color-error:        #c62828; /* form validation text */
   --color-error-border: #e0556b; /* form validation border */
 
   /* Party tag colours */
-  --pirati:  var(--color-violet);
+  --pirati:  var(--color-pirati);
   --zeleni:  var(--color-green);
 
   /* Fonts */
@@ -54,8 +55,8 @@
   --section-pad: clamp(3rem, 7vw, 6rem);
 
   /* Effects */
-  --shadow:     0 10px 30px rgba(31, 20, 40, 0.12);
-  --shadow-sm:  0 4px 14px rgba(31, 20, 40, 0.08);
+  --shadow:     0 10px 30px rgba(10, 20, 14, 0.12);
+  --shadow-sm:  0 4px 14px rgba(10, 20, 14, 0.08);
   --transition: 0.25s ease;
   --header-h:   72px;           /* header height (used to offset anchor scrolling) */
 }
@@ -137,7 +138,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .skip-link:focus { top: 0.5rem; }
 
 /* Visible keyboard focus outline everywhere */
-:focus-visible { outline: 3px solid var(--color-violet); outline-offset: 2px; border-radius: 4px; }
+:focus-visible { outline: 3px solid var(--color-green-ink); outline-offset: 2px; border-radius: 4px; }
 
 /* ----------------------------------------------------------------------------
    BUTTONS  (pill-shaped, rounded — the Zelení flavour)
@@ -153,13 +154,13 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .btn:active { transform: translateY(0); }
 
 .btn--primary { background: var(--color-green); color: #000; }
-.btn--primary:hover { background: var(--color-violet-dark); color: #fff; }
+.btn--primary:hover { background: var(--color-pirati-dark); color: #fff; }
 
 .btn--green { background: var(--color-green); color: #000; }
 .btn--green:hover { background: var(--color-green-dark); color: #000; }
 
-.btn--ghost { background: transparent; color: var(--color-text); border-color: var(--color-violet); }
-.btn--ghost:hover { background: var(--color-violet); color: #fff; border-color: var(--color-violet); }
+.btn--ghost { background: transparent; color: var(--color-text); border-color: var(--color-green-ink); }
+.btn--ghost:hover { background: var(--color-pirati); color: #fff; border-color: var(--color-pirati); }
 
 /* ----------------------------------------------------------------------------
    HEADER + NAVIGATION
@@ -187,10 +188,10 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 }
 .main-nav a::after { /* animated underline on hover / current section */
   content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px;
-  background: var(--color-violet); transform: scaleX(0); transform-origin: left;
+  background: var(--color-green-ink); transform: scaleX(0); transform-origin: left;
   transition: transform var(--transition);
 }
-.main-nav a:hover, .main-nav a.is-current { color: var(--color-violet); }
+.main-nav a:hover, .main-nav a.is-current { color: var(--color-green-ink); }
 .main-nav a:hover::after, .main-nav a.is-current::after { transform: scaleX(1); }
 
 .header-tools { display: flex; align-items: center; gap: 0.75rem; margin-left: 1rem; }
@@ -228,8 +229,8 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
   border-top: 3px solid var(--color-green);
   border-bottom: 3px solid var(--color-green);
   background:
-    radial-gradient(60% 60% at 80% 10%, rgba(174, 63, 169, 0.45), transparent 60%),
-    radial-gradient(50% 50% at 10% 90%, rgba(0, 173, 67, 0.22), transparent 60%),
+    radial-gradient(60% 60% at 80% 10%, rgba(253, 100, 120, 0.45), transparent 60%),
+    radial-gradient(50% 50% at 10% 90%, rgba(1, 195, 109, 0.22), transparent 60%),
     linear-gradient(to right, rgba(10,10,10,0.68) 0%, rgba(10,10,10,0.38) 100%),
     url('../header-photo.jpg') center / cover no-repeat;
 }
@@ -241,33 +242,34 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .hero__kicker {
   display: inline-block; margin: 0 0 1rem;
   color: var(--color-green); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-  font-size: 0.9rem; border: 1px solid rgba(0, 173, 67, 0.4); border-radius: var(--radius-pill);
+  font-size: 0.9rem; border: 1px solid rgba(1, 195, 109, 0.4); border-radius: var(--radius-pill);
   padding: 0.35rem 0.9rem;
 }
 /* One continuous gradient across the whole two-line title, not a separate
    gradient per line — the clip/fill is set on the h1 itself so the
    background spans its full box and both child spans share it.
-   Weighted stops (each colour holds to ~40%/60%) instead of a plain
-   two-colour gradient: a straight 0%-100% blend's literal RGB midpoint
-   between this violet and green lands on a muddy steel-blue (both colours
-   carry real blue channel), which reads as an unintended third colour.
-   Compressing the crossfade into the middle keeps violet/green dominant
-   and shrinks that blue band to a brief accent instead of a third hue. */
+   Weighted stops (each colour holds to ~40%/60%) keep the coral pink and
+   green dominant and the crossfade brief, rather than a muddy blend
+   spread across the whole title. Pink (not black) is the title's first
+   colour because black would have almost no contrast against the hero's
+   dark photo backdrop — the same flower-motif coral used in the logo. */
 .hero__title {
   font-size: clamp(3rem, 11vw, 7rem); margin: 0;
-  background: linear-gradient(90deg, var(--color-violet-soft) 0%, var(--color-violet-soft) 40%, var(--color-green) 60%, var(--color-green) 100%);
+  background: linear-gradient(90deg, var(--color-pirati-soft) 0%, var(--color-pirati-soft) 40%, var(--color-green) 60%, var(--color-green) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .hero__tagline { font-size: clamp(1.1rem, 2.5vw, 1.5rem); color: rgba(244, 244, 245, 0.85); max-width: 30ch; margin: 1rem 0 2rem; }
 .hero__cta { display: flex; flex-wrap: wrap; gap: 1rem; }
-/* Ghost button sits on the dark hero, so it needs light text + a light outline */
+/* Ghost button sits on the dark hero, so it needs light text + a light outline.
+   Hover fills with green, not black or pink — both of those fail contrast
+   with white text (2.3:1 / 2.9:1), so the fill switches to black text instead. */
 .hero .btn--ghost { color: #fff; border-color: rgba(255, 255, 255, 0.55); }
-.hero .btn--ghost:hover { background: var(--color-violet); border-color: var(--color-violet); color: #fff; }
+.hero .btn--ghost:hover { background: var(--color-green); border-color: var(--color-green); color: #000; }
 
 .hero__art { flex: 0 1 320px; display: flex; justify-content: center; }
-.hero__logo { width: clamp(180px, 30vw, 340px); height: auto; border-radius: var(--radius); filter: drop-shadow(0 0 24px rgba(174, 63, 169, 0.5)); }
+.hero__logo { width: clamp(180px, 30vw, 340px); height: auto; border-radius: var(--radius); filter: drop-shadow(0 0 24px rgba(1, 195, 109, 0.5)); }
 
 /* ----------------------------------------------------------------------------
    SECTIONS  (shared frame for every block)
@@ -280,7 +282,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 /* A little green accent line under each section title */
 .section__title::after {
   content: ""; display: block; width: 64px; height: 4px; margin: 0.5rem auto 0;
-  background: linear-gradient(90deg, var(--color-violet), var(--color-green)); border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--color-pirati-soft), var(--color-green)); border-radius: var(--radius-pill);
 }
 .section__lead { color: var(--color-muted); font-size: 1.1rem; margin: 0.5rem 0 0; }
 
@@ -291,7 +293,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .about__grid { display: grid; grid-template-columns: 1fr; gap: var(--gap); justify-items: center; }
 .about__text { max-width: 72ch; }
 .about__text p { margin: 0 0 1rem; font-size: 1.08rem; }
-.about__text p:first-child { font-size: 1.3rem; color: var(--color-violet); font-weight: 500; } /* lead-in sentence stands out */
+.about__text p:first-child { font-size: 1.3rem; color: var(--color-green-ink); font-weight: 500; } /* lead-in sentence stands out */
 .about__photo { order: -1; width: 100%; max-width: 760px; border-radius: var(--radius); overflow: hidden; }
 .about__photo img { width: 100%; height: auto; display: block; } /* full photo, never cropped */
 
@@ -317,7 +319,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 }
 .program-card__title { flex: 1; font-size: 1.55rem; margin: 0; }
 .program-card__icon { font-size: 1.6rem; }
-.program-card__chevron { transition: transform var(--transition); color: var(--color-violet); font-size: 1.4rem; }
+.program-card__chevron { transition: transform var(--transition); color: var(--color-green-ink); font-size: 1.4rem; }
 .program-card[open] .program-card__chevron { transform: rotate(180deg); }
 .program-card__body { padding: 0 1.4rem 1.4rem 5rem; color: var(--color-muted); }
 
@@ -354,7 +356,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 /* party tag */
 .party-tag { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
   letter-spacing: 0.05em; padding: 0.2rem 0.7rem; border-radius: var(--radius-pill); color: #000; }
-.party-tag--pirati { background: var(--pirati); color: #fff; } /* violet fill is dark — needs light text */
+.party-tag--pirati { background: var(--pirati); color: #fff; } /* black fill is dark — needs light text */
 .party-tag--zeleni { background: var(--zeleni); }
 
 /* expandable secondary candidates list (positions 9–20) */
@@ -387,7 +389,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .events { list-style: none; padding: 0; margin: 0; position: relative; max-width: 760px; margin-inline: auto; }
 .events::before { /* the vertical gradient line */
   content: ""; position: absolute; left: 28px; top: 8px; bottom: 8px; width: 2px;
-  background: linear-gradient(var(--color-violet), var(--color-green));
+  background: linear-gradient(var(--color-pirati-soft), var(--color-green));
 }
 .event { position: relative; padding: 0 0 1.6rem 72px; }
 .event__dot {
@@ -396,7 +398,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
   transition: box-shadow var(--transition);
 }
 .section--alt .event__dot { border-color: var(--color-surface); }
-.event__date { color: var(--color-violet); font-weight: 700; font-size: 0.95rem; }
+.event__date { color: var(--color-green-ink); font-weight: 700; font-size: 0.95rem; }
 .event__title { font-size: 1.2rem; margin: 0.15rem 0; }
 .event__place { color: var(--color-muted); font-size: 0.95rem; }
 .event__desc  { color: var(--color-muted); margin: 0.2rem 0 0; }
@@ -405,7 +407,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 /* nearest upcoming event — larger glowing dot + bigger title */
 .event--nearest .event__dot {
   width: 26px; height: 26px; left: 16px; top: 2px;
-  box-shadow: 0 0 0 3px var(--color-green), 0 0 14px rgba(0, 173, 67, 0.45);
+  box-shadow: 0 0 0 3px var(--color-green), 0 0 14px rgba(1, 195, 109, 0.45);
 }
 .event--nearest .event__title { font-size: 1.4rem; }
 .event__badge { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
@@ -463,7 +465,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .news-card:hover { transform: translateY(-4px); }
 .news-card__media { aspect-ratio: 16 / 9; }
 .news-card__body { padding: 1.2rem 1.4rem; display: flex; flex-direction: column; gap: 0.4rem; }
-.news-card__date { color: var(--color-violet); font-weight: 700; font-size: 0.85rem; }
+.news-card__date { color: var(--color-green-ink); font-weight: 700; font-size: 0.85rem; }
 .news-card__title { font-size: 1.25rem; margin: 0; }
 .news-card__excerpt { color: var(--color-muted); margin: 0; }
 
@@ -491,7 +493,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .contact__intro { color: var(--color-muted); }
 .contact__details { list-style: none; padding: 0; margin: 0 0 2rem; display: flex; flex-direction: column; gap: 0.6rem; }
 .contact__details li { display: flex; gap: 0.6rem; align-items: baseline; }
-.contact__details .label { color: var(--color-violet); min-width: 7.5rem; font-weight: 500; }
+.contact__details .label { color: var(--color-green-ink); min-width: 7.5rem; font-weight: 500; }
 .contact__social { display: flex; gap: 0.8rem; flex-wrap: wrap; }
 .contact__social a {
   display: inline-grid; place-items: center; width: 42px; height: 42px; border-radius: 50%;
@@ -518,7 +520,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
   background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: var(--radius);
   padding: 1.6rem; text-align: center; border-top: 4px solid var(--accent, var(--color-green));
 }
-.partner-card--pirati { --accent: var(--color-violet); }
+.partner-card--pirati { --accent: var(--pirati); }
 .partner-card--zeleni { --accent: var(--color-green); }
 .partner-card__name { font-size: 1.6rem; font-family: var(--font-display); }
 .partner-card__links { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
@@ -532,7 +534,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .site-footer__brand img { border-radius: 8px; }
 .site-footer__nav { display: flex; flex-direction: column; gap: 0.5rem; }
 .site-footer__nav a { color: var(--color-text); }
-.site-footer__nav a:hover { color: var(--color-violet); }
+.site-footer__nav a:hover { color: var(--color-green-ink); }
 .site-footer__social { list-style: none; padding: 0; margin: 0; display: flex; gap: 0.7rem; }
 .site-footer__social a {
   display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
@@ -561,7 +563,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .media-placeholder {
   position: relative; margin: 0; border-radius: var(--radius);
   border: 2px dashed var(--color-border); background:
-    repeating-linear-gradient(45deg, transparent, transparent 14px, rgba(174, 63, 169,0.06) 14px, rgba(174, 63, 169,0.06) 28px),
+    repeating-linear-gradient(45deg, transparent, transparent 14px, rgba(1, 195, 109,0.06) 14px, rgba(1, 195, 109,0.06) 28px),
     var(--color-surface-2);
   display: grid; place-items: center; color: var(--color-muted); text-align: center; padding: 1rem;
   aspect-ratio: 4 / 3;
