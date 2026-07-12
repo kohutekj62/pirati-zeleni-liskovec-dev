@@ -738,7 +738,7 @@ function renderRoundsGrid() {
 function renderSeoList() {
   const list = document.getElementById("seo-list");
   list.innerHTML = ROUNDS.map(r =>
-    `<h3 style="font-family:var(--font-d);font-size:1.2rem;color:var(--green);margin:1.5rem 0 0.75rem">${r[lang].title}</h3>` +
+    `<h3 style="font-family:var(--font-d);font-size:1.2rem;color:var(--green-ink);margin:1.5rem 0 0.75rem">${r[lang].title}</h3>` +
     r.places.map(p => {
       const d = p[lang];
       return `<div class="seo-place"><h3>${d.name}</h3><p>${d.location} — ${d.desc} ${d.history}</p></div>`;
