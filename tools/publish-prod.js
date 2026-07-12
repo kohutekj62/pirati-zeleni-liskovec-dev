@@ -41,8 +41,9 @@ try {
   const contentPath = path.join(ROOT, 'js', 'content.js');
   let src = fs.readFileSync(contentPath, 'utf8');
   src = src.replace(/dev_banner:\s*"[^"]*"/g, 'dev_banner: ""');
+  src = src.replace(/show_other_candidates:\s*true/, 'show_other_candidates: false');
   fs.writeFileSync(contentPath, src, 'utf8');
-  console.log('dev_banner cleared');
+  console.log('dev_banner cleared, other candidates hidden');
 
   // ── 4. Re-stamp asset hashes (content.js hash changed) ───────────────────────
   run('node tools/stamp-assets.js');

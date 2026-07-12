@@ -49,6 +49,9 @@ const CONTENT = {
     piratiNational: "https://www.pirati.cz/",
     zeleniRegion:   "",
     zeleniNational: "https://www.zeleni.cz/",
+
+    // Set to false in prod (publish script flips this) to hide the incomplete candidate list.
+    show_other_candidates: true,
   },
 
   /* ========================================================================

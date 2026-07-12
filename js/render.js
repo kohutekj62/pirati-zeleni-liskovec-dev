@@ -127,6 +127,7 @@ const RENDER = (function () {
   function renderOtherCandidates() {
     var box = document.getElementById("people-other");
     clear(box);
+    if (!CONTENT.config.show_other_candidates) return;
     var others = CONTENT.people_other;
     if (!others || !others.length) return;
 
