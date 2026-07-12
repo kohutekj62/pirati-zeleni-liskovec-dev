@@ -344,7 +344,7 @@ const CONTENT = {
       en: { profession: "pharmacist", bio: "Anna has lived in Starý Lískovec for almost her entire life, where she and her husband are raising their daughter — and where she has worked for several years too. She loves exploring local nooks and dreaming of how life in Lískovce could be even better. And now she no longer wants to stay merely at the dreaming stage." },
     },
     {
-      name: "Ayudh Ray", party: "Piráti", photo: "ayudh-ray.webp",
+      name: "Ayudh Ray", party: "Piráti", photo: "ayudh-ray.jpg",
       cs: { profession: "student, koordinátor Mladého Pirátstva", bio: "Ayudh je aktivní občan z Brna, kterého baví politika a veřejné dění. Studuje na Fakultě sociálních věd Univerzity Karlovy mezinárodní teritoriální studia a žurnalistiku, v Brně doučuje angličtinu a dějepis a jako koordinátor Mladého Pirátstva v Jihomoravském kraji se zapojuje do kampaní i do pracovní skupiny pro dopravu. Ve volném čase je nadšený cestovatel." },
       en: { profession: "student, Young Pirates coordinator", bio: "Ayudh is an engaged citizen of Brno with a passion for politics and public affairs. He studies International Territorial Studies and Journalism at the Faculty of Social Sciences, Charles University, tutors English and history in Brno, and as coordinator of Young Pirates in the South Moravian Region takes part in campaigns and the party's transport working group. In his free time he's a keen traveller." },
     },
