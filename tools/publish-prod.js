@@ -62,7 +62,7 @@ try {
   run('git commit -m "publish: clear dev banner for production"');
 
   // ── 6. Push to prod ───────────────────────────────────────────────────────────
-  run('git push prod HEAD:main --force-with-lease', { stdio: 'inherit' });
+  run('git push prod HEAD:main --force', { stdio: 'inherit' });
   console.log('\nPublished to prod (kohutekj62/pirati-zeleni-liskovec)');
 
 } finally {
