@@ -390,7 +390,7 @@ const CONTENT = {
      ====================================================================== */
   events: [
     { date: "2026-07-13", time: "17:30",
-      fb:  "https://www.facebook.com/watch/?v=1007492321688895",
+      fb:  "https://www.facebook.com/blechyvkozichu/",
       map: "https://mapy.com/cs/turisticka?source=base&id=2569303&x=16.5598997&y=49.1681551&z=19&ovl=3",
       cs: { title: "Čteme: Kdysi jsem byla strom", place: "Červené hřiště", desc: "V pondělí opět čteme! Tentokrát knížku Kdysi jsem byla strom. Čte Jan Novotný. Akce Blechy v kožichu z.s." },
       en: { title: "Reading: Once I Was a Tree", place: "Červené hřiště", desc: "Monday reading session — this time the book Once I Was a Tree. Read by Jan Novotný. An event by Blechy v kožichu z.s." } },
