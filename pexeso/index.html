@@ -140,7 +140,7 @@
     .ghdr-home:hover    { border-color: var(--green-ink); color: var(--green-ink); }
     .ghdr-restart:hover { border-color: var(--green);  color: var(--green-ink); }
     .ghdr-category { display: flex; align-items: center; gap: 0.4rem; flex: 1; min-width: 0; }
-    .ghdr-emoji { font-size: 1rem; flex: 0 0 auto; }
+    .ghdr-emoji { font-size: 1rem; flex: 0 0 auto; width: 18px; height: 18px; }
     .ghdr-name  { font-family: var(--font-d); font-size: 1.25rem; color: var(--green-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .ghdr-moves { font-size: 0.78rem; color: var(--muted); white-space: nowrap; flex: 0 0 auto; }
     .ghdr-moves b { color: var(--text); }
@@ -809,15 +809,17 @@ function startRound(roundId) {
 
 function renderGame() {
   const r = currentRound;
+  const meta = CATEGORY_META[r.id] || { icon: "map-pin", bg: "var(--green)" };
   // Header
   document.getElementById("game-header").innerHTML = `
     <button class="ghdr-icon ghdr-home" id="btn-home" title="${t("back_to_rounds")}">⌂</button>
     <div class="ghdr-category">
-      <span class="ghdr-emoji">${r.emoji}</span>
+      <i class="ghdr-emoji" data-lucide="${meta.icon}" style="color:${meta.bg}"></i>
       <span class="ghdr-name">${r[lang].title}</span>
     </div>
     <div class="ghdr-moves">${t("moves")}: <b><span id="moves-count">0</span></b></div>
     <button class="ghdr-icon ghdr-restart" id="btn-in-game-restart" title="${t("replay_round")}">↺</button>`;
+  lucide.createIcons();
   document.getElementById("btn-home").addEventListener("click", renderSelect);
   document.getElementById("btn-in-game-restart").addEventListener("click", () => startRound(currentRound.id));
 
