@@ -355,7 +355,7 @@ const CONTENT = {
       en: { profession: "teaching assistant, student of pedagogy", bio: "Kateřina has lived in Starý Lískovec for almost her entire life. She is now raising two children here with her husband, and through them discovered just how important cultural life really is. As a founding member of Blechy v kožichu she works to revive the cultural scene and bring the community in our district together." },
     },
     {
-      name: "Jakub Czapek", party: "Piráti", photo: "jakub-czapek.jpg",
+      name: "Hana Blažek Hlaváčková", party: "Piráti", photo: "hana-blazek-hlavackova.jpg",
       cs: { bio: "Bio bude doplněno." },
       en: { bio: "Bio to be added." },
     },
@@ -367,8 +367,9 @@ const CONTENT = {
          Use party: "" and profession: "" for open/unfilled slots.
      ====================================================================== */
   people_other: [
-    { name: "Jitka Filipová",      party: "Piráti", profession: "doplníme" },
+    { name: "Jakub Czapek",        party: "Piráti", profession: "doplníme" },
     { name: "Jakub Dlabaja",       party: "Zelení", profession: "doplníme" },
+    { name: "Jitka Filipová",      party: "Piráti", profession: "doplníme" },
     { name: "Václav Maliňák",      party: "Piráti", profession: "doplníme" },
     { name: "Volné místo",         party: "",        profession: "" },
     { name: "Volné místo",         party: "",        profession: "" },
@@ -381,7 +382,6 @@ const CONTENT = {
     { name: "Volné místo",         party: "",        profession: "" },
     { name: "Volné místo",         party: "",        profession: "" },
     { name: "Volné místo",         party: "",        profession: "" },
-    { name: "Hana Blažek Hlaváčková", party: "Piráti", profession: "doplníme" },
   ],
 
   /* ========================================================================

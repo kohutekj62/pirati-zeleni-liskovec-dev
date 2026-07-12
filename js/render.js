@@ -140,7 +140,10 @@ const RENDER = (function () {
         el("span", { class: "candidates-other__pos", text: String(offset + i + 1) + "." }),
         partyTag,
         el("span", { class: "candidates-other__name" + (c.party ? "" : " candidates-other__name--open"), text: c.name }),
-        el("span", { class: "candidates-other__prof", text: (c[L()] || c.cs || {}).profession || c.profession || "" }),
+        el("span", { class: "candidates-other__prof", text: (function() {
+          var prof = (c[L()] || c.cs || {}).profession || c.profession || "";
+          return prof && c.age ? prof + " (" + c.age + " let)" : prof;
+        })() }),
       ]});
     });
 
