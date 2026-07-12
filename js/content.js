@@ -167,7 +167,7 @@ const CONTENT = {
       people_title:   "People",
       people_lead:    "The people behind this programme.",
       meet_title:     "Meet us",
-      meet_lead:      "Come and find us out in the streets. We look forward to seeing you.",
+      meet_lead:      "Come and find us on the streets. We look forward to seeing you.",
       event_past:     "Done",
       events_older:   "Older",
       events_newer:   "Newer",
@@ -202,7 +202,7 @@ const CONTENT = {
       back_to_top:    "Top",
       footer_about:   "A coalition of the Pirates and the Greens for the Brno-Starý Lískovec district.",
       footer_rights:  "Made with dedication for Starý Lískovec.",
-      footer_credit:  "We build this site ourselves with the help of artificial intelligence. Found an error or an inaccuracy? Please let us know at ",
+      footer_credit:  "We are building this site ourselves with the help of artificial intelligence. Found an error or an inaccuracy? Please let us know at ",
       footer_nav:     "Quick links",
       menu_open:      "Open menu",
       menu_close:     "Close menu",
@@ -268,7 +268,7 @@ const CONTENT = {
       },
       en: {
         title: "Quality nurseries and schools",
-        text:  "We demand quality and accessible nurseries and primary schools. We will support modern teaching methods and the development of skills that prepare children for the challenges of the 21st century. We will listen to both parents and children and help them resolve any issues at schools and nurseries. We will give children the opportunity to engage with public spaces. We want parents and children to feel safe in Lískovec. We will provide schools and nurseries with support to improve the quality of catering. We will open school playgrounds to the public, as is common in other parts of Brno.",
+        text:  "We call for quality, accessible nurseries and primary schools. We will support modern teaching methods and the development of skills that prepare children for the challenges of the 21st century. We will listen to both parents and children and help them resolve any issues at schools and nurseries. We will give children the opportunity to engage with public spaces. We want parents and children to feel safe in Lískovec. We will provide schools and nurseries with support to improve the quality of catering. We will open school playgrounds to the public, as is common in other parts of Brno.",
       },
     },
     {
@@ -279,7 +279,7 @@ const CONTENT = {
       },
       en: {
         title: "Culture, sport and community",
-        text:  "We will contribute to the creation and revitalisation of playgrounds to cover all age groups. We will support the diversity of cultural and sports activities in Lískovec and ensure the creation of a community centre serving local associations and all residents as a meeting place. We will create a base for regular farmers' markets. We will ensure transparent support for associations and equal conditions for accessing it. We want to work closely with the SVČ Lužánky Linka branch, Orel, Sokol and other associations to ensure leisure activities not only for children.",
+        text:  "We will contribute to the creation and revitalisation of playgrounds to cover all age groups. We will support diverse cultural and sports activities in Lískovec and establish a community centre serving local associations and all residents as a meeting place. We will create a permanent home for regular farmers' markets. We will ensure transparent support for associations and equal access to that support. We want to work closely with the SVČ Lužánky Linka branch, Orel, Sokol and other associations to ensure leisure activities not only for children.",
       },
     },
     {
@@ -290,7 +290,7 @@ const CONTENT = {
       },
       en: {
         title: "Data-based planning",
-        text:  "Decisions about the district's development must be based on facts and data. We do not want to waste resources on projects with no real benefit. We will insist on the efficiency and sustainability of investments. To maintain and manage public spaces, we want to establish our own maintenance crew. This will allow us to respond more quickly to your reports through the app for reporting defects on municipal property.",
+        text:  "Decisions about the district's development must be based on facts and data. We do not want to waste resources on projects with no real benefit. We will insist on the efficiency and sustainability of investments. To maintain and manage public spaces, we want to establish our own maintenance crew. This will allow us to respond more quickly to your reports submitted through the municipal defect-reporting app.",
       },
     },
     {
@@ -301,7 +301,7 @@ const CONTENT = {
       },
       en: {
         title: "Quality municipal housing",
-        text:  "The district manages more than 600 flats. We will oversee transparency in the allocation of flats. We will ensure that applicants are consistently checked to confirm they do not own another residential property, and that occupancy checks are carried out to prevent the subletting of municipal flats. We will invest in the housing stock to bring accommodation up to today's standards. We will monitor non-payment of rent and pursue these amounts. We will prevent attempts to privatise municipal flats.",
+        text:  "The district manages more than 600 flats. We will oversee transparency in the allocation of flats. We will ensure that applicants are routinely verified to ensure they do not own another residential property, and that occupancy checks are carried out to prevent the subletting of municipal flats. We will invest in the housing stock to bring accommodation up to today's standards. We will monitor non-payment of rent and pursue unpaid rent. We will prevent attempts to privatise municipal flats.",
       },
     },
   ],
@@ -320,7 +320,7 @@ const CONTENT = {
       name: "Vendula Svobodová", party: "Piráti", photo: "vendula-svobodova.jpg",
       age: 34,
       cs: { profession: "geoinformatička, předsedkyně spolku Blechy v kožichu z.s., zastupitelka ve Starém Lískovci, poslankyně PČR", bio: "Vendula stála u zrodu spolku Blechy v kožichu, který se stará o kulturní a vzdělávací rozruch ve Starém Lískovci. Před rodičovskou dovolenou se věnovala datové analýze. Od roku 2022 je zastupitelkou ve Starém Lískovci. Pro Lískovec by si přála, aby konečně ožil a přestal být hřištěm jen pro vládnoucí garnituru." },
-      en: { profession: "geoinformaticist, chair of Blechy v kožichu association, Starý Lískovec councillor, MP", bio: "Vendula co-founded Blechy v kožichu, an association bringing cultural and educational life to Starý Lískovec. Before her parental leave she worked in data analysis. She has been a councillor in Starý Lískovec since 2022. Her wish for the district is that it finally comes alive and stops being a playground reserved for the ruling clique." },
+      en: { profession: "geoinformatics specialist, chair of Blechy v kožichu association, Starý Lískovec councillor, MP", bio: "Vendula co-founded Blechy v kožichu, an association bringing cultural and educational life to Starý Lískovec. Before her parental leave she worked in data analysis. She has been a councillor in Starý Lískovec since 2022. Her wish for the district is that it finally comes alive and stops being a playground reserved for the ruling clique." },
     },
     {
       name: "Michala Martišková", party: "Piráti", photo: "michala-martiskova.jpg",
@@ -344,7 +344,7 @@ const CONTENT = {
       name: "Anna Kohutková", party: "Zelení", photo: "anna-kohutkova.jpg",
       age: 39,
       cs: { profession: "lékárnice", bio: "Anna ve Starém Lískovci bydlí téměř celý život, s manželem zde vychovává dceru a již několik let pracuje v lékárně na místní poliklinice. Ráda se prochází místními zákoutími a sní o tom, jak by se v Lískovci mohlo žít ještě lépe. Baví ji povídat si s lidmi a poslouchat jejich příběhy." },
-      en: { profession: "pharmacist", bio: "Anna has lived in Starý Lískovec for almost her entire life, where she and her husband are raising their daughter — and where she has worked for several years at the pharmacy in the local polyclinic. She loves exploring local nooks and dreaming of how life in Lískovce could be even better. She enjoys chatting with people and listening to their stories." },
+      en: { profession: "pharmacist", bio: "Anna has lived in Starý Lískovec for almost her entire life, where she and her husband are raising their daughter — and where she has worked for several years at the pharmacy in the local polyclinic. She loves exploring local nooks and dreaming of how life in Lískovec could be even better. She enjoys chatting with people and listening to their stories." },
     },
     {
       name: "Ayudh Ray", party: "Piráti", photo: "ayudh-ray.jpg",
@@ -476,7 +476,7 @@ const CONTENT = {
       zeleni_national: "Strana zelených",
     },
     en: {
-      intro: "Our candidate list joins forces for the development of Starý Lískovec. We proudly stand by the values and national programme of our parent parties, which give us a base and support.",
+      intro: "Our candidates join forces for the development of Starý Lískovec. We proudly stand by the values and national programme of our parent parties, which provide us with support and a shared platform.",
       outro: "Together we promote modern, sustainable development not only in our district, but across the whole region and the Czech Republic.",
       pirati_region:   "Pirates of the South Moravian Region",
       pirati_national: "Czech Pirate Party",
