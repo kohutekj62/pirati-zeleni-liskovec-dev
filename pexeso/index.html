@@ -503,12 +503,13 @@ function buildRoundsFromCSV(rows) {
 
     const lat = r[col.lat], lng = r[col.lng];
     map.get(rid).places.push({
-      id:      r[col.id],
-      emoji:   r[col.emoji],
-      photo:   r[col.photo]   || null,  // empty string → null (no photo)
-      web:     r[col.web]     || null,  // empty string → null (no link)
-      coords:  (lat && lng)   ? `${lat},${lng}` : null,        // only set when both present
-      azimuth: r[col.azimuth] ? Number(r[col.azimuth]) : null, // compass heading for Street View
+      id:           r[col.id],
+      emoji:        r[col.emoji],
+      photo:        r[col.photo]    || null,
+      web:          r[col.web]      || null,
+      coords:       (lat && lng)    ? `${lat},${lng}` : null,
+      customMapUrl: r[col.map_url]  || null,  // direct Mapy.com URL override (e.g. source=base place links)
+      azimuth:      r[col.azimuth]  ? Number(r[col.azimuth]) : null,
       cs: { name: r[col.name_cs], location: r[col.location_cs],
             desc: r[col.desc_cs], history: r[col.history_cs] },
       en: { name: r[col.name_en], location: r[col.location_en],
@@ -631,15 +632,14 @@ function renderSelect() {
   showScreen("screen-select");
 }
 
-// mapUrl — single source of truth for a place's map link, so the in-game info
-// card and the review panel always point to the EXACT same URL. We use Mapy.com
-// (the Czech-localized map most local residents use; mapy.cz 301-redirects here,
-// so we link the final host directly). The CSV stores coords as "lat,lng";
-// Mapy wants x=lng, y=lat and a "coor" marker id of "lng,lat". Split is by comma
-// only (no Number()), so the raw CSV precision is preserved.
-function mapUrl(coords) {
-  if (!coords) return null;
-  const [lat, lng] = coords.split(",");
+// getMapUrl — single source of truth for a place's map link.
+// Prefers place.customMapUrl (a direct Mapy.com URL stored in the CSV's map_url
+// column, e.g. source=base place-ID links). Falls back to generating a
+// source=coor coordinate link from place.coords.
+function getMapUrl(place) {
+  if (place.customMapUrl) return place.customMapUrl;
+  if (!place.coords) return null;
+  const [lat, lng] = place.coords.split(",");
   return `https://mapy.com/zakladni?source=coor&id=${lng},${lat}&x=${lng}&y=${lat}&z=18`;
 }
 
@@ -648,7 +648,7 @@ function renderReviewPanel() {
   if (!panel || panel.dataset.built) return;  // build once
   panel.innerHTML = ROUNDS.map(r => {
     const rows = r.places.map(p => {
-      const mUrl = mapUrl(p.coords);
+      const mUrl = getMapUrl(p);
       const mLink = mUrl
         ? `<a class="review-link review-link--m" href="${mUrl}" target="_blank" rel="noopener noreferrer" title="Mapy.com">m</a>`
         : `<span class="review-link review-link--none" title="chybí souřadnice">m</span>`;
@@ -935,7 +935,7 @@ function showInfoCard(pair) {
     // q=lat,lng opens a pin at the exact coordinates; Google Maps shows the place card if
     // the location is known in its database, otherwise just the pin. Same helper as the
     // review panel, so the two links are guaranteed identical.
-    linksDiv.innerHTML += `<a class="info-card__link info-card__link--map" href="${mapUrl(pair.coords)}" target="_blank" rel="noopener noreferrer">${t("link_map")}</a>`;
+    linksDiv.innerHTML += `<a class="info-card__link info-card__link--map" href="${getMapUrl(pair)}" target="_blank" rel="noopener noreferrer">${t("link_map")}</a>`;
   }
   if (pair.web) {
     // rel="noopener noreferrer" prevents the opened tab from accessing this page via window.opener
