@@ -16,7 +16,8 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 
 function run(cmd, opts = {}) {
-  return execSync(cmd, { cwd: ROOT, encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'], ...opts }).trim();
+  const result = execSync(cmd, { cwd: ROOT, encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'], ...opts });
+  return result ? result.trim() : '';
 }
 
 // ── 1. Guard: clean working tree ─────────────────────────────────────────────
