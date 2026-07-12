@@ -464,7 +464,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
   overflow: hidden; display: flex; flex-direction: column; transition: transform var(--transition);
 }
 .news-card:hover { transform: translateY(-4px); }
-.news-card__media { aspect-ratio: 16 / 9; }
+.news-card__media { aspect-ratio: 16 / 9; width: 100%; object-fit: cover; }
 .news-card__body { padding: 1.2rem 1.4rem; display: flex; flex-direction: column; gap: 0.4rem; }
 .news-card__date { color: var(--color-green-ink); font-weight: 700; font-size: 0.85rem; }
 .news-card__title { font-size: 1.25rem; margin: 0; }
