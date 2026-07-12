@@ -340,8 +340,8 @@ const CONTENT = {
     {
       name: "Anna Kohutková", party: "Zelení", photo: "anna-kohutkova.jpg",
       age: 39,
-      cs: { profession: "lékárnice", bio: "Anna ve Starém Lískovci bydlí téměř celý život, s manželem zde vychovává dceru a již několik let tady i pracuje. Ráda se prochází místními zákoutími a sní o tom, jak by se v Lískovci mohlo žít ještě lépe. A teď už nechce zůstat jen u snů." },
-      en: { profession: "pharmacist", bio: "Anna has lived in Starý Lískovec for almost her entire life, where she and her husband are raising their daughter — and where she has worked for several years too. She loves exploring local nooks and dreaming of how life in Lískovce could be even better. And now she no longer wants to stay merely at the dreaming stage." },
+      cs: { profession: "lékárnice", bio: "Anna ve Starém Lískovci bydlí téměř celý život, s manželem zde vychovává dceru a již několik let pracuje v lékárně na místní poliklinice. Ráda se prochází místními zákoutími a sní o tom, jak by se v Lískovci mohlo žít ještě lépe. Baví ji povídat si s lidmi a poslouchat jejich příběhy." },
+      en: { profession: "pharmacist", bio: "Anna has lived in Starý Lískovec for almost her entire life, where she and her husband are raising their daughter — and where she has worked for several years at the pharmacy in the local polyclinic. She loves exploring local nooks and dreaming of how life in Lískovce could be even better. She enjoys chatting with people and listening to their stories." },
     },
     {
       name: "Ayudh Ray", party: "Piráti", photo: "ayudh-ray.jpg",
