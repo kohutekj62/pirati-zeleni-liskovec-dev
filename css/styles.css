@@ -238,7 +238,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 }
 .hero__inner {
   display: flex; align-items: stretch; gap: var(--gap);
-  min-height: clamp(420px, 62vw, 640px);
+  min-height: clamp(360px, 46vw, 520px);
   padding-block: clamp(2rem, 5vw, 3.5rem);
 }
 .hero__text {
