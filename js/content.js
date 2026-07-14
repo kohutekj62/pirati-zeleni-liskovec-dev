@@ -398,11 +398,6 @@ const CONTENT = {
         Past events automatically get a faded "proběhlo / past" style.
      ====================================================================== */
   events: [
-    { date: "2026-07-13", time: "17:30",
-      fb:  "https://www.facebook.com/blechyvkozichu/",
-      map: "https://mapy.com/cs/turisticka?source=base&id=2569303&x=16.5598997&y=49.1681551&z=19&ovl=3",
-      cs: { title: "Čteme: Kdysi jsem byla strom", place: "Červené hřiště", desc: "V pondělí opět čteme! Tentokrát knížku Kdysi jsem byla strom. Čte Jan Novotný. Akce Blechy v kožichu z.s." },
-      en: { title: "Reading: Once I Was a Tree", place: "Červené hřiště", desc: "Monday reading session — this time the book Once I Was a Tree. Read by Jan Novotný. An event by Blechy v kožichu z.s." } },
     { date: "2026-07-20", time: "17:30",
       fb:  "https://www.facebook.com/blechyvkozichu/",
       map: "https://mapy.com/cs/turisticka?source=base&id=2569303&x=16.5598997&y=49.1681551&z=19&ovl=3",
@@ -446,6 +441,9 @@ const CONTENT = {
         • image → file in assets/  (or "" to show a branded placeholder).
      ====================================================================== */
   news: [
+    { date: "2026-07-13", image: "news-blechy-kdysi-strom.jpg",
+      cs: { title: "Blechy čtou dětem - Kdysi jsem byla strom", excerpt: "V pondělí 13.7. jsme se opět sešli v hojném počtu na červeném hřišti. Děti s nadšením poslouchaly příběh knihy samotné o tom, jak přišla na svět. Čtení se tentokrát ujal Jan Novotný. Po pohádce vedla Michala Martišková osvěžující zvířecí rozcvičku." },
+      en: { title: "Blechy Read to Kids - Once I Was a Tree", excerpt: "On Monday 13 July we again gathered in large numbers at Červené hřiště. The children eagerly listened to the story of the book itself — how it came into being. This time the reading was led by Jan Novotný. After the story, Michala Martišková led a refreshing animal-themed warm-up." } },
     { date: "2026-06-12", image: "news-divadylko.jpg",
       cs: { title: "Divadýlko s popletenou pohádkou", excerpt: "Ve čtvrtek 12. června jsme na skákacím hřišti na Bosonožské odehráli už podruhé Divadýlko s popletenou pohádkou. Děti usedly na deky a staly se součástí příběhu – napovídaly, smály se a v půlce si společně zacvičily. Pak přišel na řadu jezevec Chrujda a pohádka mohla dobře dopadnout. Akce Blechy v kožichu z.s., kterou vedla naše jednička Vendula Svobodová spolu s Kateřinou Křížovou." },
       en: { title: "Little Theatre with a Mixed-Up Fairy Tale", excerpt: "On Friday 12 June we performed our mixed-up fairy tale show for the second time, at the play area on Bosonožská street. Children settled on blankets and became part of the story — whispering cues, laughing, and joining a short stretch break at half time. Then came the badger Chrujda and the tale ended well. An event by Blechy v kožichu z.s., led by our lead candidate Vendula Svobodová together with Kateřina Křížová." } },
