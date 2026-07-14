@@ -442,7 +442,7 @@ const CONTENT = {
      ====================================================================== */
   news: [
     { date: "2026-07-13", image: "news-blechy-kdysi-strom.jpg",
-      cs: { title: "Blechy čtou dětem - Kdysi jsem byla strom", excerpt: "V pondělí 13.7. jsme se opět sešli v hojném počtu na červeném hřišti. Děti s nadšením poslouchaly příběh knihy samotné o tom, jak přišla na svět. Čtení se tentokrát ujal Jan Novotný. Po pohádce vedla Michala Martišková osvěžující zvířecí rozcvičku." },
+      cs: { title: "Blechy čtou dětem - Kdysi jsem byla strom", excerpt: "V pondělí 13. července jsme se opět sešli v hojném počtu na červeném hřišti. Děti s nadšením poslouchaly příběh knihy samotné o tom, jak přišla na svět. Čtení se tentokrát ujal Jan Novotný. Po pohádce vedla Michala Martišková osvěžující zvířecí rozcvičku." },
       en: { title: "Blechy Read to Kids - Once I Was a Tree", excerpt: "On Monday 13 July we again gathered in large numbers at Červené hřiště. The children eagerly listened to the story of the book itself — how it came into being. This time the reading was led by Jan Novotný. After the story, Michala Martišková led a refreshing animal-themed warm-up." } },
     { date: "2026-06-12", image: "news-divadylko.jpg",
       cs: { title: "Divadýlko s popletenou pohádkou", excerpt: "Ve čtvrtek 12. června jsme na skákacím hřišti na Bosonožské odehráli už podruhé Divadýlko s popletenou pohádkou. Děti usedly na deky a staly se součástí příběhu – napovídaly, smály se a v půlce si společně zacvičily. Pak přišel na řadu jezevec Chrujda a pohádka mohla dobře dopadnout. Akce Blechy v kožichu z.s., kterou vedla naše jednička Vendula Svobodová spolu s Kateřinou Křížovou." },
