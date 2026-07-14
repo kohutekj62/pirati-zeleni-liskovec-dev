@@ -27,15 +27,16 @@
 
   /* Logo colours, kept exact for fills, dots and glows */
   --color-pirati:      #141414; /* official Piráti black — text accent + fills (18.4:1 on white) */
-  --color-pirati-soft: #fd6478; /* coral pink from the logo's flower motif — a slight touch only: the hero's soft background glow, never a dominant gradient stop */
+  --color-pirati-soft: #ff7a91; /* coral pink from the logo's flower motif — a slight touch only: the hero's soft background glow, never a dominant gradient stop */
   --color-pirati-dark: #000000; /* black hover state (fills only) */
-  --color-green:       #01c36d; /* official Zelení green — FILLS ONLY (use green-ink for text on white) */
-  --color-green-ink:   #018249; /* darkened green that passes AA as text on white and on tinted panels */
-  --color-green-dark:  #017240; /* green hover state */
+  --color-green:       #0bd26f; /* official Zelení green — FILLS ONLY (use green-ink for text on white) */
+  --color-green-ink:   #078245; /* darkened green that passes AA as text on white and on tinted panels */
+  --color-green-dark:  #06713c; /* green hover state */
+  --color-green-deep:  #03645a; /* the logo ring/wordmark gradient's dark teal end — gradients + deep accents (7.1:1 on white) */
 
   /* Semantic accents — what to use for links and text accents on the white page */
   --color-link:        var(--color-green-ink);
-  --color-link-hover:  var(--color-pirati);
+  --color-link-hover:  var(--color-green-deep);
   --color-error:        #c62828; /* form validation text */
   --color-error-border: #e0556b; /* form validation border */
 

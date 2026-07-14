@@ -7,6 +7,12 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --pink:      #ff7a91;
+      --pink-rgb:  255, 122, 145;  /* rgba() form of --pink for glows */
+      --green-rgb: 11, 210, 111;   /* rgba() form of the brand green #0bd26f */
+    }
+
     body {
       background: #ffffff;
       min-height: 100vh;
@@ -31,7 +37,7 @@
       background: #fff;
       border-radius: 12px 12px 0 0;
       padding: 26px 20px 18px;
-      filter: drop-shadow(0 6px 18px rgba(253,100,120,0.25));
+      filter: drop-shadow(0 6px 18px rgba(var(--pink-rgb), 0.25));
     }
 
     .card__qr-link {
@@ -49,7 +55,7 @@
       position: absolute;
       inset: 0;
       border-radius: 0 0 12px 12px;
-      box-shadow: 0 0 0 3px #fd6478, 0 0 24px 4px rgba(253,100,120,0.35);
+      box-shadow: 0 0 0 3px var(--pink), 0 0 24px 4px rgba(var(--pink-rgb), 0.35);
       pointer-events: none;
       z-index: 1;
     }
@@ -59,9 +65,9 @@
     #qr-box canvas { width: 240px !important; height: 240px !important; display: block !important; }
 
     @keyframes pulse {
-      0%, 100% { filter: drop-shadow(0 0 8px rgba(253,100,120,0.4)); }
-      50%       { filter: drop-shadow(0 0 22px rgba(253,100,120,0.85))
-                          drop-shadow(0 0 40px rgba(1,195,109,0.3)); }
+      0%, 100% { filter: drop-shadow(0 0 8px rgba(var(--pink-rgb), 0.4)); }
+      50%       { filter: drop-shadow(0 0 22px rgba(var(--pink-rgb), 0.85))
+                          drop-shadow(0 0 40px rgba(var(--green-rgb), 0.3)); }
     }
 
     @media print {
