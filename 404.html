@@ -13,14 +13,23 @@
       window._siteRoot = root;
     }());
   </script>
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=9f3288eb" />
-  <link rel="stylesheet" href="css/fonts.css?v=e0b8a13a" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=cccd534e" />
+  <link rel="stylesheet" href="css/fonts.css?v=5faf20f0" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --bg:        #ffffff;
+      --text:      #1a1a1a;
+      --muted:     #585c58;
+      --green:     #0bd26f;
+      --green-ink: #078245;
+      --green-dark:#06713c;
+    }
+
     body {
-      background: #ffffff;
-      color: #1a1a1a;
+      background: var(--bg);
+      color: var(--text);
       font-family: "Roboto", system-ui, sans-serif;
       min-height: 100dvh;
       display: flex;
@@ -41,13 +50,13 @@
       font-family: "Bebas Neue", "Arial Narrow", sans-serif;
       font-size: clamp(5rem, 20vw, 9rem);
       line-height: 1;
-      color: #018249;
+      color: var(--green-ink);
       letter-spacing: 0.02em;
     }
 
     p.lead {
       font-size: 1.15rem;
-      color: #585c58;
+      color: var(--muted);
       max-width: 36ch;
       line-height: 1.6;
     }
@@ -56,7 +65,7 @@
       display: inline-block;
       margin-top: 0.5rem;
       padding: 0.75rem 2rem;
-      background: #01c36d;
+      background: var(--green);
       color: #000;
       font-weight: 700;
       font-size: 1rem;
@@ -64,7 +73,7 @@
       text-decoration: none;
       transition: background 0.2s;
     }
-    a.btn:hover { background: #017240; }
+    a.btn:hover { background: var(--green-dark); }
 
     footer {
       position: fixed;
@@ -75,7 +84,7 @@
   </style>
 </head>
 <body>
-  <img class="logo" src="assets/logo-pirati-zeleni.png?v=068390f8" alt="Piráti a Zelení pro Lískovec" />
+  <img class="logo" src="assets/logo-pirati-zeleni.png?v=4bd86f88" alt="Piráti a Zelení pro Lískovec" />
   <h1>404</h1>
   <p class="lead">Tato stránka neexistuje. Možná byl odkaz přepsán nebo smazán.</p>
   <a class="btn" id="btn-home" href="/">Zpět na hlavní stránku</a>
