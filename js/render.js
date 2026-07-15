@@ -458,11 +458,14 @@ const RENDER = (function () {
        to compute endDate. ev.image (optional): "assets/" + ev.image, same
        convention as news entries; falls back to the shared OG image. */
     var pad2 = function (n) { return (n < 10 ? "0" : "") + n; };
+    var todayStr = today.getFullYear() + "-" + pad2(today.getMonth() + 1) + "-" + pad2(today.getDate());
     CONTENT.events.forEach(function (ev) {
       var evDate = new Date(ev.date + "T00:00:00");
       if (evDate < today) return;
       var data = ev.cs;
       var hasTime = ev.time && ev.time.match(/^\d{1,2}:\d{2}$/);
+      var host = ev.host ? { "@type": "Organization", "name": ev.host } : null;
+      if (host && ev.fb) host.url = ev.fb;
       var entry = {
         "@type": "Event",
         "name": data.title,
@@ -479,7 +482,7 @@ const RENDER = (function () {
             "addressCountry": "CZ"
           }
         },
-        "organizer": ev.host ? { "@type": "Organization", "name": ev.host } : { "@id": ORG },
+        "organizer": host || { "@id": ORG },
         "description": data.desc,
         "image": BASE + "assets/" + (ev.image || "og-pic.png"),
         "offers": {
@@ -487,10 +490,11 @@ const RENDER = (function () {
           "price": ev.price != null ? String(ev.price) : "0",
           "priceCurrency": "CZK",
           "availability": "https://schema.org/InStock",
-          "url": BASE + "#meet"
+          "url": BASE + "#meet",
+          "validFrom": todayStr
         }
       };
-      if (ev.host) entry.performer = { "@type": "Organization", "name": ev.host };
+      if (host) entry.performer = host;
       if (hasTime) {
         var end = new Date(ev.date + "T" + ev.time + ":00");
         end.setMinutes(end.getMinutes() + (ev.durationMinutes != null ? ev.durationMinutes : 120));
