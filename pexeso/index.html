@@ -971,7 +971,7 @@ function showInfoCard(pair) {
 // back to copying the URL to the clipboard and briefly showing "Zkopírováno!".
 // The .catch(() => {}) silences the error if the user cancels the share dialog.
 function shareGame(btn, textKey) {
-  const url  = "https://www.staryliskovec-on.cz/pexeso/";
+  const url  = "https://www.pirati-zeleni-liskovec.cz/pexeso/";
   const text = t(textKey);
   if (navigator.share) {
     navigator.share({ title: t("title"), text, url }).catch(() => {});

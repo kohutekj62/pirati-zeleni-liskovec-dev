@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.staryliskovec-on.cz/sitemap.xml
+Sitemap: https://www.pirati-zeleni-liskovec.cz/sitemap.xml

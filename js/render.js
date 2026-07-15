@@ -431,7 +431,7 @@ const RENDER = (function () {
     if (_structuredDataInjected) return;
     _structuredDataInjected = true;
 
-    var BASE = "https://www.staryliskovec-on.cz/";
+    var BASE = "https://www.pirati-zeleni-liskovec.cz/";
     var ORG  = BASE + "#organization";
     var today = new Date(); today.setHours(0, 0, 0, 0);
     var graph = [];
