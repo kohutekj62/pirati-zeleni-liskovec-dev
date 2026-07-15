@@ -48,7 +48,7 @@ try {
   // ── 4. Swap pamphlet QR URL dev → prod ───────────────────────────────────────
   const pamphletPath = path.join(ROOT, 'pexeso', 'pamphlet.html');
   let pamphlet = fs.readFileSync(pamphletPath, 'utf8');
-  const PROD_URL = 'https://kohutekj62.github.io/pirati-zeleni-liskovec/pexeso/';
+  const PROD_URL = 'https://www.pirati-zeleni-liskovec.cz/pexeso/';
   pamphlet = pamphlet.replace(/https:\/\/kohutekj62\.github\.io\/pirati-zeleni-liskovec-dev\/pexeso\//g, PROD_URL);
   fs.writeFileSync(pamphletPath, pamphlet, 'utf8');
   console.log('pamphlet QR URL → prod');
