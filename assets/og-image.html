@@ -5,17 +5,15 @@
 <link rel="stylesheet" href="../css/fonts.css">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { width:1200px; height:630px; overflow:hidden; background:#0a0a0a; }
+body { width:1200px; height:1200px; overflow:hidden; background:#0a0a0a; }
 /*
-  Many crawlers (WhatsApp, Messenger, Twitter/X) don't show the full
-  1200x630 canvas — they center-crop it down to a 630x630 square
-  (x: 285-915) for the small preview thumbnail. Facebook/LinkedIn/
-  opengraph.xyz show the full image, so a design that only looks right
-  there can still get badly cropped elsewhere. Keep the logo/headline/
-  tagline inside a centered panel narrower than the 630px safe zone so
-  it survives both cases; let the photo bleed full-width behind it.
+  Square canvas on purpose: WhatsApp's link-preview thumbnail doesn't
+  crop a wide (1200x630) og:image to a square the way Facebook/Twitter
+  do — it non-uniformly squishes it instead, distorting the panel and
+  wordmark. A 1:1 source needs no transform on any platform, so nothing
+  can squeeze or crop unpredictably.
 */
-.og { width:1200px; height:630px; position:relative; overflow:hidden; font-family:'Roboto',sans-serif; }
+.og { width:1200px; height:1200px; position:relative; overflow:hidden; font-family:'Roboto',sans-serif; }
 
 .og__photo {
   position:absolute; inset:0; width:100%; height:100%;
@@ -55,15 +53,15 @@ body { width:1200px; height:630px; overflow:hidden; background:#0a0a0a; }
 
   <!--
     === HOW TO RE-RENDER assets/og-pic.png ===
-    1. Open this file in Chrome at 100% zoom and screenshot the page (1200×630),
-       or drive it headlessly (viewport 1200×630) and save the capture as
-       assets/og-pic.png.
-    2. To swap the photo, replace ../header-photo.jpg below with any landscape
-       photo of Starý Lískovec (at least 1200×630 px) and re-render.
-    3. Keep .og__panel's content inside the centered 630×630 safe zone
-       (x: 285–915) — WhatsApp/Messenger/X crop the wide image down to that
-       square for their thumbnail, so anything outside it gets cut off there
-       even though it's visible on Facebook/LinkedIn/opengraph.xyz.
+    1. Open this file in Chrome at 100% zoom and screenshot the page
+       (1200×1200), or drive it headlessly (viewport 1200×1200) and save
+       the capture as assets/og-pic.png.
+    2. To swap the photo, replace ../header-photo.jpg below with any
+       landscape photo of Starý Lískovec (at least 1200×1200 px covered)
+       and re-render.
+    3. Keep the canvas square (1200×1200) — see the note above .og in the
+       <style> block for why. If you resize it, also update
+       og:image:width / og:image:height in index.html and pexeso/index.html.
   -->
   <img src="../header-photo.jpg" alt="" class="og__photo">
   <div class="og__scrim"></div>
