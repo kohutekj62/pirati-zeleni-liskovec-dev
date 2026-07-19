@@ -6,40 +6,52 @@
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 body { width:1200px; height:630px; overflow:hidden; background:#0a0a0a; }
-.og { width:1200px; height:630px; display:flex; position:relative; }
+/*
+  Many crawlers (WhatsApp, Messenger, Twitter/X) don't show the full
+  1200x630 canvas — they center-crop it down to a 630x630 square
+  (x: 285-915) for the small preview thumbnail. Facebook/LinkedIn/
+  opengraph.xyz show the full image, so a design that only looks right
+  there can still get badly cropped elsewhere. Keep the logo/headline/
+  tagline inside a centered panel narrower than the 630px safe zone so
+  it survives both cases; let the photo bleed full-width behind it.
+*/
+.og { width:1200px; height:630px; position:relative; overflow:hidden; font-family:'Roboto',sans-serif; }
 
-/* LEFT HALF */
-.og__left {
-  width: 560px; flex-shrink: 0; height: 630px;
-  background: #0a0a0a;
-  border-left: 6px solid #141414;
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 56px 52px 56px 50px;
-  position: relative; z-index: 2;
+.og__photo {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:center; display:block;
 }
-/* feather into photo */
-.og__left::after {
-  content:''; position:absolute; top:0; right:-80px; bottom:0; width:80px;
-  background: linear-gradient(to right, #0a0a0a 0%, transparent 100%);
-  z-index: 3;
+.og__scrim {
+  position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.32) 100%);
 }
 
-.og__logo   { height:64px; margin-bottom:28px; display:block; align-self:flex-start;
-              background:#fff; padding:10px 14px; border-radius:12px; box-sizing:content-box; }
+.og__panel {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width: 600px;
+  background: rgba(8,8,8,0.86);
+  border: 1px solid rgba(11,210,111,0.40);
+  border-radius: 20px;
+  padding: 40px 46px;
+  display: flex; flex-direction: column; align-items:flex-start;
+}
+
+.og__logo   { height:56px; margin-bottom:24px; display:block; align-self:flex-start;
+              background:#fff; padding:8px 12px; border-radius:10px; box-sizing:content-box; }
 
 .og__kicker {
-  font-family:'Roboto',sans-serif; font-size:13px; font-weight:700;
-  letter-spacing:0.14em; text-transform:uppercase; color:#0bd26f; margin-bottom:10px;
+  font-family:'Roboto',sans-serif; font-size:12px; font-weight:700;
+  letter-spacing:0.14em; text-transform:uppercase; color:#0bd26f; margin-bottom:8px;
 }
 
 .og__headline {
-  font-family:'Bebas Neue',sans-serif; font-size:80px; line-height:0.92;
-  color:#f4f4f5; margin-bottom:18px;
+  font-family:'Bebas Neue',sans-serif; font-size:64px; line-height:0.92;
+  color:#f4f4f5; margin-bottom:16px;
 }
 
 .og__tagline {
-  font-family:'Roboto',sans-serif; font-size:18px; font-weight:400;
-  color:#b5b5bd; margin-bottom:36px; line-height:1.5;
+  font-family:'Roboto',sans-serif; font-size:16px; font-weight:400;
+  color:#d5d5db; margin-bottom:28px; line-height:1.5;
 }
 
 .og__parties { display:flex; gap:10px; align-items:center; }
@@ -50,24 +62,27 @@ body { width:1200px; height:630px; overflow:hidden; background:#0a0a0a; }
 }
 .tag--pirati { background:#141414; color:#fff; }
 .tag--zeleni { background:#0bd26f; }
-
-/* RIGHT HALF */
-.og__right { flex:1; height:630px; position:relative; overflow:hidden; }
-.og__photo  { width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
-.og__right::after {
-  content:''; position:absolute; inset:0;
-  background: linear-gradient(135deg, rgba(11,210,111,0.06) 0%, rgba(11,210,111,0.20) 100%);
-}
-.og__right-bar {
-  position:absolute; top:0; right:0; width:6px; height:630px;
-  background:#0bd26f; z-index:4;
-}
 </style>
 </head>
 <body>
 <div class="og">
 
-  <div class="og__left">
+  <!--
+    === HOW TO RE-RENDER assets/og-pic.png ===
+    1. Open this file in Chrome at 100% zoom and screenshot the page (1200×630),
+       or drive it headlessly (viewport 1200×630) and save the capture as
+       assets/og-pic.png.
+    2. To swap the photo, replace ../header-photo.jpg below with any landscape
+       photo of Starý Lískovec (at least 1200×630 px) and re-render.
+    3. Keep .og__panel's content inside the centered 630×630 safe zone
+       (x: 285–915) — WhatsApp/Messenger/X crop the wide image down to that
+       square for their thumbnail, so anything outside it gets cut off there
+       even though it's visible on Facebook/LinkedIn/opengraph.xyz.
+  -->
+  <img src="../header-photo.jpg" alt="" class="og__photo">
+  <div class="og__scrim"></div>
+
+  <div class="og__panel">
     <img src="../assets/logo-pirati-zeleni.png" class="og__logo" alt="">
     <p class="og__kicker">Komunální volby Brno &middot; podzim 2026</p>
     <h1 class="og__headline">
@@ -83,19 +98,6 @@ body { width:1200px; height:630px; overflow:hidden; background:#0a0a0a; }
       <span class="tag tag--zeleni">Zelen&iacute;</span>
     </div>
   </div>
-
-  <!--
-    === HOW TO RE-RENDER assets/og-pic.png ===
-    1. Open this file in Chrome at 100% zoom and screenshot the page (1200×630),
-       or drive it headlessly (viewport 1200×630) and save the capture as
-       assets/og-pic.png.
-    2. To swap the photo, replace ../header-photo.jpg below with any landscape
-       photo of Starý Lískovec (at least 700×630 px) and re-render.
-  -->
-  <div class="og__right">
-    <img src="../header-photo.jpg" alt="" class="og__photo">
-  </div>
-  <div class="og__right-bar"></div>
 
 </div>
 </body>
