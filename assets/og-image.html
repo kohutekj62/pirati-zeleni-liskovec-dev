@@ -26,42 +26,28 @@ body { width:1200px; height:630px; overflow:hidden; background:#0a0a0a; }
   background: linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.32) 100%);
 }
 
+/*
+  Kept deliberately minimal: WhatsApp/Messenger shrink this to a tiny
+  chat-bubble thumbnail (well under 100px), where small text (kicker,
+  tagline, party tags) turns to mush. Logo + one big wordmark is the
+  only thing that stays legible at that size, so that's all this shows.
+*/
 .og__panel {
   position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-  width: 600px;
-  background: rgba(8,8,8,0.86);
-  border: 1px solid rgba(11,210,111,0.40);
-  border-radius: 20px;
-  padding: 40px 46px;
-  display: flex; flex-direction: column; align-items:flex-start;
+  background: rgba(6,6,6,0.88);
+  border: 2px solid rgba(11,210,111,0.55);
+  border-radius: 24px;
+  padding: 44px 60px;
+  display: flex; flex-direction: column; align-items:center;
 }
 
-.og__logo   { height:56px; margin-bottom:24px; display:block; align-self:flex-start;
-              background:#fff; padding:8px 12px; border-radius:10px; box-sizing:content-box; }
-
-.og__kicker {
-  font-family:'Roboto',sans-serif; font-size:12px; font-weight:700;
-  letter-spacing:0.14em; text-transform:uppercase; color:#0bd26f; margin-bottom:8px;
-}
+.og__logo   { height:100px; margin-bottom:26px; display:block;
+              background:#fff; padding:12px 18px; border-radius:14px; box-sizing:content-box; }
 
 .og__headline {
-  font-family:'Bebas Neue',sans-serif; font-size:64px; line-height:0.92;
-  color:#f4f4f5; margin-bottom:16px;
+  font-family:'Bebas Neue',sans-serif; font-size:92px; line-height:0.95;
+  color:#f9f9fa; text-align:center;
 }
-
-.og__tagline {
-  font-family:'Roboto',sans-serif; font-size:16px; font-weight:400;
-  color:#d5d5db; margin-bottom:28px; line-height:1.5;
-}
-
-.og__parties { display:flex; gap:10px; align-items:center; }
-.tag {
-  display:inline-block; padding:5px 16px; border-radius:999px;
-  font-family:'Roboto',sans-serif; font-size:12px; font-weight:700;
-  letter-spacing:0.07em; text-transform:uppercase; color:#000;
-}
-.tag--pirati { background:#141414; color:#fff; }
-.tag--zeleni { background:#0bd26f; }
 </style>
 </head>
 <body>
@@ -84,19 +70,9 @@ body { width:1200px; height:630px; overflow:hidden; background:#0a0a0a; }
 
   <div class="og__panel">
     <img src="../assets/logo-pirati-zeleni.png" class="og__logo" alt="">
-    <p class="og__kicker">Komunální volby Brno &middot; podzim 2026</p>
     <h1 class="og__headline">
       PIR&Aacute;TI<br>A ZELEN&Iacute;
     </h1>
-    <p class="og__tagline">
-      Otev&#345;en&#283;, n&aacute;padit&#283;.<br>
-      Koalice Pir&aacute;t&#367; a Zelen&yacute;ch<br>
-      pro n&aacute;&scaron; Star&yacute; L&iacute;skovec.
-    </p>
-    <div class="og__parties">
-      <span class="tag tag--pirati">Pir&aacute;ti</span>
-      <span class="tag tag--zeleni">Zelen&iacute;</span>
-    </div>
   </div>
 
 </div>
