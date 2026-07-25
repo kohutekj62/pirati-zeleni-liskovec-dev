@@ -407,12 +407,6 @@ const CONTENT = {
                               falls back to the shared OG image if omitted.
      ====================================================================== */
   events: [
-    { date: "2026-07-20", time: "17:30",
-      fb:  "https://www.facebook.com/blechyvkozichu/",
-      host: "Blechy v kožichu z.s.",
-      map: "https://mapy.com/cs/turisticka?source=base&id=2569303&x=16.5598997&y=49.1681551&z=19&ovl=3",
-      cs: { title: "Blechy čtou dětem", place: "Červené hřiště", desc: "Každé prázdninové pondělí v 17:30 čtou Blechy v kožichu z.s. dětem na Červeném hřišti naproti Potrefené huse. Knížky vyberte na jejich Facebooku." },
-      en: { title: "Blechy čtou dětem", place: "Červené hřiště", desc: "Every summer-holiday Monday at 17:30, Blechy v kožichu z.s. read to children at Červené hřiště opposite Potrefená husa. Choose the book on their Facebook page." } },
     { date: "2026-07-27", time: "17:30",
       fb:  "https://www.facebook.com/blechyvkozichu/",
       host: "Blechy v kožichu z.s.",
@@ -457,6 +451,9 @@ const CONTENT = {
         • image → file in assets/  (or "" to show a branded placeholder).
      ====================================================================== */
   news: [
+    { date: "2026-07-20", image: "news-blechy-ctou-detem-20-7.jpg",
+      cs: { title: "Blechy čtou dětem - Káťa a Škubánek", excerpt: "V pondělí 20. července proběhlo na Červeném hřišti další čtení. Děti se zaposlouchaly do hlasu Michaly Martiškové, která předčítala z knihy Káťa a Škubánek. Nechyběla ani rozcvička pro zdraví, zábavu a dobrý spánek." },
+      en: { title: "Blechy Read to Kids - Káťa and Škubánek", excerpt: "On Monday 20 July another reading took place at Červené hřiště. The children listened closely to Michala Martišková, who read from the book Káťa a Škubánek. A warm-up exercise for health, fun and good sleep was part of the programme too." } },
     { date: "2026-07-13", image: "news-blechy-kdysi-strom.jpg",
       cs: { title: "Blechy čtou dětem - Kdysi jsem byla strom", excerpt: "V pondělí 13. července jsme se opět sešli v hojném počtu na červeném hřišti. Děti s nadšením poslouchaly příběh knihy samotné o tom, jak přišla na svět. Čtení se tentokrát ujal Jan Novotný. Po pohádce vedla Michala Martišková osvěžující zvířecí rozcvičku." },
       en: { title: "Blechy Read to Kids - Once I Was a Tree", excerpt: "On Monday 13 July we again gathered in large numbers at Červené hřiště. The children eagerly listened to the story of the book itself — how it came into being. This time the reading was led by Jan Novotný. After the story, Michala Martišková led a refreshing animal-themed warm-up." } },
