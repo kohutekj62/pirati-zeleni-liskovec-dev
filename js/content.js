@@ -470,7 +470,7 @@ const CONTENT = {
     { date: "2026-08-03", image: "news-blechy-ctou-detem-3-8.jpg",
       cs: { title: "Blechy čtou dětem - Rukavička", excerpt: "V pondělí 3. srpna se i navzdory velkému vedru sešla na Červeném hřišti pěkná skupinka posluchačů. Kateřina Křížová a Jan Novotný dětem přečetli pohádku Rukavička a pak si společně zahrály na hledání zvířátek - malovaná zvířátka postupně „schovávaly“ do velké rukavice nakreslené na zemi. Díky všem, kdo dorazili!" },
       en: { title: "Blechy Read to Kids - The Mitten", excerpt: "On Monday 3 August, despite the scorching heat, a lovely group gathered at Červené hřiště. Kateřina Křížová and Jan Novotný read the fairy tale Rukavička (The Mitten) to the children, who then went hunting for painted animals and tucked them one by one into a giant mitten drawn on the ground. Thanks to everyone who came!" } },
-    { date: "2026-07-27",
+    { date: "2026-07-27", image: "news-blechy-ctou-detem-27-7.jpg",
       cs: { title: "Blechy čtou dětem - Péťa na vesnici", excerpt: "V pondělí 27. července odstartovala na Červeném hřišti prázdninová čtení Blech v kožichu. Dětem tentokrát četli Jitka Filipová a Jan Novotný z knihy Péťa na vesnici." },
       en: { title: "Blechy Read to Kids - Péťa na vesnici", excerpt: "On Monday 27 July, Blechy v kožichu kicked off their summer reading series at Červené hřiště. Jitka Filipová and Jan Novotný read to the children from the book Péťa na vesnici." } },
     { date: "2026-07-20", image: "news-blechy-ctou-detem-20-7.jpg",
