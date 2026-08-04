@@ -429,18 +429,6 @@ const CONTENT = {
                               falls back to the shared OG image if omitted.
      ====================================================================== */
   events: [
-    { date: "2026-07-27", time: "17:30",
-      fb:  "https://www.facebook.com/blechyvkozichu/",
-      host: "Blechy v kožichu z.s.",
-      map: "https://mapy.com/cs/turisticka?source=base&id=2569303&x=16.5598997&y=49.1681551&z=19&ovl=3",
-      cs: { title: "Blechy čtou dětem", place: "Červené hřiště", desc: "Každé prázdninové pondělí v 17:30 čtou Blechy v kožichu z.s. dětem na Červeném hřišti naproti Potrefené huse. Knížky vyberte na jejich Facebooku." },
-      en: { title: "Blechy čtou dětem", place: "Červené hřiště", desc: "Every summer-holiday Monday at 17:30, Blechy v kožichu z.s. read to children at Červené hřiště opposite Potrefená husa. Choose the book on their Facebook page." } },
-    { date: "2026-08-03", time: "17:30",
-      fb:  "https://www.facebook.com/blechyvkozichu/",
-      host: "Blechy v kožichu z.s.",
-      map: "https://mapy.com/cs/turisticka?source=base&id=2569303&x=16.5598997&y=49.1681551&z=19&ovl=3",
-      cs: { title: "Blechy čtou dětem", place: "Červené hřiště", desc: "Každé prázdninové pondělí v 17:30 čtou Blechy v kožichu z.s. dětem na Červeném hřišti naproti Potrefené huse. Knížky vyberte na jejich Facebooku." },
-      en: { title: "Blechy čtou dětem", place: "Červené hřiště", desc: "Every summer-holiday Monday at 17:30, Blechy v kožichu z.s. read to children at Červené hřiště opposite Potrefená husa. Choose the book on their Facebook page." } },
     { date: "2026-08-10", time: "17:30",
       fb:  "https://www.facebook.com/blechyvkozichu/",
       host: "Blechy v kožichu z.s.",
@@ -479,6 +467,12 @@ const CONTENT = {
         • image → file in assets/  (or "" to show a branded placeholder).
      ====================================================================== */
   news: [
+    { date: "2026-08-03", image: "news-blechy-ctou-detem-3-8.jpg",
+      cs: { title: "Blechy čtou dětem - Rukavička", excerpt: "V pondělí 3. srpna se i navzdory velkému vedru sešla na Červeném hřišti pěkná skupinka posluchačů. Kateřina Křížová a Jan Novotný dětem přečetli pohádku Rukavička a pak si společně zahrály na hledání zvířátek - malovaná zvířátka postupně „schovávaly“ do velké rukavice nakreslené na zemi. Díky všem, kdo dorazili!" },
+      en: { title: "Blechy Read to Kids - The Mitten", excerpt: "On Monday 3 August, despite the scorching heat, a lovely group gathered at Červené hřiště. Kateřina Křížová and Jan Novotný read the fairy tale Rukavička (The Mitten) to the children, who then went hunting for painted animals and tucked them one by one into a giant mitten drawn on the ground. Thanks to everyone who came!" } },
+    { date: "2026-07-27",
+      cs: { title: "Blechy čtou dětem - Péťa na vesnici", excerpt: "V pondělí 27. července odstartovala na Červeném hřišti prázdninová čtení Blech v kožichu. Dětem tentokrát četli Jitka Filipová a Jan Novotný z knihy Péťa na vesnici." },
+      en: { title: "Blechy Read to Kids - Péťa na vesnici", excerpt: "On Monday 27 July, Blechy v kožichu kicked off their summer reading series at Červené hřiště. Jitka Filipová and Jan Novotný read to the children from the book Péťa na vesnici." } },
     { date: "2026-07-20", image: "news-blechy-ctou-detem-20-7.jpg",
       cs: { title: "Blechy čtou dětem - Káťa a Škubánek", excerpt: "V pondělí 20. července proběhlo na Červeném hřišti další čtení. Děti se zaposlouchaly do hlasu Michaly Martiškové, která předčítala z knihy Káťa a Škubánek. Nechyběla ani rozcvička pro zdraví, zábavu a dobrý spánek." },
       en: { title: "Blechy Read to Kids - Káťa and Škubánek", excerpt: "On Monday 20 July another reading took place at Červené hřiště. The children listened closely to Michala Martišková, who read from the book Káťa a Škubánek. A warm-up exercise for health, fun and good sleep was part of the programme too." } },
