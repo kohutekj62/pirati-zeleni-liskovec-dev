@@ -9,8 +9,8 @@
        PROGRAM, PEOPLE, …). Use your editor's "find" to jump to the one you want.
 
    Brand colours come straight from the "Piráti a Zelení pro Lískovec" logo:
-     black (Piráti) · green (Zelení), with a coral pink lifted from the
-     logo's flower motif for dark-backdrop accents.
+     black (Piráti) · green-to-gold (Zelení), with a coral pink lifted from
+     the logo's flower motif for dark-backdrop accents.
    ========================================================================== */
 
 /* ----------------------------------------------------------------------------
@@ -27,12 +27,13 @@
 
   /* Logo colours, kept exact for fills, dots and glows */
   --color-pirati:      #141414; /* official Piráti black — text accent + fills (18.4:1 on white) */
-  --color-pirati-soft: #ff7a91; /* coral pink from the logo's flower motif — a slight touch only: the hero's soft background glow, never a dominant gradient stop */
+  --color-pirati-soft: #f06078; /* coral pink from the 2026 logo's flower motif — a slight touch only: the hero's soft background glow, never a dominant gradient stop */
   --color-pirati-dark: #000000; /* black hover state (fills only) */
-  --color-green:       #0bd26f; /* official Zelení green — FILLS ONLY (use green-ink for text on white) */
-  --color-green-ink:   #078245; /* darkened green that passes AA as text on white and on tinted panels */
-  --color-green-dark:  #06713c; /* green hover state */
-  --color-green-deep:  #03645a; /* the logo ring/wordmark gradient's dark teal end — gradients + deep accents (7.1:1 on white) */
+  --color-green:       #78c048; /* official Zelení green, from the 2026 logo's ring gradient — FILLS ONLY (use green-ink for text on white) */
+  --color-green-ink:   #4c7d2b; /* darkened green that passes AA as text on white and on tinted panels */
+  --color-green-dark:  #457227; /* green hover state */
+  --color-green-deep:  #158056; /* the logo ring's deep shaded green — gradients + deep accents, AA text-safe */
+  --color-gold:         #f0c018; /* the 2026 logo ring's gold gradient end — FILLS ONLY, used sparingly for accent-line gradients */
 
   /* Semantic accents — what to use for links and text accents on the white page */
   --color-link:        var(--color-green-ink);
@@ -226,12 +227,12 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
    ---------------------------------------------------------------------------- */
 .hero {
   position: relative; overflow: hidden;
-  color: #1a1a1a;                 /* light overlay → dark text */
+  color: var(--color-text);                 /* light overlay → dark text */
   border-top: 3px solid var(--color-green);
   border-bottom: 3px solid var(--color-green);
   background:
-    radial-gradient(60% 60% at 80% 10%, rgba(253, 100, 120, 0.15), transparent 60%),
-    radial-gradient(50% 50% at 10% 90%, rgba(1, 195, 109, 0.12), transparent 60%),
+    radial-gradient(60% 60% at 80% 10%, rgba(240, 96, 120, 0.15), transparent 60%),
+    radial-gradient(50% 50% at 10% 90%, rgba(120, 192, 72, 0.12), transparent 60%),
     linear-gradient(to right, rgba(245,243,238,0.55) 0%, rgba(245,243,238,0.18) 100%),
     linear-gradient(rgba(90, 90, 90, 0.28), rgba(90, 90, 90, 0.28)),
     url('../header-photo.jpg') center / cover no-repeat;
@@ -249,7 +250,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .hero__kicker {
   display: inline-block; margin: 0 0 1rem;
   color: var(--color-green-ink); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-  font-size: 0.9rem; border: 1px solid rgba(1, 130, 73, 0.45); border-radius: var(--radius-pill);
+  font-size: 0.9rem; border: 1px solid rgba(76, 125, 43, 0.45); border-radius: var(--radius-pill);
   padding: 0.35rem 0.9rem;
 }
 /* One continuous gradient across the whole two-line title, not a separate
@@ -263,11 +264,11 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
    touches, not the title itself. */
 .hero__title {
   font-size: clamp(3rem, 11vw, 7rem); margin: 0;
-  -webkit-text-fill-color: #1a1a1a;
-  color: #1a1a1a;
+  -webkit-text-fill-color: var(--color-text);
+  color: var(--color-text);
 }
 .hero__title span:last-child {
-  background: linear-gradient(90deg, #1a1a1a 0%, var(--color-green-ink) 55%);
+  background: linear-gradient(90deg, var(--color-text) 0%, var(--color-green-ink) 55%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -277,11 +278,11 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 /* Ghost button sits on the dark hero, so it needs light text + a light outline.
    Hover fills with green, not black or pink — both of those fail contrast
    with white text (2.3:1 / 2.9:1), so the fill switches to black text instead. */
-.hero .btn--ghost { color: #1a1a1a; border-color: rgba(26, 26, 26, 0.40); }
-.hero .btn--ghost:hover { background: rgba(7, 130, 69, 0.12); border-color: var(--color-green-ink); color: var(--color-green-ink); }
+.hero .btn--ghost { color: var(--color-text); border-color: rgba(26, 26, 26, 0.40); }
+.hero .btn--ghost:hover { background: rgba(76, 125, 43, 0.12); border-color: var(--color-green-ink); color: var(--color-green-ink); }
 
 .hero__art { flex: 0 1 320px; display: flex; justify-content: center; }
-.hero__logo { width: clamp(180px, 30vw, 340px); height: auto; border-radius: var(--radius); filter: drop-shadow(0 0 24px rgba(1, 195, 109, 0.5)); }
+.hero__logo { width: clamp(180px, 30vw, 340px); height: auto; border-radius: var(--radius); filter: drop-shadow(0 0 24px rgba(120, 192, 72, 0.5)); }
 
 /* ----------------------------------------------------------------------------
    SECTIONS  (shared frame for every block)
@@ -294,7 +295,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 /* A little green accent line under each section title */
 .section__title::after {
   content: ""; display: block; width: 64px; height: 4px; margin: 0.5rem auto 0;
-  background: linear-gradient(90deg, var(--color-pirati), var(--color-green)); border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--color-pirati), var(--color-green), var(--color-gold)); border-radius: var(--radius-pill);
 }
 .section__lead { color: var(--color-muted); font-size: 1.1rem; margin: 0.5rem 0 0; }
 
@@ -402,7 +403,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .events { list-style: none; padding: 0; margin: 0; position: relative; max-width: 760px; margin-inline: auto; }
 .events::before { /* the vertical gradient line */
   content: ""; position: absolute; left: 28px; top: 8px; bottom: 8px; width: 2px;
-  background: linear-gradient(var(--color-pirati), var(--color-green));
+  background: linear-gradient(var(--color-pirati), var(--color-green), var(--color-gold));
 }
 .event { position: relative; padding: 0 0 1.6rem 72px; }
 .event__dot {
@@ -428,7 +429,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 /* nearest upcoming event — larger glowing dot + bigger title */
 .event--nearest .event__dot {
   width: 26px; height: 26px; left: 16px; top: 2px;
-  box-shadow: 0 0 0 3px var(--color-green), 0 0 14px rgba(1, 195, 109, 0.45);
+  box-shadow: 0 0 0 3px var(--color-green), 0 0 14px rgba(120, 192, 72, 0.45);
 }
 .event--nearest .event__title { font-size: 1.4rem; }
 .event__badge { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
@@ -583,7 +584,7 @@ h1, h2, h3 { line-height: 1.05; margin: 0 0 0.4em; }
 .media-placeholder {
   position: relative; margin: 0; border-radius: var(--radius);
   border: 2px dashed var(--color-border); background:
-    repeating-linear-gradient(45deg, transparent, transparent 14px, rgba(1, 195, 109,0.06) 14px, rgba(1, 195, 109,0.06) 28px),
+    repeating-linear-gradient(45deg, transparent, transparent 14px, rgba(120, 192, 72,0.06) 14px, rgba(120, 192, 72,0.06) 28px),
     var(--color-surface-2);
   display: grid; place-items: center; color: var(--color-muted); text-align: center; padding: 1rem;
   aspect-ratio: 4 / 3;
