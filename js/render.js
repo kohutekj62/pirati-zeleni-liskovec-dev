@@ -96,7 +96,7 @@ const RENDER = (function () {
       // the grid never shows a broken-image icon.
       var img = el("img", { attrs: { src: "assets/people/" + p.photo, alt: p.name, loading: "lazy", width: "300", height: "400" } });
       img.addEventListener("error", function () {
-        img.src = "assets/logo-pirati-zeleni-icon.png?v=e963dbb0";
+        img.src = "assets/logo-pirati-zeleni-icon.png?v=de4e6e55";
         img.alt = "";
         img.classList.add("is-placeholder");
       }, { once: true });
