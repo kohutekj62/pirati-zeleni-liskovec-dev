@@ -62,7 +62,7 @@
     .site-header {
       display: flex; align-items: center; justify-content: space-between;
       padding: 0.65rem 1.25rem;
-      background: var(--surface); border-bottom: 3px solid var(--green);
+      background: rgba(10, 10, 12, 0.96); border-bottom: 3px solid var(--green);
     }
     .site-header a { display: flex; align-items: center; text-decoration: none; }
     .site-header img { height: 38px; width: auto; }
@@ -70,11 +70,11 @@
     /* ── LANG TOGGLE ── */
     .lang-toggle {
       position: relative; display: inline-flex; align-items: center;
-      background: var(--surface); border: 1px solid var(--border); border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 999px;
       padding: 3px; cursor: pointer; font-family: var(--font-b); font-weight: 700; font-size: 0.8rem;
       user-select: none;
     }
-    .lang-toggle__opt { position: relative; z-index: 1; padding: 4px 10px; color: var(--muted); transition: color var(--tr); }
+    .lang-toggle__opt { position: relative; z-index: 1; padding: 4px 10px; color: rgba(244, 244, 245, 0.75); transition: color var(--tr); }
     .lang-toggle__opt.is-active { color: #000; }
     .lang-toggle__knob {
       position: absolute; top: 3px; left: 3px; z-index: 0;
@@ -309,9 +309,9 @@
     /* ░░ END TEMPORARY ░░ */
 
     /* ── FOOTER ── */
-    .site-footer { text-align: center; background: var(--surface); padding: 2.5rem 1rem 2rem; border-top: 1px solid var(--border); margin-top: 2rem; }
-    .site-footer p { font-size: 0.82rem; color: var(--muted); }
-    .site-footer a { color: var(--green-ink); text-decoration: none; }
+    .site-footer { text-align: center; background: rgba(10, 10, 12, 0.96); padding: 2.5rem 1rem 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 2rem; }
+    .site-footer p { font-size: 0.82rem; color: rgba(244, 244, 245, 0.75); }
+    .site-footer a { color: var(--green); text-decoration: none; }
     .site-footer a:hover { text-decoration: underline; }
     .site-footer__credit { margin-top: 0.6rem; max-width: 60ch; margin-inline: auto; }
     .site-footer__badge { display: block; height: 56px; width: auto; margin: 0 auto 1.25rem; }
@@ -326,7 +326,7 @@
 
 <header class="site-header">
   <a href="../" aria-label="Piráti a Zelení pro Lískovec">
-    <img src="../assets/logo-pirati-zeleni.png?v=a2546cc1" alt="Piráti a Zelení pro Lískovec" />
+    <img src="../assets/logo-pirati-zeleni-reversed.png?v=6e74b1a3" alt="Piráti a Zelení pro Lískovec" />
   </a>
   <div class="lang-toggle" id="lang-toggle" role="button" tabindex="0"
        aria-label="Přepnout jazyk / Switch language">
@@ -375,7 +375,7 @@
      SCREEN 4: All done
 ════════════════════════════════════════════════════ -->
 <div class="screen" id="screen-all-done">
-  <img class="done-logo" src="../assets/logo-pirati-zeleni.png?v=a2546cc1" alt="Piráti a Zelení pro Lískovec" />
+  <img class="done-logo" src="../assets/logo-pirati-zeleni.png?v=d12f3655" alt="Piráti a Zelení pro Lískovec" />
   <p class="done-title" data-i18n="all_done_title">Znáš Lískovec!</p>
   <p class="done-sub" data-i18n="all_done_sub">Prošel/a jsi všechna tři kola a poznal/a 18 míst naší čtvrti. Skvělá práce!</p>
   <div class="btn-row" style="max-width:300px; margin: 0 auto;">
@@ -407,7 +407,7 @@
 <!-- ░░ END TEMPORARY ░░ -->
 
 <footer class="site-footer">
-  <img src="../assets/logo-pirati-zeleni.png?v=a2546cc1" alt="Piráti a Zelení pro Lískovec" class="site-footer__badge" width="184" height="84" loading="lazy" />
+  <img src="../assets/logo-pirati-zeleni-reversed.png?v=6e74b1a3" alt="Piráti a Zelení pro Lískovec" class="site-footer__badge" width="184" height="84" loading="lazy" />
   <p data-i18n="footer_text">Hra o místech a příbězích Brna–Starého Lískovce. Tvoří ji <a href="../">Piráti a Zelení pro Lískovec</a>.</p>
   <p class="site-footer__credit" data-i18n="footer_credit">Web vytváříme vlastními silami s pomocí umělé inteligence. Našli jste chybu nebo nepřesnost? Dejte nám prosím vědět na <a href="mailto:info@pirati-zeleni-liskovec.cz">info@pirati-zeleni-liskovec.cz</a>.</p>
 </footer>
