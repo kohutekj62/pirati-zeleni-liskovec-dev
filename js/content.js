@@ -83,6 +83,9 @@ const CONTENT = {
       hero_cta_2:    "Setkejme se",
       hero_cta_share: "Sdílet",
       where_to_vote: "Kde volit?",
+      eu_voter_cta:  "Nejste z ČR? Zapište se jako volič",
+      eu_voter_link: "https://portal.gov.cz/sluzby-vs/zapis-cizince-do-seznamu-volicu-pro-komunalni-volby-S6819",
+      eu_voter_note: "Občané ostatních zemí EU mají v komunálních volbách hlasovací právo stejně jako čeští občané — stačí se zapsat do seznamu voličů.",
       hero_logo_alt: "Logo Piráti a Zelení pro Lískovec",
 
       // -- Section titles + lead sentences --
@@ -158,6 +161,9 @@ const CONTENT = {
       hero_cta_2:    "Meet us",
       hero_cta_share: "Share",
       where_to_vote: "Where to vote?",
+      eu_voter_cta:  "Not from Czechia? Register to vote",
+      eu_voter_link: "https://portal.gov.cz/en/sluzby-vs/entry-for-a-foreigner-in-the-annex-to-the-voter-list-for-municipal-elections-S6819",
+      eu_voter_note: "Citizens of other EU countries have the right to vote in municipal elections just like Czech citizens — you just need to register on the voter list.",
       hero_logo_alt: "Piráti a Zelení pro Lískovec logo",
 
       about_title:    "About us",
@@ -429,24 +435,6 @@ const CONTENT = {
                               falls back to the shared OG image if omitted.
      ====================================================================== */
   events: [
-    { date: "2026-08-10", time: "17:30",
-      fb:  "https://www.facebook.com/blechyvkozichu/",
-      host: "Blechy v kožichu z.s.",
-      map: "https://mapy.com/cs/turisticka?source=base&id=2569303&x=16.5598997&y=49.1681551&z=19&ovl=3",
-      cs: { title: "Blechy čtou dětem", place: "Červené hřiště", desc: "Každé prázdninové pondělí v 17:30 čtou Blechy v kožichu z.s. dětem na Červeném hřišti naproti Potrefené huse. Knížky vyberte na jejich Facebooku." },
-      en: { title: "Blechy čtou dětem", place: "Červené hřiště", desc: "Every summer-holiday Monday at 17:30, Blechy v kožichu z.s. read to children at Červené hřiště opposite Potrefená husa. Choose the book on their Facebook page." } },
-    { date: "2026-08-10", time: "15:30–18:30",
-      fb:  "https://www.facebook.com/blechyvkozichu/",
-      host: "Blechy v kožichu z.s.",
-      map: "https://mapy.com/cs/turisticka?source=base&id=2569303&x=16.5598997&y=49.1681551&z=19&ovl=3",
-      cs: { title: "Vyměň knihu", place: "Červené hřiště", desc: "Přineste knížku, kterou už nechcete číst, a odneste si jinou, která vám zpříjemní léto. Bookswap Blechy v kožichu z.s. na Červeném hřišti naproti Potrefené huse." },
-      en: { title: "Vyměň knihu (Book swap)", place: "Červené hřiště", desc: "Bring a book you no longer want to read and take home a different one to enjoy over the summer. A book swap by Blechy v kožichu z.s. at Červené hřiště opposite Potrefená husa." } },
-    { date: "2026-08-17", time: "17:30",
-      fb:  "https://www.facebook.com/blechyvkozichu/",
-      host: "Blechy v kožichu z.s.",
-      map: "https://mapy.com/cs/turisticka?source=base&id=2569303&x=16.5598997&y=49.1681551&z=19&ovl=3",
-      cs: { title: "Blechy čtou dětem", place: "Červené hřiště", desc: "Každé prázdninové pondělí v 17:30 čtou Blechy v kožichu z.s. dětem na Červeném hřišti naproti Potrefené huse. Knížky vyberte na jejich Facebooku." },
-      en: { title: "Blechy čtou dětem", place: "Červené hřiště", desc: "Every summer-holiday Monday at 17:30, Blechy v kožichu z.s. read to children at Červené hřiště opposite Potrefená husa. Choose the book on their Facebook page." } },
     { date: "2026-08-24", time: "17:30",
       fb:  "https://www.facebook.com/blechyvkozichu/",
       host: "Blechy v kožichu z.s.",
@@ -467,6 +455,12 @@ const CONTENT = {
         • image → file in assets/  (or "" to show a branded placeholder).
      ====================================================================== */
   news: [
+    { date: "2026-08-17", image: "news-blechy-ctou-detem-17-8.jpg",
+      cs: { title: "Blechy čtou dětem - Šedík a Bubi", excerpt: "V pondělí 17. srpna přečetla Michala Martišková dětem na Červeném hřišti pohádky Šedík a Bubi a Maková panenka a motýl Emanuel." },
+      en: { title: "Blechy Read to Kids - Šedík a Bubi", excerpt: "On Monday 17 August, Michala Martišková read the tales Šedík a Bubi and Maková panenka a motýl Emanuel (The Poppy Doll and Emanuel the Butterfly) to the children at Červené hřiště." } },
+    { date: "2026-08-10", image: "news-blechy-ctou-detem-10-8.jpg",
+      cs: { title: "Vyměň knihu a Blechy čtou dětem", excerpt: "V pondělí 10. srpna proběhla na Červeném hřišti nejprve výměna knih Vyměň knihu, kde si každý mohl přinést knihu, kterou už nechtěl, a odnést si za ni jinou. Poté Tereza Nováková dětem přečetla pohádky Pohádka z hnízda a Nejtajnější skrýš a Jana Filipová s Janem Novotným si se všemi zazpívali s kytarou." },
+      en: { title: "Book Swap and Blechy Read to Kids", excerpt: "On Monday 10 August, Červené hřiště first hosted a book swap, where everyone could bring a book they no longer wanted and take home a different one. Afterwards Tereza Nováková read the tales Pohádka z hnízda and Nejtajnější skrýš to the children, while Jana Filipová and Jan Novotný led a singalong with guitar." } },
     { date: "2026-08-03", image: "news-blechy-ctou-detem-3-8.jpg",
       cs: { title: "Blechy čtou dětem - Rukavička", excerpt: "V pondělí 3. srpna se i navzdory velkému vedru sešla na Červeném hřišti pěkná skupinka posluchačů. Kateřina Křížová a Jan Novotný dětem přečetli pohádku Rukavička a pak si společně zahrály na hledání zvířátek - malovaná zvířátka postupně „schovávaly“ do velké rukavice nakreslené na zemi. Díky všem, kdo dorazili!" },
       en: { title: "Blechy Read to Kids - The Mitten", excerpt: "On Monday 3 August, despite the scorching heat, a lovely group gathered at Červené hřiště. Kateřina Křížová and Jan Novotný read the fairy tale Rukavička (The Mitten) to the children, who then went hunting for painted animals and tucked them one by one into a giant mitten drawn on the ground. Thanks to everyone who came!" } },

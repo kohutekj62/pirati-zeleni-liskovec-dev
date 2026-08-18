@@ -29,7 +29,9 @@ const I18N = {
   /* Fill in every translatable element on the page:
        data-i18n="key"             → sets the visible text
        data-i18n-aria="key"        → sets the aria-label (for screen readers)
-       data-i18n-placeholder="key" → sets an input's placeholder text          */
+       data-i18n-placeholder="key" → sets an input's placeholder text
+       data-i18n-href="key"        → sets a link's href (for links that point
+                                      to a different page per language)        */
   apply(root) {
     root = root || document;
     root.querySelectorAll("[data-i18n]").forEach(function (el) {
@@ -40,6 +42,9 @@ const I18N = {
     });
     root.querySelectorAll("[data-i18n-placeholder]").forEach(function (el) {
       el.setAttribute("placeholder", I18N.t(el.getAttribute("data-i18n-placeholder")));
+    });
+    root.querySelectorAll("[data-i18n-href]").forEach(function (el) {
+      el.setAttribute("href", I18N.t(el.getAttribute("data-i18n-href")));
     });
     document.documentElement.lang = this.lang;   // <html lang="cs"> / "en"
   },
