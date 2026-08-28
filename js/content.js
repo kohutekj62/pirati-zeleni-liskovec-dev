@@ -435,12 +435,6 @@ const CONTENT = {
                               falls back to the shared OG image if omitted.
      ====================================================================== */
   events: [
-    { date: "2026-08-24", time: "17:30",
-      fb:  "https://www.facebook.com/blechyvkozichu/",
-      host: "Blechy v kožichu z.s.",
-      map: "https://mapy.com/cs/turisticka?source=base&id=2569303&x=16.5598997&y=49.1681551&z=19&ovl=3",
-      cs: { title: "Blechy čtou dětem", place: "Červené hřiště", desc: "Každé prázdninové pondělí v 17:30 čtou Blechy v kožichu z.s. dětem na Červeném hřišti naproti Potrefené huse. Knížky vyberte na jejich Facebooku." },
-      en: { title: "Blechy čtou dětem", place: "Červené hřiště", desc: "Every summer-holiday Monday at 17:30, Blechy v kožichu z.s. read to children at Červené hřiště opposite Potrefená husa. Choose the book on their Facebook page." } },
     { date: "2026-08-31", time: "17:30",
       fb:  "https://www.facebook.com/blechyvkozichu/",
       host: "Blechy v kožichu z.s.",
@@ -455,9 +449,9 @@ const CONTENT = {
         • image → file in assets/  (or "" to show a branded placeholder).
      ====================================================================== */
   news: [
-    { date: "2026-08-26", image: "news-blechy-ctou-detem-26-8.jpg",
-      cs: { title: "Blechy čtou dětem - Pohádky o dopravních značkách", excerpt: "V pondělí 26. srpna četly dětem na Červeném hřišti Michala Martišková a Kateřina Křížová Pohádky o dopravních značkách." },
-      en: { title: "Blechy Read to Kids - Traffic Sign Tales", excerpt: "On Monday 26 August, Michala Martišková and Kateřina Křížová read Traffic Sign Tales to the children at Červené hřiště." } },
+    { date: "2026-08-24", image: "news-blechy-ctou-detem-24-8.jpg",
+      cs: { title: "Blechy čtou dětem - Pohádky o dopravních značkách", excerpt: "V pondělí 24. srpna četly dětem na Červeném hřišti Michala Martišková a Kateřina Křížová Pohádky o dopravních značkách." },
+      en: { title: "Blechy Read to Kids - Traffic Sign Tales", excerpt: "On Monday 24 August, Michala Martišková and Kateřina Křížová read Traffic Sign Tales to the children at Červené hřiště." } },
     { date: "2026-08-17", image: "news-blechy-ctou-detem-17-8.jpg",
       cs: { title: "Blechy čtou dětem - Šedík a Bubi", excerpt: "V pondělí 17. srpna přečetla Michala Martišková dětem na Červeném hřišti pohádky Šedík a Bubi a Maková panenka a motýl Emanuel." },
       en: { title: "Blechy Read to Kids - Šedík a Bubi", excerpt: "On Monday 17 August, Michala Martišková read the tales Šedík a Bubi and Maková panenka a motýl Emanuel (The Poppy Doll and Emanuel the Butterfly) to the children at Červené hřiště." } },
