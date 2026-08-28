@@ -281,11 +281,11 @@ const CONTENT = {
       icon: "",
       cs: {
         title: "Kultura, sport a komunita",
-        text:  "Přispějeme ke vzniku a revitalizaci hřišť tak, aby pokrývala všechny věkové skupiny. Podpoříme různorodost kulturních a sportovních aktivit v Lískovci a zajistíme vznik komunitního centra, které bude sloužit místním spolkům a všem občanům pro setkávání. Vytvoříme zázemí pro pravidelné farmářské trhy. Zajistíme transparentní podporu spolků a rovné podmínky při jejím čerpání. Chceme úzce spolupracovat s pobočkou SVČ Lužánky Linka, Orlem, Sokolem a dalšími spolky, abychom zajistili volnočasové aktivity nejen pro děti.",
+        text:  "Přispějeme ke vzniku a revitalizaci hřišť tak, aby pokrývala všechny věkové skupiny. Podpoříme různorodost kulturních a sportovních aktivit v Lískovci a zajistíme vznik komunitního centra, které bude sloužit místním spolkům a všem občanům pro setkávání. Vytvoříme zázemí pro pravidelné farmářské trhy. Zajistíme transparentní podporu spolků a rovné podmínky při jejím čerpání. Chceme úzce spolupracovat s pobočkou SVČ Lužánky Linka, Orlem, Sokolem a dalšími spolky, abychom zajistili volnočasové aktivity nejen pro děti. Podpoříme aktivní a samostatný život seniorů a rozvoj seniorských klubů.",
       },
       en: {
         title: "Culture, sport and community",
-        text:  "We will contribute to the creation and revitalisation of playgrounds to cover all age groups. We will support diverse cultural and sports activities in Lískovec and establish a community centre serving local associations and all residents as a meeting place. We will create a permanent home for regular farmers' markets. We will ensure transparent support for associations and equal access to that support. We want to work closely with the SVČ Lužánky Linka branch, Orel, Sokol and other associations to ensure leisure activities not only for children.",
+        text:  "We will contribute to the creation and revitalisation of playgrounds to cover all age groups. We will support diverse cultural and sports activities in Lískovec and establish a community centre serving local associations and all residents as a meeting place. We will create a permanent home for regular farmers' markets. We will ensure transparent support for associations and equal access to that support. We want to work closely with the SVČ Lužánky Linka branch, Orel, Sokol and other associations to ensure leisure activities not only for children. We will support seniors' active, independent lives and the development of senior clubs.",
       },
     },
     {
