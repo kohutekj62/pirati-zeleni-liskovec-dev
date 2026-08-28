@@ -455,6 +455,9 @@ const CONTENT = {
         • image → file in assets/  (or "" to show a branded placeholder).
      ====================================================================== */
   news: [
+    { date: "2026-08-26", image: "news-blechy-ctou-detem-26-8.jpg",
+      cs: { title: "Blechy čtou dětem - Pohádky o dopravních značkách", excerpt: "V pondělí 26. srpna četly dětem na Červeném hřišti Michala Martišková a Kateřina Křížová Pohádky o dopravních značkách." },
+      en: { title: "Blechy Read to Kids - Traffic Sign Tales", excerpt: "On Monday 26 August, Michala Martišková and Kateřina Křížová read Traffic Sign Tales to the children at Červené hřiště." } },
     { date: "2026-08-17", image: "news-blechy-ctou-detem-17-8.jpg",
       cs: { title: "Blechy čtou dětem - Šedík a Bubi", excerpt: "V pondělí 17. srpna přečetla Michala Martišková dětem na Červeném hřišti pohádky Šedík a Bubi a Maková panenka a motýl Emanuel." },
       en: { title: "Blechy Read to Kids - Šedík a Bubi", excerpt: "On Monday 17 August, Michala Martišková read the tales Šedík a Bubi and Maková panenka a motýl Emanuel (The Poppy Doll and Emanuel the Butterfly) to the children at Červené hřiště." } },
