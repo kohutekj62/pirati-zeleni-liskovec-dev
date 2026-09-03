@@ -29,7 +29,8 @@ const crypto = require('crypto');
 const ROOT = path.resolve(__dirname, '..');
 
 // HTML pages to process (relative to repo root)
-const PAGES = ['index.html', 'pexeso/index.html', '404.html'];
+const PAGES = ['index.html', 'pexeso/index.html', '404.html',
+               'transparentnost/index.html', 'transparentnost/qr.html'];
 
 // JS files that assign an image path directly in a string literal (not via
 // an HTML attribute), so they need their own pass. Paths are root-relative,

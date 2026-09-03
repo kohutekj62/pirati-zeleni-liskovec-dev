@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  PODKLAD PRO PLAKÁT — QR kód + povinné označení
+  ============================================================================
+  Tahle stránka není součástí veřejného webu, je to pracovní podklad pro grafiku.
+  Otevřete ji v prohlížeči a dejte Tisk (Ctrl/Cmd + P) → uložit jako PDF.
+
+  Co je tu:
+    • QR kód vedoucí na oznámení o transparentnosti (vektorové SVG = ostrý tisk
+      v jakékoli velikosti; zdroj: ../assets/qr-transparentnost.svg)
+    • Text povinného označení, který musí být přímo na plakátu podle čl. 11
+      nařízení (EU) 2024/900.
+
+  Pokud se změní adresa oznámení, QR kód se musí vygenerovat znovu
+  (viz assets/qr-transparentnost.svg).
+  ============================================================================
+-->
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Podklad pro plakát — QR kód a povinné označení</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=c2db7fff" />
+  <link rel="stylesheet" href="../css/fonts.css?v=5c12327b" />
+
+  <style>
+    :root {
+      --ink:    #1a1a1a;
+      --muted:  #585c58;
+      --border: #dde8e0;
+      --green:  #78c048;
+      --font-b: "Roboto", system-ui, -apple-system, Segoe UI, sans-serif;
+      --font-d: "Bebas Neue", "Arial Narrow", sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-b); color: var(--ink); background: #f6f5f8;
+      line-height: 1.6; padding: 2rem 1rem;
+    }
+    .sheet {
+      max-width: 760px; margin-inline: auto; background: #fff;
+      border: 1px solid var(--border); border-radius: 14px; padding: 2.5rem;
+    }
+    h1 {
+      font-family: var(--font-d); font-weight: 400; letter-spacing: 0.02em;
+      font-size: 2.2rem; line-height: 1.05; margin-bottom: 0.25rem;
+    }
+    .sub { color: var(--muted); margin-bottom: 2rem; }
+    h2 {
+      font-size: 1.05rem; margin: 2rem 0 0.75rem;
+      padding-top: 1.25rem; border-top: 1px solid var(--border);
+    }
+    p { margin-bottom: 0.8rem; }
+    .muted { color: var(--muted); font-size: 0.9rem; }
+
+    /* ── QR blok ─────────────────────────────────────────────────────────── */
+    .qr-row { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; }
+    .qr-box { width: 220px; flex: 0 0 auto; }
+    .qr-box img { width: 100%; height: auto; display: block; }
+    .qr-meta { flex: 1 1 260px; min-width: 240px; }
+    .qr-url {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.9rem; word-break: break-all;
+      background: #f6f5f8; border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.5rem 0.7rem; display: inline-block;
+    }
+
+    /* ── Text povinného označení — to, co patří přímo na plakát ──────────── */
+    .label-block {
+      border: 2px solid var(--ink); border-radius: 10px;
+      padding: 1.25rem 1.5rem; margin: 1rem 0;
+      font-size: 0.95rem;
+    }
+    .label-block strong { display: inline-block; }
+    .label-block .line { margin-bottom: 0.4rem; }
+    .label-block .line:last-child { margin-bottom: 0; }
+
+    .todo {
+      background: #fff3cd; color: #6b4e00; border: 1px dashed #c9a227;
+      border-radius: 6px; padding: 0.1rem 0.45rem; font-weight: 700; font-size: 0.92em;
+    }
+    ul { margin: 0 0 0.8rem 1.2rem; }
+    li { margin-bottom: 0.35rem; }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .sheet { border: 0; border-radius: 0; padding: 0; max-width: none; }
+      .no-print { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+
+    <h1>Podklad pro plakát</h1>
+    <p class="sub">QR kód a povinné označení podle nařízení (EU) 2024/900</p>
+
+    <h2>1. QR kód na oznámení o transparentnosti</h2>
+    <div class="qr-row">
+      <div class="qr-box">
+        <img src="../assets/qr-transparentnost.svg?v=0669cc22" alt="QR kód na oznámení o transparentnosti" />
+      </div>
+      <div class="qr-meta">
+        <p>Vede na:</p>
+        <p><span class="qr-url">https://www.pirati-zeleni-liskovec.cz/transparentnost/</span></p>
+        <p class="muted">
+          Pro tisk použijte vektorový soubor <strong>assets/qr-transparentnost.svg</strong> —
+          zůstane ostrý v jakékoli velikosti. Rastrová varianta je
+          <strong>assets/qr-transparentnost.png</strong>.
+        </p>
+        <p class="muted">
+          Doporučená velikost na plakátu: nejméně 2 × 2 cm, kolem kódu nechte bílý okraj
+          (je už součástí souboru) a netiskněte jej přes fotku.
+        </p>
+      </div>
+    </div>
+
+    <h2>2. Povinné označení přímo na plakátu</h2>
+    <p>
+      Podle čl. 11 nařízení (EU) 2024/900 musí být tyto údaje <strong>na samotném plakátu</strong>,
+      jasně a dobře viditelně — QR kód je nenahrazuje, jen doplňuje:
+    </p>
+
+    <div class="label-block">
+      <div class="line"><strong>Politické reklamní sdělení</strong></div>
+      <div class="line">Zadavatel: Koalice Piráti a Zelení Starý Lískovec</div>
+      <div class="line">Volby do zastupitelstev obcí 9.–10. 10. 2026</div>
+      <div class="line">Oznámení o transparentnosti: pirati-zeleni-liskovec.cz/transparentnost</div>
+      <div class="line"><span class="todo">[DOPLNIT: identifikátor sdělení, pokud jej vydavatel přiděluje]</span></div>
+    </div>
+
+    <p class="muted">
+      Text výše je návrh — zkontrolujte jej prosím před tiskem. Pokud vydavatel
+      (Technické sítě Brno) vyžaduje vlastní formát označení, má přednost jeho zadání.
+    </p>
+
+    <h2>3. Než pošlete plakát do tisku</h2>
+    <ul>
+      <li>Na stránce oznámení jsou vyplněná všechna místa označená <span class="todo">[DOPLNIT]</span>.</li>
+      <li>QR kód po vytištění opravdu funguje — vyzkoušejte jej z náhledu i z nátisku.</li>
+      <li>Označení na plakátu je čitelné z běžné vzdálenosti, ne jen z blízka.</li>
+    </ul>
+
+    <p class="no-print muted" style="margin-top:2rem">
+      <a href="./">← Zobrazit oznámení o transparentnosti</a>
+    </p>
+
+  </div>
+</body>
+</html>
