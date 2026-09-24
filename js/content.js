@@ -563,12 +563,6 @@ const CONTENT = {
                               falls back to the shared OG image if omitted.
      ====================================================================== */
   events: [
-    { date: "2026-09-23", time: "17:30",
-      fb:  "https://www.facebook.com/blechyvkozichu/",
-      image: "event-prochazku-23-9.jpg",
-      map: "https://mapy.com/cs/turisticka?source=base&id=2547800&x=16.5656289&y=49.1690337&z=19&ovl=3",
-      cs: { title: "Na procházku II", place: "Most u konečné trolejbusu", desc: "Zajímá vás rozvoj naší čtvrti, doprava nebo péče o zeleň? Přijďte si o tom s námi popovídat na procházce, kde bude i náš zastupitel a odborník na dopravu a urbanismus Martin Novák. Z Osové tentokrát po jižní hranici Lískovce až k fotbalovému hřišti (2,5 km)." },
-      en: { title: "Walking Tour II", place: "Most u konečné trolejbusu", desc: "Interested in how our district is developing — transport, or the care of green spaces? Come talk about it with us on a walk, joined by our councillor and transport & urban-planning expert Martin Novák. This time from Osová along the southern edge of Lískovec to the football pitch (2.5 km)." } },
     { date: "2026-09-24", time: "18:00–20:00",
       fb:  "https://www.facebook.com/blechyvkozichu/",
       host: "Blechy v kožichu z.s.",
@@ -591,6 +585,9 @@ const CONTENT = {
         • image → file in assets/  (or "" to show a branded placeholder).
      ====================================================================== */
   news: [
+    { date: "2026-09-23", image: "news-prochazku-23-9.jpg",
+      cs: { title: "Na procházku II", excerpt: "Ve středu jsme opět vyrazili na procházku, tentokrát jižní částí Starého Lískovce. Popovídali jsme si o tom, co se v naší městské části chystá, ale i co se nechystá, i když by se to hodilo." },
+      en: { title: "Walking Tour II", excerpt: "On Wednesday we set out on another walk, this time through the southern part of Starý Lískovec, and talked about what's being planned for our district — and what isn't, even though it should be." } },
     { date: "2026-09-09", image: "news-prochazku-9-9.jpg",
       cs: { title: "Na procházku", excerpt: "Sešlo se nás 10. Všichni, kteří nedorazili, se pravděpodobně podívali na předpověď počasí, která naprosto jasně říkala, že bude lepší nikam nechodit. I tak jsme se dozvěděli pár zajímavých informací, než nás povětrnostní podmínky přesvědčily, že se máme raději odebrat domů a dát si teplý čaj a horkou koupel." },
       en: { title: "Walking Tour", excerpt: "Ten of us made it. Everyone who didn't had probably checked the forecast, which stated in no uncertain terms that going nowhere was the better plan. Even so, we picked up a few interesting things before the weather convinced us we'd be better off heading home for a warm cup of tea and a hot bath." } },
