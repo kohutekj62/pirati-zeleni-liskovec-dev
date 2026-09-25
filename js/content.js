@@ -563,13 +563,6 @@ const CONTENT = {
                               falls back to the shared OG image if omitted.
      ====================================================================== */
   events: [
-    { date: "2026-09-24", time: "18:00–20:00",
-      fb:  "https://www.facebook.com/blechyvkozichu/",
-      host: "Blechy v kožichu z.s.",
-      image: "event-sudoku-24-9.jpg",
-      map: "https://mapy.com/cs/turisticka?source=firm&id=13209131&x=16.5652266&y=49.1678552&z=19&ovl=3",
-      cs: { title: "III. sudoku večer", place: "Poliklinika Starý Lískovec", desc: "Sousedská soutěž v luštění a beseda o sudoku s Janem Novotným, mistrem světa v týmové soutěži a autorem sudoku (nejen) ve Zpravodaji. Dozvíte se, jak luštit, kde hledat zajímavé úlohy, a nahlédnete do světa závodního sudoku. Vstupné dobrovolné." },
-      en: { title: "3rd Sudoku Evening", place: "Poliklinika Starý Lískovec", desc: "A neighbourhood puzzle contest and talk about sudoku with Jan Novotný, world champion in the team competition and author of the sudoku puzzles in Zpravodaj. He'll share tips on solving, where to find interesting puzzles, and a look into the world of competitive sudoku. Admission by donation." } },
     { date: "2026-10-04", time: "15:00",
       fb:  "https://www.facebook.com/blechyvkozichu/",
       host: "Blechy v kožichu z.s.",
@@ -585,6 +578,9 @@ const CONTENT = {
         • image → file in assets/  (or "" to show a branded placeholder).
      ====================================================================== */
   news: [
+    { date: "2026-09-24", image: "news-sudoku-24-9.jpg",
+      cs: { title: "III. sudoku večer", excerpt: "Ve čtvrtek jsme se sešli v suterénu lískovecké polikliniky a zasoutěžil si v luštění sudoku. Mistr světa byl k všeobecnému překvapení poražen jednou z účastnic. Zástupci Pirátů si vedli obstojně, zástupci Zelených mizerně." },
+      en: { title: "3rd Sudoku Evening", excerpt: "On Thursday we met in the basement of the Lískovec clinic for a sudoku contest. To everyone's surprise, the world champion was beaten by one of the participants. The Pirates held their own — the Greens, not so much." } },
     { date: "2026-09-23", image: "news-prochazku-23-9.jpg",
       cs: { title: "Na procházku II", excerpt: "Ve středu jsme opět vyrazili na procházku, tentokrát jižní částí Starého Lískovce. Popovídali jsme si o tom, co se v naší městské části chystá, ale i co se nechystá, i když by se to hodilo." },
       en: { title: "Walking Tour II", excerpt: "On Wednesday we set out on another walk, this time through the southern part of Starý Lískovec, and talked about what's being planned for our district — and what isn't, even though it should be." } },
